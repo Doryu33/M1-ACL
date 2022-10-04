@@ -22,4 +22,14 @@ public class Data {
     public static final char EXIT_TILE = 'S';
     public static final char PLAYER_TILE = 'P';
     public static final char MONSTER_TILE = 'M';
+
+    //String pour définir la direction du déplacement du joueur
+    public static final String PLAYER_TOP_KEY = "Z";
+    public static final String PLAYER_TOP_KEY_MIN = "z";
+    public static final String PLAYER_BOTTOM_KEY = "S";
+    public static final String PLAYER_BOTTOM_KEY_MIN = "s";
+    public static final String PLAYER_LEFT_KEY = "Q";
+    public static final String PLAYER_LEFT_KEY_MIN = "q";
+    public static final String PLAYER_RIGHT_KEY = "D";
+    public static final String PLAYER_RIGHT_KEY_MIN = "d";
 }

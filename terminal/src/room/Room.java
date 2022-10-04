@@ -90,4 +90,20 @@ public final class Room {
         monsters.clear();
         player.setInitialPosition();
     }
+
+    /**
+     * Met à jour la position du joueur dans la salle
+     */
+    public void updateInputPlayer(){
+        this.player.inputUdapte();
+    }
+
+    /**
+     * Met à jour la postion des monstres dans la salle
+     */
+    public void updatePositionMonster(){
+        for (Monster m:monsters) {
+            m.updatePosition();
+        }
+    }
 }

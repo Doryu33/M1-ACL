@@ -35,4 +35,12 @@ public final class RoomManager {
     public String displayRoom(){
         return actualRoom.toString();
     }
+
+    /**
+     * Met à jour les positions dans la salle actuelle
+     */
+    public void updatePositionRoom(){
+        this.actualRoom.updateInputPlayer();
+        this.actualRoom.updatePositionMonster();
+    }
 }
