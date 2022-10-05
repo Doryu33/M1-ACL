@@ -88,7 +88,6 @@ public final class Room {
      */
     public void clearRoom(){
         monsters.clear();
-        player.setInitialPosition();
     }
 
     /**
@@ -105,5 +104,20 @@ public final class Room {
         for (Monster m:monsters) {
             m.updatePosition();
         }
+    }
+
+    /**
+     * Verifie si les positions du joueur sont sur celle de la sortie
+     * @return un boolean
+     */
+    public boolean isPlayerOnExit() {
+        return this.player.getX() == 11 && this.player.getY() == 0;
+    }
+
+    /**
+     * set les positions du joueur a celle initiale
+     */
+    public void setInitialPlayerPosition() {
+        this.player.setInitialPosition();
     }
 }

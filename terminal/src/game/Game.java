@@ -14,6 +14,7 @@ public final class Game {
         //Boucle de jeu
         while(inGame){
             rm.updatePositionRoom();
+            rm.checkNextRoomIsRequested();
             System.out.println(rm.displayRoom());
         }
     }

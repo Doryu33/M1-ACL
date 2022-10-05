@@ -24,8 +24,10 @@ public final class RoomManager {
     /**
      * Lorsque le joueur a tué tous les monstres et qu'il touche la tuile Sortie, il entre dans une nouvelle salle
      */
-    public void createNextRoom(){
-
+    public void createNextRoom() {
+        this.actualRoom.clearRoom();
+        this.actualRoom.setEnvironment(this.roomGenerator.generateSimpleRoom());
+        this.actualRoom.setInitialPlayerPosition();
     }
 
     /**
@@ -42,5 +44,15 @@ public final class RoomManager {
     public void updatePositionRoom(){
         this.actualRoom.updateInputPlayer();
         this.actualRoom.updatePositionMonster();
+    }
+
+    /**
+     * Verifie si le joueur utilise la sortie
+     */
+    public void checkNextRoomIsRequested() {
+        if (this.actualRoom.isPlayerOnExit()) {
+            this.createNextRoom();
+        }
+
     }
 }
