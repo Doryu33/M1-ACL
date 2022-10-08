@@ -7,4 +7,9 @@ public final class Wall extends Tile {
     public Wall(){
         super(WALL_TYPE);
     }
+
+    @Override
+    public boolean isWalkable() {
+        return false;
+    }
 }

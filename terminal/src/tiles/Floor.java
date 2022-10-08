@@ -7,4 +7,9 @@ public final class Floor extends Tile{
     public Floor() {
         super(FLOOR_TYPE);
     }
+
+    @Override
+    public boolean isWalkable() {
+        return true;
+    }
 }

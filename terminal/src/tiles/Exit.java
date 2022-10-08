@@ -7,4 +7,9 @@ public final class Exit extends Tile {
     public Exit() {
         super(EXIT_TYPE);
     }
+
+    @Override
+    public boolean isWalkable() {
+        return true;
+    }
 }
