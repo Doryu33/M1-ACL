@@ -17,5 +17,6 @@ public final class Game {
             rm.checkNextRoomIsRequested();
             System.out.println(rm.displayRoom());
         }
+
     }
 }

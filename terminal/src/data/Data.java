@@ -2,10 +2,17 @@ package data;
 
 public class Data {
 
+    //Taille en longueur et en largeur d'un pattern, celui-ci doit être impaire pour pouvoir centrer des éléments.
+    public static final int PATTERN_SIZE = 7;
+
     //Taille en longueur et en largeur d'une salle, celle-ci doit être impaire pour centré la sortie et la position initiale du joueur.
     //La salle est répartit en 9 sous-zones qui doivent avoir comme taille un nombre impair.
-    //Ici 23 - 2 (les murs qui entourent la salle) = 21. 21 / 3 = 7 (dimension d'une sous-zone)
-    public static final int ROOM_SIZE = 23;
+    //Ici 3 fois la taille d'un pattern plus 2 (les murs qui entourent la salle)
+    public static final int ROOM_SIZE = (PATTERN_SIZE*3)+2;
+
+    //Position initial en X et en Y du joueur en fonction de la taille de la salle
+    public static final int INITIAL_PLAYER_POS_X = ROOM_SIZE/2;
+    public static final int INITIAL_PLAYER_POS_Y = ROOM_SIZE-3;
 
     //String pour définir le type d'une tuile : sol / mur / sortie
     public static final String FLOOR_TYPE = "Floor";

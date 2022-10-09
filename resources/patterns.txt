@@ -1,0 +1,28 @@
+3 //Nombre de pattern dans le fichier
+s //s pour signifier le début d'un pattern. Start
+..X.X..
+..X.X..
+XXX.XXX
+...M...
+XXX.XXX
+..X.X..
+..X.X..
+e //e pour signifier la fin d'un pattern. End
+s
+.......
+.XX.XX.
+.X...X.
+...M...
+.X...X.
+.XX.XX.
+.......
+e
+s
+XXX.XXX
+X.....X
+X.M.M.X
+.......
+X.M.M.X
+X.....X
+XXX.XXX
+e

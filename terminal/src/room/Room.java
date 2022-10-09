@@ -120,4 +120,12 @@ public final class Room {
     public void setInitialPlayerPosition() {
         this.player.setInitialPosition();
     }
+
+    /**
+     * Définir les monstres de la salle à partir de la liste générée par RoomGenerator
+     * @param generatedMonsters liste des monstres de la salle
+     */
+    public void setMonsters(ArrayList<Monster> generatedMonsters) {
+        monsters.addAll(generatedMonsters);
+    }
 }
