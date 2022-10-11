@@ -25,7 +25,8 @@ public final class RoomManager {
      */
     public void createNextRoom() {
         this.actualRoom.clearRoom();
-        this.actualRoom.setEnvironment(this.roomGenerator.generateSimpleRoom());
+        this.actualRoom.setEnvironment(this.roomGenerator.generateRandomRoom());
+        this.actualRoom.setMonsters(this.roomGenerator.getGeneratedMonsters());
         this.actualRoom.setInitialPlayerPosition();
     }
 

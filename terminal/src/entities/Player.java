@@ -1,10 +1,7 @@
 package entities;
-
 import room.Room;
-
 import java.awt.event.KeyEvent;
 import java.util.Scanner;
-
 import static data.Data.*;
 
 /**
@@ -22,8 +19,8 @@ public final class Player extends Entity {
      * Centré en x. A une case du bord du bas.
      */
     public void setInitialPosition(){
-        setX(ROOM_SIZE/2);
-        setY(ROOM_SIZE-3);
+        setX(INITIAL_PLAYER_POS_X);
+        setY(INITIAL_PLAYER_POS_Y);
     }
 
     /**
