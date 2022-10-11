@@ -66,13 +66,38 @@ public final class Room {
      * @param y position y
      * @return vrai si présent, faux sinon
      */
-    private boolean thereIsAMonster(int x, int y) {
+    public boolean thereIsAMonster(int x, int y) {
+        boolean res = false;
         for (Monster m:monsters) {
             if (m.getX() == x && m.getY() == y){
-                return true;
+                res = true;
             }
         }
-        return false;
+        return res;
+    }
+
+    /**
+     * Savoir si il est possible de marcher sur la case a la position x,y.
+     * @param x position x
+     * @param y position y
+     * @return vrai si possible, faux sinon
+     */
+    public boolean isTileWalkable(int x, int y){
+        return this.tiles[x][y].isWalkable();
+    }
+
+    /**
+     * Savoir si le joueur se situe a cette position (x,y)
+     * @param x position x
+     * @param y position y
+     * @return vrai si le joueur est ici, faux sinon
+     */
+    public boolean isPlayerHere(int x, int y){
+        boolean res = false;
+        if(player.getX() == x && player.getY() == y){
+            res = true;
+        }
+        return res;
     }
 
     /**
@@ -92,17 +117,19 @@ public final class Room {
 
     /**
      * Met à jour la position du joueur dans la salle
+     * @param actualRoom
      */
-    public void updateInputPlayer(){
-        this.player.inputUdapte();
+    public void updateInputPlayer(Room actualRoom){
+        this.player.inputUdapte(actualRoom);
     }
 
     /**
      * Met à jour la postion des monstres dans la salle
+     * @param actualRoom
      */
-    public void updatePositionMonster(){
+    public void updatePositionMonster(Room actualRoom){
         for (Monster m:monsters) {
-            m.updatePosition();
+            m.updatePosition(actualRoom);
         }
     }
 

@@ -6,7 +6,6 @@ package room;
 public final class RoomManager {
 
     private final RoomGenerator roomGenerator = new RoomGenerator();
-    private final Collision collision = new Collision();
     private final Room actualRoom;
 
     public RoomManager(){
@@ -43,8 +42,8 @@ public final class RoomManager {
      * Met à jour les positions dans la salle actuelle
      */
     public void updatePositionRoom(){
-        this.actualRoom.updateInputPlayer();
-        this.actualRoom.updatePositionMonster();
+        this.actualRoom.updateInputPlayer(this.actualRoom);
+        this.actualRoom.updatePositionMonster(this.actualRoom);
     }
 
     /**
