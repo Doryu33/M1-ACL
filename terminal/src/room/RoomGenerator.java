@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
-import static data.Data.ROOM_SIZE;
+import static data.Data.*;
 
 /**
  * Génère des salles soit par génération fixe soit aléatoirement
@@ -45,10 +45,10 @@ public final class RoomGenerator {
     public Tile[][] generateSimpleRoom(){
         Tile[][] tiles = new Tile[ROOM_SIZE][ROOM_SIZE];
 
-        for (int y = 0; y < ROOM_SIZE; y++) {
-            for (int x = 0; x < ROOM_SIZE; x++) {
+        for (int x = 0; x < ROOM_SIZE; x++) {
+            for (int y = 0; y < ROOM_SIZE; y++) {
                 //Lorsque l'on est en haut au centre
-                if(x == ROOM_SIZE/2 && y == 0){
+                if(x == EXIT_Y && y == EXIT_X){
                     tiles[y][x] = new Exit();
                 }
                 //Lorsque l'on est sur les bords

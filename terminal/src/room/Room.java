@@ -42,7 +42,7 @@ public final class Room {
                 else if(player.getX() == x && player.getY() == y){
                     sb.append(PLAYER_TILE);
                 }else{
-                    switch (tiles[y][x].getType()){
+                    switch (tiles[x][y].getType()){
                         case WALL_TYPE:
                             sb.append(WALL_TILE);
                             break;
@@ -138,7 +138,7 @@ public final class Room {
      * @return un boolean
      */
     public boolean isPlayerOnExit() {
-        return this.player.getX() == 11 && this.player.getY() == 0;
+        return this.player.getX() == EXIT_X && this.player.getY() == EXIT_Y;
     }
 
     /**
