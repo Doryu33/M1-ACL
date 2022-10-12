@@ -45,10 +45,10 @@ public final class RoomGenerator {
     public Tile[][] generateSimpleRoom(){
         Tile[][] tiles = new Tile[ROOM_SIZE][ROOM_SIZE];
 
-        for (int x = 0; x < ROOM_SIZE; x++) {
-            for (int y = 0; y < ROOM_SIZE; y++) {
+        for (int y = 0; y < ROOM_SIZE; y++) {
+            for (int x = 0; x < ROOM_SIZE; x++) {
                 //Lorsque l'on est en haut au centre
-                if(x == EXIT_Y && y == EXIT_X){
+                if(x == EXIT_POS_X && y == EXIT_POS_Y){
                     tiles[y][x] = new Exit();
                 }
                 //Lorsque l'on est sur les bords

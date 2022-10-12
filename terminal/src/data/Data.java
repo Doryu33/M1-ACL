@@ -9,8 +9,10 @@ public class Data {
     //La salle est répartit en 9 sous-zones qui doivent avoir comme taille un nombre impair.
     //Ici 3 fois la taille d'un pattern plus 2 (les murs qui entourent la salle)
     public static final int ROOM_SIZE = (PATTERN_SIZE*3)+2;
-    public static final int EXIT_X = ROOM_SIZE/2;
-    public static final int EXIT_Y = 0;
+
+    //Position en X et en Y de la sortie.
+    public static final int EXIT_POS_X = ROOM_SIZE/2;
+    public static final int EXIT_POS_Y = 0;
 
     //Position initial en X et en Y du joueur en fonction de la taille de la salle
     public static final int INITIAL_PLAYER_POS_X = ROOM_SIZE/2;

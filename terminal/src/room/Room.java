@@ -42,15 +42,15 @@ public final class Room {
                 else if(player.getX() == x && player.getY() == y){
                     sb.append(PLAYER_TILE);
                 }else{
-                    switch (tiles[x][y].getType()){
+                    switch (tiles[y][x].getType()){
+                        case EXIT_TYPE:
+                            sb.append(EXIT_TILE);
+                            break;
                         case WALL_TYPE:
                             sb.append(WALL_TILE);
                             break;
                         case FLOOR_TYPE:
                             sb.append(FLOOR_TILE);
-                            break;
-                        case EXIT_TYPE:
-                            sb.append(EXIT_TILE);
                             break;
                     }
                 }
@@ -69,25 +69,26 @@ public final class Room {
     public boolean thereIsAMonster(int x, int y) {
         boolean res = false;
         for (Monster m:monsters) {
-            if (m.getX() == x && m.getY() == y){
+            if (m.getX() == x && m.getY() == y) {
                 res = true;
+                break;
             }
         }
         return res;
     }
 
     /**
-     * Savoir si il est possible de marcher sur la case a la position x,y.
+     * Savoir s'il est possible de marcher sur la case à la position x,y.
      * @param x position x
      * @param y position y
      * @return vrai si possible, faux sinon
      */
     public boolean isTileWalkable(int x, int y){
-        return this.tiles[x][y].isWalkable();
+        return this.tiles[y][x].isWalkable();
     }
 
     /**
-     * Savoir si le joueur se situe a cette position (x,y)
+     * Savoir si le joueur se situe à cette position (x,y)
      * @param x position x
      * @param y position y
      * @return vrai si le joueur est ici, faux sinon
@@ -138,7 +139,7 @@ public final class Room {
      * @return un boolean
      */
     public boolean isPlayerOnExit() {
-        return this.player.getX() == EXIT_X && this.player.getY() == EXIT_Y;
+        return this.player.getX() == EXIT_POS_X && this.player.getY() == EXIT_POS_Y;
     }
 
     /**

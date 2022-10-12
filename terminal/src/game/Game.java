@@ -2,6 +2,8 @@ package game;
 
 import room.RoomManager;
 
+import java.io.IOException;
+
 /**
  * Permet de lancer le jeu
  */
