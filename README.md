@@ -6,5 +6,5 @@ https://docs.google.com/document/d/15mvGTUFEJ62VbLJEnIgwamEphrG5qdatsP_4NAIlIEY/
 
 # Compilation et Execution
 1) Se placer au dessus du dossier télécharger via git
-2) Ouvrir un terminal et executer: javac M1-ACL-master/terminal/src/*/*.java
+2) Ouvrir un terminal et executer: "javac M1-ACL-master/terminal/src/*/*.java"
 3) 
