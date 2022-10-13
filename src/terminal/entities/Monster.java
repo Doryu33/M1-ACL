@@ -1,10 +1,10 @@
-package entities;
+package terminal.entities;
 
-import room.Room;
+import terminal.room.Room;
 
 import java.util.Random;
 
-import static data.Data.MONSTER_TYPE;
+import static terminal.data.Data.MONSTER_TYPE;
 
 /**
  * Gère le comportement et données d'un monstre

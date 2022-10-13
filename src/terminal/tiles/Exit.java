@@ -1,6 +1,6 @@
-package tiles;
+package terminal.tiles;
 
-import static data.Data.EXIT_TYPE;
+import static terminal.data.Data.EXIT_TYPE;
 
 public final class Exit extends Tile {
 

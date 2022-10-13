@@ -1,4 +1,4 @@
-package entities;
+package terminal.entities;
 
 /**
  * Gère le comportement et données communes d'une entitée

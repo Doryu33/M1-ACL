@@ -1,4 +1,4 @@
-package data;
+package terminal.data;
 
 public class Data {
 

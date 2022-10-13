@@ -1,6 +1,6 @@
-package tiles;
+package terminal.tiles;
 
-import static data.Data.WALL_TYPE;
+import static terminal.data.Data.WALL_TYPE;
 
 public final class Wall extends Tile {
 

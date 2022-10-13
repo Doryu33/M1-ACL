@@ -1,11 +1,11 @@
-package room;
+package terminal.room;
 
-import entities.Monster;
-import entities.Player;
-import tiles.Tile;
+import terminal.entities.Monster;
+import terminal.entities.Player;
+import terminal.tiles.Tile;
 import java.util.ArrayList;
 
-import static data.Data.*;
+import static terminal.data.Data.*;
 
 /**
  * Connait les tuiles et les entitées qui compose la salle

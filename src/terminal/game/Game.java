@@ -1,8 +1,6 @@
-package game;
+package terminal.game;
 
-import room.RoomManager;
-
-import java.io.IOException;
+import terminal.room.RoomManager;
 
 /**
  * Permet de lancer le jeu

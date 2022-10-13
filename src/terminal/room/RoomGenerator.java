@@ -1,17 +1,19 @@
-package room;
+package terminal.room;
 
-import entities.Monster;
-import tiles.Exit;
-import tiles.Floor;
-import tiles.Tile;
-import tiles.Wall;
+import terminal.entities.Monster;
+import terminal.tiles.Exit;
+import terminal.tiles.Floor;
+import terminal.tiles.Tile;
+import terminal.tiles.Wall;
 
 import java.io.*;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
-import static data.Data.*;
+import static terminal.data.Data.*;
 
 /**
  * Génère des salles soit par génération fixe soit aléatoirement
@@ -224,45 +226,41 @@ public final class RoomGenerator {
         int y = 0;
         int x;
         String line;
-        try {
-            //Lire le fichier patterns.txt
-            File patternsFile = new File("resources/patterns.txt");
-            Scanner fileReader = new Scanner(patternsFile);
-            //Lire la première ligne qui contient le nombre de pattern dans le fichier
+        //Lire le fichier patterns.txt
+        InputStream patternsFile = getClass().getClassLoader().getResourceAsStream("patterns.txt");
+        Scanner fileReader = new Scanner(patternsFile);
+        //Lire la première ligne qui contient le nombre de pattern dans le fichier
+        line = fileReader.nextLine();
+        numberOfPattern = Integer.parseInt(String.valueOf(line.charAt(0)));
+        //Initialisé le tableau de patterns
+        patterns = new Pattern[numberOfPattern];
+
+        //Tant que nous ne sommes pas à la fin du fichier
+        while (fileReader.hasNextLine()) {
             line = fileReader.nextLine();
-            numberOfPattern = Integer.parseInt(String.valueOf(line.charAt(0)));
-            //Initialisé le tableau de patterns
-            patterns = new Pattern[numberOfPattern];
-
-            //Tant que nous ne sommes pas à la fin du fichier
-            while (fileReader.hasNextLine()) {
-                line = fileReader.nextLine();
-                //Si la ligne commence par 's' alors nous sommes au début d'un nouveau pattern. On initialise alors le tableau
-                if(line.charAt(0) == 's'){
-                    pattern = new char[ROOM_SIZE/3][ROOM_SIZE/3];
-                }
-
-                //Initialise chaque case
-                if(line.charAt(0) == '.' || line.charAt(0) == 'X' || line.charAt(0) == 'M'){
-                    x = 0;
-                    for (int i = 0; i < line.length(); i++) {
-                        pattern[y][x] = line.charAt(i);
-                        x++;
-                    }
-                    y++;
-                }
-
-                //Si la ligne commence par 'e' alors nous sommes à la fin d'un pattern. On initialise alors l'objet Pattern
-                if(line.charAt(0) == 'e'){
-                    patterns[indexPatternsArray] = new Pattern(pattern);
-                    indexPatternsArray++;
-                    y = 0;
-                }
+            //Si la ligne commence par 's' alors nous sommes au début d'un nouveau pattern. On initialise alors le tableau
+            if(line.charAt(0) == 's'){
+                pattern = new char[ROOM_SIZE/3][ROOM_SIZE/3];
             }
-            fileReader.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+
+            //Initialise chaque case
+            if(line.charAt(0) == '.' || line.charAt(0) == 'X' || line.charAt(0) == 'M'){
+                x = 0;
+                for (int i = 0; i < line.length(); i++) {
+                    pattern[y][x] = line.charAt(i);
+                    x++;
+                }
+                y++;
+            }
+
+            //Si la ligne commence par 'e' alors nous sommes à la fin d'un pattern. On initialise alors l'objet Pattern
+            if(line.charAt(0) == 'e'){
+                patterns[indexPatternsArray] = new Pattern(pattern);
+                indexPatternsArray++;
+                y = 0;
+            }
         }
+        fileReader.close();
     }
 
     /**

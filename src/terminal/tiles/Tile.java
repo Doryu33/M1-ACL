@@ -1,4 +1,4 @@
-package tiles;
+package terminal.tiles;
 
 public abstract class Tile {
 

@@ -1,6 +1,6 @@
-package tiles;
+package terminal.tiles;
 
-import static data.Data.FLOOR_TYPE;
+import static terminal.data.Data.FLOOR_TYPE;
 
 public final class Floor extends Tile{
 

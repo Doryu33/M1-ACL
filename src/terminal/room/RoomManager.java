@@ -1,4 +1,4 @@
-package room;
+package terminal.room;
 
 /**
  * Gère les différents comportement et données de la salle où le joueur est présent

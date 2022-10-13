@@ -1,8 +1,9 @@
-package entities;
-import room.Room;
-import java.awt.event.KeyEvent;
+package terminal.entities;
+
+import terminal.room.Room;
+
 import java.util.Scanner;
-import static data.Data.*;
+import static terminal.data.Data.*;
 
 /**
  * Gère le comportement et données du joueur
