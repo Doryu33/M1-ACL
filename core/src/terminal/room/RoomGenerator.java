@@ -228,6 +228,7 @@ public final class RoomGenerator {
         String line;
         //Lire le fichier patterns.txt
         InputStream patternsFile = getClass().getClassLoader().getResourceAsStream("patterns.txt");
+        System.out.println(patternsFile);
         Scanner fileReader = new Scanner(patternsFile);
         //Lire la première ligne qui contient le nombre de pattern dans le fichier
         line = fileReader.nextLine();

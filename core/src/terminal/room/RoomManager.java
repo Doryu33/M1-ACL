@@ -34,7 +34,7 @@ public final class RoomManager {
      * Afficher la salle actuelle
      * @return chaine de caractère de la salle actuelle
      */
-    public String displayRoom(){
+    public String displayRoomConsole(){
         return actualRoom.toString();
     }
 
