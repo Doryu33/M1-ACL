@@ -63,7 +63,6 @@ public final class Room {
             }
             sb.append("\n");
         }
-        System.out.println("player = " + player.getHealthPoint());
         return sb.toString();
     }
 
