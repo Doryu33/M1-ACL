@@ -12,4 +12,9 @@ public final class Wall extends Tile {
     public boolean isWalkable() {
         return false;
     }
+
+    @Override
+    public boolean hasSpecialEffect() {
+        return false;
+    }
 }

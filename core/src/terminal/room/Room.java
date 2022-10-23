@@ -52,11 +52,18 @@ public final class Room {
                         case FLOOR_TYPE:
                             sb.append(FLOOR_TILE);
                             break;
+                        case TRAP_TYPE:
+                            sb.append(TRAP_TILE);
+                            break;
+                        case HEALING_TILE_TYPE:
+                            sb.append(HEALING_TILE);
+                            break;
                     }
                 }
             }
             sb.append("\n");
         }
+        System.out.println("player = " + player.getHealthPoint());
         return sb.toString();
     }
 

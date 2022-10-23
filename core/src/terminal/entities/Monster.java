@@ -4,6 +4,7 @@ import terminal.room.Room;
 
 import java.util.Random;
 
+import static terminal.data.Data.MONSTER_INITIAL_HP;
 import static terminal.data.Data.MONSTER_TYPE;
 
 /**
@@ -12,7 +13,7 @@ import static terminal.data.Data.MONSTER_TYPE;
 public final class Monster extends Entity {
 
     public Monster(int x, int y) {
-        super(MONSTER_TYPE);
+        super(MONSTER_TYPE,MONSTER_INITIAL_HP);
         setX(x);
         setY(y);
     }

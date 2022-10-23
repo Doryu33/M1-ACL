@@ -1,10 +1,7 @@
 package terminal.room;
 
 import terminal.entities.Monster;
-import terminal.tiles.Exit;
-import terminal.tiles.Floor;
-import terminal.tiles.Tile;
-import terminal.tiles.Wall;
+import terminal.tiles.*;
 
 import java.io.*;
 import java.net.URISyntaxException;
@@ -197,6 +194,12 @@ public final class RoomGenerator {
                 switch (actualPattern[yPattern][xPattern]){
                     case 'X':
                         tilesRandomRoom[y][x] = new Wall();
+                        break;
+                    case 'T':
+                        tilesRandomRoom[y][x] = new Trap();
+                        break;
+                    case 'H':
+                        tilesRandomRoom[y][x] = new HealingTile();
                         break;
                     case 'M':
                         monsters.add(new Monster(x,y));

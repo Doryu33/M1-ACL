@@ -1,4 +1,4 @@
-3 //Nombre de pattern dans le fichier
+4 //Nombre de pattern dans le fichier
 s //s pour signifier le début d'un pattern. Start
 ..X.X..
 ..X.X..
@@ -25,4 +25,13 @@ X.M.M.X
 X.M.M.X
 X.....X
 XXX.XXX
+e
+s
+.......
+.......
+..T.T..
+...H...
+..T.T..
+.......
+.......
 e

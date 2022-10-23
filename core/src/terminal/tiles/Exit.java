@@ -2,6 +2,7 @@ package terminal.tiles;
 
 import static terminal.data.Data.EXIT_TYPE;
 
+//TODO passer en special tile ?
 public final class Exit extends Tile {
 
     public Exit() {
@@ -11,5 +12,10 @@ public final class Exit extends Tile {
     @Override
     public boolean isWalkable() {
         return true;
+    }
+
+    @Override
+    public boolean hasSpecialEffect() {
+        return false; //Mettre a true ?
     }
 }
