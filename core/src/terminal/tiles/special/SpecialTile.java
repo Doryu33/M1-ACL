@@ -1,6 +1,7 @@
-package terminal.tiles;
+package terminal.tiles.special;
 
 import terminal.entities.Entity;
+import terminal.tiles.Tile;
 
 import static terminal.data.Data.*;
 
@@ -36,10 +37,11 @@ public abstract class SpecialTile extends Tile {
         if(isAppliedEffectCounterOver() &&
                 (entity.getType().equals(PLAYER_TYPE) || isMonstersCanBeAffected())){
             useEffect(entity);
-        }
-        //S'il y a un nombre limité d'utilisation, alors incrémenter le nombre d'utilisation
-        if(hasLimitedUse()){
-            addOneAppliedEffectCounter();
+
+            //S'il y a un nombre limité d'utilisation, alors incrémenter le nombre d'utilisation
+            if(hasLimitedUse()){
+                addOneAppliedEffectCounter();
+            }
         }
     }
 

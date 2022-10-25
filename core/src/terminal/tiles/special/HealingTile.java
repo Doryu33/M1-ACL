@@ -1,4 +1,4 @@
-package terminal.tiles;
+package terminal.tiles.special;
 
 import terminal.entities.Entity;
 

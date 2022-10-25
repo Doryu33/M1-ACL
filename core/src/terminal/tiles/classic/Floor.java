@@ -1,8 +1,10 @@
-package terminal.tiles;
+package terminal.tiles.classic;
+
+import terminal.tiles.Tile;
 
 import static terminal.data.Data.FLOOR_TYPE;
 
-public final class Floor extends Tile{
+public final class Floor extends Tile {
 
     public Floor() {
         super(FLOOR_TYPE);

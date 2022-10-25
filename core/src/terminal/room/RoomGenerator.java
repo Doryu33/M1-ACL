@@ -2,10 +2,13 @@ package terminal.room;
 
 import terminal.entities.Monster;
 import terminal.tiles.*;
+import terminal.tiles.classic.Exit;
+import terminal.tiles.classic.Floor;
+import terminal.tiles.classic.Wall;
+import terminal.tiles.special.HealingTile;
+import terminal.tiles.special.Trap;
 
 import java.io.*;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;

@@ -1,4 +1,6 @@
-package terminal.tiles;
+package terminal.tiles.classic;
+
+import terminal.tiles.Tile;
 
 import static terminal.data.Data.WALL_TYPE;
 
