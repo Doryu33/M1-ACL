@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 
 import static dungeoncrypt.game.data.Data.FLOOR_TYPE;
 import static dungeoncrypt.game.data.Data.RENDER_SCALE;
@@ -29,8 +30,8 @@ public class Floor extends Tile{
         bodyDef.type = BodyDef.BodyType.StaticBody;
         bodyDef.position.set(x,y);
         bodyDef.fixedRotation = true;
-        bodyDef.active = true;
-        this.sprite.setBounds(x,y,RENDER_SCALE,RENDER_SCALE);
+        bodyDef.active = false;
+        this.sprite.setBounds(x-(RENDER_SCALE/2f),y-(RENDER_SCALE/2f),RENDER_SCALE,RENDER_SCALE);
         return bodyDef;
     }
 

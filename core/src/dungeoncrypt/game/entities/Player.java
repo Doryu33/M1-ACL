@@ -72,6 +72,7 @@ public final class Player extends Entity {
         }
 
         getBody().setLinearVelocity(horizontalForce*50,verticalForce*50);
+        this.sprite.setPosition(getBody().getPosition().x-(RENDER_SCALE/2f), getBody().getPosition().y-(RENDER_SCALE/2f));
     }
 
     public BodyDef createBodyDef(){
@@ -79,7 +80,7 @@ public final class Player extends Entity {
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(this.getX()*RENDER_SCALE+RENDER_SCALE,this.getY()*RENDER_SCALE+RENDER_SCALE);
         bodyDef.fixedRotation = true;
-        this.sprite.setBounds(getX()*RENDER_SCALE+RENDER_SCALE,getY()*RENDER_SCALE+RENDER_SCALE,RENDER_SCALE,RENDER_SCALE);
+        this.sprite.setBounds(getX()-(RENDER_SCALE/2f),getY()-(RENDER_SCALE/2f),RENDER_SCALE,RENDER_SCALE);
         return bodyDef;
     }
 

@@ -15,7 +15,6 @@ public class Wall extends Tile{
     public Wall(){
         super(WALL_TYPE);
         this.sprite = new Sprite(new Texture(Gdx.files.internal("sprites/wall.png")));
-        sprite.setBounds(getX(),getY(),RENDER_SCALE,RENDER_SCALE);
     }
 
     public boolean isWalkable() {
@@ -27,7 +26,7 @@ public class Wall extends Tile{
         bodyDef.type = BodyDef.BodyType.StaticBody;
         bodyDef.position.set(x,y);
         bodyDef.fixedRotation = true;
-        this.sprite.setBounds(x,y,RENDER_SCALE,RENDER_SCALE);
+        this.sprite.setBounds(x-(RENDER_SCALE/2f),y-(RENDER_SCALE/2f),RENDER_SCALE,RENDER_SCALE);
         return bodyDef;
     }
 

@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.FillViewport;
 import dungeoncrypt.game.room.RoomManager;
 
 import static dungeoncrypt.game.data.Data.*;
@@ -32,11 +33,11 @@ public class GameScreen implements Screen {
 		float height = Gdx.graphics.getHeight();
 
 		camera = new OrthographicCamera();
-		camera.setToOrtho(false, RENDER_SCALE, RENDER_SCALE);
+		camera.setToOrtho(false, width, height);
 
 		this.world = new World(new Vector2(0,0), false);
 
-		//b2dr = new Box2DDebugRenderer();
+		b2dr = new Box2DDebugRenderer();
 
 		this.stage = new Stage();
 
@@ -54,11 +55,11 @@ public class GameScreen implements Screen {
 		stage.act(Gdx.graphics.getDeltaTime());
 		stage.draw();
 
-		//b2dr.render(world, camera.combined);
+		b2dr.render(world, camera.combined);
 	}
 
 	public void resize(int width, int height){
-		camera.setToOrtho(false, RENDER_SCALE/100f, RENDER_SCALE/100f);
+		camera.setToOrtho(false, width, height);
 	}
 
 	@Override
@@ -79,7 +80,7 @@ public class GameScreen implements Screen {
 	public void dispose () {
 		world.dispose();
 		stage.dispose();
-		//b2dr.dispose();
+		b2dr.dispose();
 	}
 
 	public void update(float delta){
