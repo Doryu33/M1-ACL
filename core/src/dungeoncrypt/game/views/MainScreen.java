@@ -1,4 +1,4 @@
-package dungeoncrypt.game;
+package dungeoncrypt.game.views;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -13,7 +13,7 @@ import dungeoncrypt.game.tiles.Wall;
 import static dungeoncrypt.game.data.Data.RENDER_SCALE;
 import static dungeoncrypt.game.data.Data.ROOM_SIZE;
 
-public class Game extends ApplicationAdapter {
+public class MainScreen extends ApplicationAdapter {
 
 	private OrthographicCamera camera;
 
