@@ -2,7 +2,8 @@ package dungeoncrypt.game;
 
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
-import dungeoncrypt.game.views.MainScreen;
+import dungeoncrypt.game.views.GameScreen;
+import dungeoncrypt.game.views.Main;
 import terminal.room.RoomManager;
 
 // Please note that on macOS your application needs to be started with the -XstartOnFirstThread JVM argument
@@ -23,7 +24,7 @@ public class DesktopLauncher {
 			Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 			config.setForegroundFPS(60);
 			config.setTitle("DungeonCrypt");
-			new Lwjgl3Application(new MainScreen(), config);
+			new Lwjgl3Application(new Main(), config);
 		}
 	}
 }

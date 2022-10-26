@@ -1,20 +1,17 @@
 package dungeoncrypt.game.views;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import dungeoncrypt.game.room.RoomManager;
-import dungeoncrypt.game.tiles.Wall;
 
-import static dungeoncrypt.game.data.Data.RENDER_SCALE;
-import static dungeoncrypt.game.data.Data.ROOM_SIZE;
+import static dungeoncrypt.game.data.Data.*;
 
-public class MainScreen extends ApplicationAdapter {
-
+public class GameScreen implements Screen {
 	private OrthographicCamera camera;
 
 	private World world;
@@ -24,9 +21,13 @@ public class MainScreen extends ApplicationAdapter {
 
 	private Stage stage;
 
+	private Main parent;
+	public GameScreen(Main main){
+		parent = main;
+	}
 
 	@Override
-	public void create () {
+	public void show () {
 		float width = Gdx.graphics.getWidth();
 		float height = Gdx.graphics.getHeight();
 
@@ -45,7 +46,7 @@ public class MainScreen extends ApplicationAdapter {
 	}
 
 	@Override
-	public void render () {
+	public void render (float delta) {
 		update(Gdx.graphics.getDeltaTime());
 		Gdx.gl.glClearColor(0f,0f,0f,1f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -58,6 +59,21 @@ public class MainScreen extends ApplicationAdapter {
 
 	public void resize(int width, int height){
 		camera.setToOrtho(false, RENDER_SCALE/100f, RENDER_SCALE/100f);
+	}
+
+	@Override
+	public void pause() {
+
+	}
+
+	@Override
+	public void resume() {
+
+	}
+
+	@Override
+	public void hide() {
+
 	}
 
 	public void dispose () {
