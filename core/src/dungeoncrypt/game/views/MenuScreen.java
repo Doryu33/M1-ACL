@@ -23,31 +23,39 @@ public class MenuScreen implements Screen {
     private Stage stage;
 
     public MenuScreen(Main main){
+        /* Definition du parent */
         parent = main;
 
+        /* Creation du stage */
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
 
+        /* Creation de la table pour les items du menu */
         Table table = new Table();
         table.setFillParent(true);
         table.setDebug(true);
         stage.addActor(table);
 
+        /* Chargement du skin du menu */
         Skin skin = new Skin(Gdx.files.internal("skin/glassy-ui.json"));
 
-        TextButton newGame = new TextButton("New Game", skin);
-        TextButton preferences = new TextButton("Preferences", skin);
-        TextButton exit = new TextButton("Exit", skin);
+        /* Creation des boutons du menu */
+        TextButton newGame = new TextButton("Nouvelle Partie", skin);
+        TextButton preferences = new TextButton("Options", skin);
+        TextButton exit = new TextButton("Quitter", skin);
 
+        /* Remplissage de la table pour l'affichage du menu */
         table.add(newGame).fillX().uniformX();
         table.row().pad(10, 0, 10, 0);
         table.add(preferences).fillX().uniformX();
         table.row();
         table.add(exit).fillX().uniformX();
+        /* Definition du background du menu */
         Texture background = new Texture("background.jpg");
         table.setBackground(new TextureRegionDrawable(new TextureRegion(background)));
 
 
+        /* Bouton quitter */
         exit.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -55,6 +63,7 @@ public class MenuScreen implements Screen {
             }
         });
 
+        /* Bouton nouvelle partie */
         newGame.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -62,6 +71,7 @@ public class MenuScreen implements Screen {
             }
         });
 
+        /* Bouton option */
         preferences.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {

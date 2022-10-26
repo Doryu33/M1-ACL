@@ -13,12 +13,19 @@ public class Main extends Game {
     private EndScreen endScreen;
 
     @Override
+    /**
+     * Pendant le chargement du jeu on affiche un temps de chargement
+     */
     public void create() {
         loadingScreen = new LoadingScreen(this);
         setScreen(loadingScreen);
     }
 
 
+    /**
+     * Permet de changer le screen a afficher
+     * @param screen Numero du screen a afficher
+     */
     public void changeScreen(int screen){
         switch(screen){
             case MENU:
