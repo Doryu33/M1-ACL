@@ -6,7 +6,7 @@ import terminal.room.RoomManager;
 
 // Please note that on macOS your application needs to be started with the -XstartOnFirstThread JVM argument
 public class DesktopLauncher {
-	private static boolean terminalMode = true;
+	private static boolean terminalMode = false;
 	public static void main (String[] arg) {
 		if(terminalMode){
 			RoomManager rm = new RoomManager();

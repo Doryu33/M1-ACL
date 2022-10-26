@@ -1,31 +1,73 @@
 package dungeoncrypt.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import dungeoncrypt.game.room.RoomManager;
+import dungeoncrypt.game.tiles.Wall;
+
+import static dungeoncrypt.game.data.Data.RENDER_SCALE;
+import static dungeoncrypt.game.data.Data.ROOM_SIZE;
 
 public class Game extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
-	
+
+	private OrthographicCamera camera;
+
+	private World world;
+	private Box2DDebugRenderer b2dr;
+
+	private RoomManager roomManager;
+
+	private Stage stage;
+
+
 	@Override
 	public void create () {
-		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+		float width = Gdx.graphics.getWidth();
+		float height = Gdx.graphics.getHeight();
+
+		camera = new OrthographicCamera();
+		camera.setToOrtho(false, RENDER_SCALE, RENDER_SCALE);
+
+		this.world = new World(new Vector2(0,0), false);
+
+		//b2dr = new Box2DDebugRenderer();
+
+		this.stage = new Stage();
+
+		this.roomManager = new RoomManager(world, stage);
+
+
 	}
 
 	@Override
 	public void render () {
-		ScreenUtils.clear(1, 0, 0, 1);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
+		update(Gdx.graphics.getDeltaTime());
+		Gdx.gl.glClearColor(0f,0f,0f,1f);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+		stage.act(Gdx.graphics.getDeltaTime());
+		stage.draw();
+
+		//b2dr.render(world, camera.combined);
 	}
-	
-	@Override
+
+	public void resize(int width, int height){
+		camera.setToOrtho(false, RENDER_SCALE/100f, RENDER_SCALE/100f);
+	}
+
 	public void dispose () {
-		batch.dispose();
-		img.dispose();
+		world.dispose();
+		stage.dispose();
+		//b2dr.dispose();
+	}
+
+	public void update(float delta){
+		world.step(1/60f, 6, 2);
+		roomManager.updatePositionRoom();
 	}
 }
