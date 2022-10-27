@@ -176,10 +176,15 @@ public final class Room {
      */
     public void createBodyTiles(){
         int yPos = ROOM_SIZE*RENDER_SCALE;
-
+        Body body;
         for (int y = 0; y < ROOM_SIZE ; y++){
             for (int x = 0; x < ROOM_SIZE ; x++){
-                Body body = this.world.createBody(tiles[y][x].createBodyDef(x*RENDER_SCALE+RENDER_SCALE,yPos));
+                if (tiles[y][x].getType().equals(FLOOR_TYPE)) {
+                    body = this.world.createBody(tiles[y][x].createBodyDef(x * RENDER_SCALE + RENDER_SCALE, yPos, false));
+                }
+                else {
+                    body = this.world.createBody(tiles[y][x].createBodyDef(x * RENDER_SCALE + RENDER_SCALE, yPos, true));
+                }
                 FixtureDef shape = tiles[y][x].createShape();
                 body.createFixture(shape);
                 shape.shape.dispose();
