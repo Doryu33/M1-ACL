@@ -13,8 +13,7 @@ import dungeoncrypt.game.room.Room;
 
 import java.util.Random;
 
-import static dungeoncrypt.game.data.Data.MONSTER_TYPE;
-import static dungeoncrypt.game.data.Data.RENDER_SCALE;
+import static dungeoncrypt.game.data.Data.*;
 
 
 /**
@@ -77,7 +76,7 @@ public final class Monster extends Entity {
     public BodyDef createBodyDef(){
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set(this.getX()*RENDER_SCALE+RENDER_SCALE,this.getY()*RENDER_SCALE+RENDER_SCALE);
+        bodyDef.position.set(this.getX()*RENDER_SCALE+RENDER_SCALE,(ROOM_SIZE-this.getY())*RENDER_SCALE);
         bodyDef.fixedRotation = true;
         this.sprite.setBounds(getX()*RENDER_SCALE,getY()*RENDER_SCALE,RENDER_SCALE,RENDER_SCALE);
         return bodyDef;
