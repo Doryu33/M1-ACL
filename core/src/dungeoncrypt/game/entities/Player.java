@@ -21,9 +21,8 @@ import static dungeoncrypt.game.data.Data.*;
 public final class Player extends Entity {
 
     public Player(){
-        super(PLAYER_TYPE);
+        super(PLAYER_TYPE,"sprites/isaac.png");
         setInitialPosition();
-        this.sprite = new Sprite(new Texture(Gdx.files.internal("sprites/isaac.png")));
     }
 
     /**
@@ -74,27 +73,4 @@ public final class Player extends Entity {
         getBody().setLinearVelocity(horizontalForce*50,verticalForce*50);
         this.sprite.setPosition(getBody().getPosition().x-(RENDER_SCALE), getBody().getPosition().y-(RENDER_SCALE));
     }
-
-    public BodyDef createBodyDef(){
-        BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set(this.getX()*RENDER_SCALE+RENDER_SCALE,(ROOM_SIZE-getY())*RENDER_SCALE+RENDER_SCALE);
-        bodyDef.fixedRotation = true;
-        this.sprite.setBounds(getX()-RENDER_SCALE,getY()-RENDER_SCALE,RENDER_SCALE,RENDER_SCALE);
-        return bodyDef;
-    }
-
-    public FixtureDef createShape(){
-        CircleShape shape = new CircleShape();
-        shape.setPosition(new Vector2(0, 0));
-        shape.setRadius(RENDER_SCALE/2f);
-
-        FixtureDef fixtureCircle = new FixtureDef();
-
-        fixtureCircle.shape = shape;
-
-        return fixtureCircle;
-    }
-
-
 }

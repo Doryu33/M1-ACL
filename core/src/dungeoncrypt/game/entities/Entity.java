@@ -1,12 +1,15 @@
 package dungeoncrypt.game.entities;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+
+import static dungeoncrypt.game.data.Data.RENDER_SCALE;
+import static dungeoncrypt.game.data.Data.ROOM_SIZE;
 
 /**
  * Gère le comportement et données communes d'une entitée
@@ -19,8 +22,9 @@ public abstract class Entity extends Actor {
     private Body body;
     protected Sprite sprite;
 
-    public Entity(String type){
+    public Entity(String type,String spritePath){
         this.type = type;
+        this.sprite = new Sprite(new Texture(Gdx.files.internal(spritePath)));
     }
 
     public float getX() {
@@ -51,9 +55,35 @@ public abstract class Entity extends Actor {
         return body;
     }
 
-    public abstract BodyDef createBodyDef();
+    /**
+     * Création des Bodys pour les monstres et du joueur
+     * @return le bodydef
+     */
+    public BodyDef createBodyDef(){
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        bodyDef.position.set(this.getX()*RENDER_SCALE+RENDER_SCALE,(ROOM_SIZE-this.getY())*RENDER_SCALE);
+        bodyDef.fixedRotation = true;
+        this.sprite.setBounds(getX()*RENDER_SCALE,getY()*RENDER_SCALE,RENDER_SCALE,RENDER_SCALE);
+        return bodyDef;
+    }
 
-    public abstract FixtureDef createShape();
+    /**
+     * Créer la forme de l'entity / BodyShape rond 1x1
+     * @return la forme
+     */
+    public FixtureDef createShape(){
+        CircleShape shape = new CircleShape();
+        shape.setPosition(new Vector2(0, 0));
+        shape.setRadius(RENDER_SCALE/2f);
+
+        FixtureDef fixtureCircle = new FixtureDef();
+
+        fixtureCircle.shape = shape;
+
+        return fixtureCircle;
+    }
+
 
     @Override
     public void act(float delta){

@@ -27,13 +27,13 @@ public final class Monster extends Entity {
     private int verticalForce;
 
     public Monster(int x, int y) {
-        super(MONSTER_TYPE);
+        super(MONSTER_TYPE,"sprites/monster.png");
         setX(x);
         setY(y);
         this.timer = 0;
         this.horizontalForce = 0;
         this.verticalForce = 0;
-        this.sprite = new Sprite(new Texture(Gdx.files.internal("sprites/monster.png")));
+
     }
 
     /**
@@ -73,24 +73,5 @@ public final class Monster extends Entity {
 
     }
 
-    public BodyDef createBodyDef(){
-        BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set(this.getX()*RENDER_SCALE+RENDER_SCALE,(ROOM_SIZE-this.getY())*RENDER_SCALE);
-        bodyDef.fixedRotation = true;
-        this.sprite.setBounds(getX()*RENDER_SCALE,getY()*RENDER_SCALE,RENDER_SCALE,RENDER_SCALE);
-        return bodyDef;
-    }
 
-    public FixtureDef createShape(){
-        CircleShape shape = new CircleShape();
-        shape.setPosition(new Vector2(0, 0));
-        shape.setRadius(RENDER_SCALE/2f);
-
-        FixtureDef fixtureCircle = new FixtureDef();
-
-        fixtureCircle.shape = shape;
-
-        return fixtureCircle;
-    }
 }
