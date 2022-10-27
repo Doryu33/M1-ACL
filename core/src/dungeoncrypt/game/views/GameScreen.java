@@ -29,8 +29,6 @@ public class GameScreen implements Screen {
 
 	}
 
-
-
 	@Override
 	public void show () {
 		float width = Gdx.graphics.getWidth();
@@ -60,13 +58,12 @@ public class GameScreen implements Screen {
 		stage.act(Gdx.graphics.getDeltaTime());
 		stage.draw();
 
-		b2dr.render(world, camera.combined);
+		//b2dr.render(world, camera.combined);
 	}
 
 	public void resize(int width, int height){
 		viewport.update(width,height);
 		camera.position.set(RENDER_SCALE*12,RENDER_SCALE*12,0);
-
 	}
 
 	@Override

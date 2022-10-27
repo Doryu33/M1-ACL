@@ -52,5 +52,13 @@ public class Data {
     public final static int PREFERENCES = 1;
     public final static int APPLICATION = 2;
     public final static int ENDGAME = 3;
+    //Constantes pour la taille des boutons du menu
+    public final static int PADDING_TOP = 10;
+    public final static int PADDING_LEFT = 200;
+    public final static int PADDING_RIGHT = 200;
+    public final static int PADDING_DOWN = 10;
+    public final static int BUTTON_MINWIDTH = 150;
+    public final static int BUTTON_MAXWIDTH = 350;
+
 }
 
