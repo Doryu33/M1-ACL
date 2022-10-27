@@ -24,7 +24,7 @@ public final class Room {
     private Tile[][] tiles;
     private final ArrayList<Monster> monsters;
     private final Player player;
-
+    private int render_scale;
     private World world;
     private Stage stage;
 
@@ -39,6 +39,7 @@ public final class Room {
         this.player = new Player();
         this.monsters = new ArrayList<>();
         this.stage = stage;
+        this.render_scale = 32;
     }
 
     /**
@@ -178,7 +179,7 @@ public final class Room {
     public void createBodyTiles(){
         for (int y = ROOM_SIZE-1; y >= 0 ; y--){
             for (int x = 0; x < ROOM_SIZE ; x++){
-                Body body = this.world.createBody(tiles[y][x].createBodyDef(x*32+32,y*32+32));
+                Body body = this.world.createBody(tiles[y][x].createBodyDef(x*render_scale+render_scale,y*render_scale+render_scale));
                 FixtureDef shape = tiles[y][x].createShape();
                 body.createFixture(shape);
                 shape.shape.dispose();
@@ -211,6 +212,14 @@ public final class Room {
             shape.shape.dispose();
             this.stage.addActor(monster);
         }
+    }
+
+    public int getRender_scale() {
+        return render_scale;
+    }
+
+    public void setRender_scale(int render_scale) {
+        this.render_scale = render_scale;
     }
 }
 

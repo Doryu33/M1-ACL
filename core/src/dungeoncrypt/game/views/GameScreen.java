@@ -8,6 +8,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FillViewport;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import dungeoncrypt.game.room.RoomManager;
 
 import static dungeoncrypt.game.data.Data.*;
@@ -21,19 +24,25 @@ public class GameScreen implements Screen {
 	private RoomManager roomManager;
 
 	private Stage stage;
-
+	private Viewport viewport;
 	private Main parent;
 	public GameScreen(Main main){
 		parent = main;
+		camera = new OrthographicCamera();
+
 	}
+
 
 	@Override
 	public void show () {
 		float width = Gdx.graphics.getWidth();
 		float height = Gdx.graphics.getHeight();
 
-		camera = new OrthographicCamera();
-		camera.setToOrtho(false, width, height);
+		float aspect_ratio = height / width;
+
+		this.viewport = new FitViewport( 1.54f*width*aspect_ratio,2.04f*height*aspect_ratio,camera);
+		viewport.apply();
+		camera.position.set( 385, 385,0);
 
 		this.world = new World(new Vector2(0,0), false);
 
@@ -59,7 +68,9 @@ public class GameScreen implements Screen {
 	}
 
 	public void resize(int width, int height){
-		camera.setToOrtho(false, width, height);
+		viewport.update(width,height);
+		camera.position.set( 385, 385,0);
+
 	}
 
 	@Override
