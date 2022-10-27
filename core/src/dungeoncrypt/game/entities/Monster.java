@@ -70,7 +70,7 @@ public final class Monster extends Entity {
             timer =0;
         }
         getBody().setLinearVelocity(horizontalForce*50,verticalForce*50);
-        this.sprite.setPosition(getBody().getPosition().x-(RENDER_SCALE/2f),getBody().getPosition().y-(RENDER_SCALE/2f));
+        this.sprite.setPosition(getBody().getPosition().x-(RENDER_SCALE),getBody().getPosition().y-(RENDER_SCALE));
 
     }
 
@@ -79,7 +79,7 @@ public final class Monster extends Entity {
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(this.getX()*RENDER_SCALE+RENDER_SCALE,this.getY()*RENDER_SCALE+RENDER_SCALE);
         bodyDef.fixedRotation = true;
-        this.sprite.setBounds(getX()*RENDER_SCALE+RENDER_SCALE,getY()*RENDER_SCALE+RENDER_SCALE,RENDER_SCALE,RENDER_SCALE);
+        this.sprite.setBounds(getX()*RENDER_SCALE,getY()*RENDER_SCALE,RENDER_SCALE,RENDER_SCALE);
         return bodyDef;
     }
 

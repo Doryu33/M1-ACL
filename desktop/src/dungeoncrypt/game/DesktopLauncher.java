@@ -5,6 +5,8 @@ import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import dungeoncrypt.game.views.GameScreen;
 import dungeoncrypt.game.views.Main;
 import terminal.room.RoomManager;
+import static dungeoncrypt.game.data.Data.RENDER_SCALE;
+import static dungeoncrypt.game.data.Data.ROOM_SIZE;
 
 // Please note that on macOS your application needs to be started with the -XstartOnFirstThread JVM argument
 public class DesktopLauncher {
@@ -22,6 +24,7 @@ public class DesktopLauncher {
 			}
 		} else {
 			Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
+			config.setWindowedMode(RENDER_SCALE*ROOM_SIZE,RENDER_SCALE*ROOM_SIZE);
 			config.setForegroundFPS(60);
 			config.setTitle("DungeonCrypt");
 			new Lwjgl3Application(new Main(), config);

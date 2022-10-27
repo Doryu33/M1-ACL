@@ -7,10 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.viewport.FillViewport;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
+import com.badlogic.gdx.utils.viewport.*;
 import dungeoncrypt.game.room.RoomManager;
 
 import static dungeoncrypt.game.data.Data.*;
@@ -33,16 +30,15 @@ public class GameScreen implements Screen {
 	}
 
 
+
 	@Override
 	public void show () {
 		float width = Gdx.graphics.getWidth();
 		float height = Gdx.graphics.getHeight();
-
-		float aspect_ratio = height / width;
-
-		this.viewport = new FitViewport( 1.54f*width*aspect_ratio,2.04f*height*aspect_ratio,camera);
+		camera.position.set(RENDER_SCALE*12,RENDER_SCALE*12,0);
+		this.viewport = new FitViewport(width,height,camera);
 		viewport.apply();
-		camera.position.set( 385, 385,0);
+
 
 		this.world = new World(new Vector2(0,0), false);
 
@@ -69,7 +65,7 @@ public class GameScreen implements Screen {
 
 	public void resize(int width, int height){
 		viewport.update(width,height);
-		camera.position.set( 385, 385,0);
+		camera.position.set(RENDER_SCALE*12,RENDER_SCALE*12,0);
 
 	}
 

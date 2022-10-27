@@ -26,7 +26,7 @@ public class Wall extends Tile{
         bodyDef.type = BodyDef.BodyType.StaticBody;
         bodyDef.position.set(x,y);
         bodyDef.fixedRotation = true;
-        this.sprite.setBounds(x-(RENDER_SCALE/2f),y-(RENDER_SCALE/2f),RENDER_SCALE,RENDER_SCALE);
+        this.sprite.setBounds(x-(RENDER_SCALE),y-RENDER_SCALE,RENDER_SCALE,RENDER_SCALE);
         return bodyDef;
     }
 
