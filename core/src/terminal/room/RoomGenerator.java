@@ -6,6 +6,7 @@ import terminal.tiles.classic.Exit;
 import terminal.tiles.classic.Floor;
 import terminal.tiles.classic.Wall;
 import terminal.tiles.special.HealingTile;
+import terminal.tiles.special.SpecialTile;
 import terminal.tiles.special.Trap;
 
 import java.io.*;
@@ -24,6 +25,8 @@ public final class RoomGenerator {
     private final ArrayList<Monster> monsters;
     //Objet pour générer des chiffres aléatoires
     private final Random randomNumber;
+    //Liste de toutes les tuile spéciales de la salle
+    private final ArrayList<SpecialTile> specialTileList;
     //Salle aléatoire générée
     private Tile[][] tilesRandomRoom;
     //Pattern utilisé pour la génération de la salle. Est amené à changer régulierement.
@@ -35,6 +38,7 @@ public final class RoomGenerator {
 
     public RoomGenerator(){
         monsters = new ArrayList<>();
+        specialTileList = new ArrayList<>();
         randomNumber = new Random();
         getAllPatterns();
     }
@@ -70,6 +74,7 @@ public final class RoomGenerator {
      */
     public Tile[][] generateRandomRoom(){
         monsters.clear();
+        specialTileList.clear();
 
         tilesRandomRoom = generateSimpleRoom();
 
@@ -199,10 +204,14 @@ public final class RoomGenerator {
                         tilesRandomRoom[y][x] = new Wall();
                         break;
                     case 'T':
-                        tilesRandomRoom[y][x] = new Trap();
+                        Trap trap = new Trap();
+                        tilesRandomRoom[y][x] = trap;
+                        specialTileList.add(trap);
                         break;
                     case 'H':
-                        tilesRandomRoom[y][x] = new HealingTile();
+                        HealingTile healingTile = new HealingTile();
+                        tilesRandomRoom[y][x] = healingTile;
+                        specialTileList.add(healingTile);
                         break;
                     case 'M':
                         monsters.add(new Monster(x,y));
@@ -268,6 +277,10 @@ public final class RoomGenerator {
             }
         }
         fileReader.close();
+    }
+
+    public ArrayList<SpecialTile> getSpecialTileList() {
+        return specialTileList;
     }
 
     /**

@@ -4,7 +4,7 @@ import terminal.entities.Entity;
 
 import static terminal.data.Data.*;
 
-public class HealingTile extends SpecialTile {
+public final class HealingTile extends SpecialTile {
 
     public HealingTile() {
         super(HEALING_TILE_TYPE, HEALTH_SPECIAL_TYPE);

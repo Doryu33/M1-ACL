@@ -4,7 +4,7 @@ import terminal.entities.Entity;
 
 import static terminal.data.Data.*;
 
-public class Trap extends SpecialTile {
+public final class Trap extends SpecialTile {
 
     public Trap() {
         super(TRAP_TYPE, HEALTH_SPECIAL_TYPE);
