@@ -50,13 +50,9 @@ public abstract class SpecialTile extends Tile {
         return true;
     }
 
-    //Fonctions protégées
+    public int getAppliedEffectCounter() {return appliedEffectCounter;}
 
-    /**
-     * Appliquer l'effet de la tuile sur l'entité
-     * @param entity qui doit recevoir l'effet
-     */
-    protected abstract void useEffect(Entity entity);
+    //Fonctions protégées
 
     /**
      * Savoir si les monstres peuvent être affectés par l'effet de la tuile
@@ -68,6 +64,12 @@ public abstract class SpecialTile extends Tile {
      * Définir le nombre maximum d'utilisation de la tuile
      */
     protected abstract int getMaxUsageEffect();
+
+    /**
+     * Appliquer l'effet de la tuile sur l'entité
+     * @param entity qui doit recevoir l'effet
+     */
+    protected abstract void useEffect(Entity entity);
 
 
 
