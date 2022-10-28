@@ -3,6 +3,8 @@ package terminal.room;
 import terminal.entities.Monster;
 import terminal.entities.Player;
 import terminal.tiles.Tile;
+import terminal.tiles.special.SpecialTile;
+
 import java.util.ArrayList;
 
 import static terminal.data.Data.*;
@@ -15,6 +17,7 @@ public final class Room {
     private Tile[][] tiles;
     private final ArrayList<Monster> monsters;
     private final Player player;
+    private final ArrayList<SpecialTile> specialTileList;
 
     /**
      * Constructeur générant le joueur et la liste (vide) des monstres
@@ -24,6 +27,7 @@ public final class Room {
         this.tiles = tiles;
         this.player = new Player();
         this.monsters = new ArrayList<>();
+        this.specialTileList = new ArrayList<>();
     }
 
     /**
@@ -51,6 +55,12 @@ public final class Room {
                             break;
                         case FLOOR_TYPE:
                             sb.append(FLOOR_TILE);
+                            break;
+                        case TRAP_TYPE:
+                            sb.append(TRAP_TILE);
+                            break;
+                        case HEALING_TILE_TYPE:
+                            sb.append(HEALING_TILE);
                             break;
                     }
                 }
@@ -114,11 +124,12 @@ public final class Room {
      */
     public void clearRoom(){
         monsters.clear();
+        specialTileList.clear();
     }
 
     /**
      * Met à jour la position du joueur dans la salle
-     * @param actualRoom
+     * @param actualRoom salle actuelle
      */
     public void updateInputPlayer(Room actualRoom){
         this.player.inputUdapte(actualRoom);
@@ -126,7 +137,7 @@ public final class Room {
 
     /**
      * Met à jour la postion des monstres dans la salle
-     * @param actualRoom
+     * @param actualRoom salle actuelle
      */
     public void updatePositionMonster(Room actualRoom){
         for (Monster m:monsters) {
@@ -155,5 +166,13 @@ public final class Room {
      */
     public void setMonsters(ArrayList<Monster> generatedMonsters) {
         monsters.addAll(generatedMonsters);
+    }
+
+    /**
+     * Définit la liste de toutes les tuiles spéciales de la salle
+     * @param specialTileList liste des tuiles spéciales
+     */
+    public void setSpecialTileList(ArrayList<SpecialTile> specialTileList) {
+        this.specialTileList.addAll(specialTileList);
     }
 }

@@ -27,7 +27,8 @@ public final class RoomManager {
         this.actualRoom.clearRoom();
         this.actualRoom.setEnvironment(this.roomGenerator.generateRandomRoom());
         this.actualRoom.setMonsters(this.roomGenerator.getGeneratedMonsters());
-        this.actualRoom.setInitialPlayerPosition();
+        this.actualRoom.setSpecialTileList(this.roomGenerator.getSpecialTileList());
+        //this.actualRoom.setInitialPlayerPosition(); //A enlever car c'est l'effet de la sortie qui repositionne le joueur
     }
 
     /**

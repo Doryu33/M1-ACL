@@ -11,7 +11,7 @@ import static terminal.data.Data.*;
 public final class Player extends Entity {
 
     public Player(){
-        super(PLAYER_TYPE);
+        super(PLAYER_TYPE, PLAYER_INITIAL_HP);
         setInitialPosition();
     }
 

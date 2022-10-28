@@ -22,6 +22,15 @@ public class Data {
     public static final String FLOOR_TYPE = "Floor";
     public static final String WALL_TYPE = "Wall";
     public static final String EXIT_TYPE = "Exit";
+    public static final String HEALING_TILE_TYPE = "HealingTile";
+    public static final String TRAP_TYPE = "Trap";
+
+    //String pour définir le type spécial d'une tuile. Ce type permet de savoir sur quoi intéragit la tuile (Santé, Armure, Niveau, etc)
+    //Par exemple les tuiles HealingTile et Trap intéragissent avec la santé.
+    public static final String HEALTH_SPECIAL_TYPE = "Health";
+    //Savoir si la sortie va rediriger le joueur vers une nouvelle salle ou un nouveau niveau
+    public static final String EXIT_SPECIAL_TYPE_NEW_ROOM = "NewRoom";
+    public static final String EXIT_SPECIAL_TYPE_NEW_LEVEL = "NewLevel";
 
     //String pour définir le type d'une entitée : joueur / monstre
     public static final String PLAYER_TYPE = "Player";
@@ -33,6 +42,26 @@ public class Data {
     public static final char EXIT_TILE = 'S';
     public static final char PLAYER_TILE = 'P';
     public static final char MONSTER_TILE = 'M';
+    public static final char HEALING_TILE = 'H';
+    public static final char TRAP_TILE = 'T';
+
+    //Constantes numériques pour les statistiques du joueur
+    public static final int PLAYER_INITIAL_HP = 50;
+
+    //Constantes numériques pour les statistiques des monstres
+    public static final int MONSTER_INITIAL_HP = 20;
+
+    //Constantes numériques pour les tuiles spéciales
+    //Nombre de point de vie que donne la tuile HealingTile
+    public static final int HP_HEALING_TILE = 10;
+    //Nombre de point de vie que fait perdre la tuile Trap
+    public static final int HP_TRAP = 5;
+
+    //Constantes numériques du nombre maximum d'utilisation de l'effet d'une tuile
+    //Définir à -1 pour une utilisation illimité
+    public static final int MAX_USE_HEALING_TILE = 1;
+    public static final int MAX_USE_TRAP = -1;
+    public static final int MAX_USE_EXIT = 1;
 
     //String pour définir la direction du déplacement du joueur
     public static final String PLAYER_TOP_KEY = "Z";
