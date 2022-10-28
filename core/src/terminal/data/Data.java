@@ -28,6 +28,9 @@ public class Data {
     //String pour définir le type spécial d'une tuile. Ce type permet de savoir sur quoi intéragit la tuile (Santé, Armure, Niveau, etc)
     //Par exemple les tuiles HealingTile et Trap intéragissent avec la santé.
     public static final String HEALTH_SPECIAL_TYPE = "Health";
+    //Savoir si la sortie va rediriger le joueur vers une nouvelle salle ou un nouveau niveau
+    public static final String EXIT_SPECIAL_TYPE_NEW_ROOM = "NewRoom";
+    public static final String EXIT_SPECIAL_TYPE_NEW_LEVEL = "NewLevel";
 
     //String pour définir le type d'une entitée : joueur / monstre
     public static final String PLAYER_TYPE = "Player";

@@ -2,7 +2,7 @@ package terminal.room;
 
 import terminal.entities.Monster;
 import terminal.tiles.*;
-import terminal.tiles.classic.Exit;
+import terminal.tiles.special.Exit;
 import terminal.tiles.classic.Floor;
 import terminal.tiles.classic.Wall;
 import terminal.tiles.special.HealingTile;
@@ -55,7 +55,7 @@ public final class RoomGenerator {
             for (int x = 0; x < ROOM_SIZE; x++) {
                 //Lorsque l'on est en haut au centre
                 if(x == EXIT_POS_X && y == EXIT_POS_Y){
-                    tiles[y][x] = new Exit();
+                    tiles[y][x] = new Exit(EXIT_SPECIAL_TYPE_NEW_ROOM);
                 }
                 //Lorsque l'on est sur les bords
                 else if(y == 0 || y == ROOM_SIZE-1 || x == 0 || x == ROOM_SIZE-1){

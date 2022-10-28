@@ -1,4 +1,4 @@
-package terminal.tiles.classic;
+package terminal.tiles.special;
 
 import terminal.entities.Entity;
 import terminal.entities.Player;
@@ -8,8 +8,10 @@ import static terminal.data.Data.*;
 
 public final class Exit extends SpecialTile {
 
-    public Exit() {
-        super(EXIT_TYPE,EXIT_TYPE);
+    private boolean isOpen = false;
+
+    public Exit(String specialType) {
+        super(EXIT_TYPE,specialType);
     }
 
     @Override
@@ -20,6 +22,21 @@ public final class Exit extends SpecialTile {
     @Override
     public boolean hasSpecialEffect() {
         return true;
+    }
+
+    /**
+     * Définir la sortie comme open --> Si le joueur touche la sortie il passe au niveau suivant
+     */
+    public void setOpen(){
+        isOpen = true;
+    }
+
+    /**
+     * Savoir l'état de la sortie
+     * @return vrai si la sortie est ouverte
+     */
+    public boolean isOpen(){
+        return isOpen;
     }
 
     @Override
@@ -39,7 +56,7 @@ public final class Exit extends SpecialTile {
      */
     @Override
     protected void useEffect(Entity entity) {
-        if(entity.getType().equals(PLAYER_TYPE)){
+        if(entity.getType().equals(PLAYER_TYPE) && isOpen){
             //Cast vers joueur
             Player player = (Player) entity;
             player.setInitialPosition();
