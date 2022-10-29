@@ -6,7 +6,7 @@ import static dungeoncrypt.game.data.Data.WALL_TYPE;
 public final class Wall extends Tile {
 
     public Wall(){
-        super(WALL_TYPE,"sprites/wall.png");
+        super(WALL_TYPE,"sprites/tiles/classic/wall.png");
     }
 
     @Override

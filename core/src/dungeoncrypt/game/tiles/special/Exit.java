@@ -10,8 +10,9 @@ public final class Exit extends SpecialTile {
 
     private boolean isOpen = false;
 
+    //Ici isEnable est définit comme vrai lorsque la porte est fermée.
     public Exit(String specialType) {
-        super(EXIT_TYPE,specialType,"sprites/closedExit.png");
+        super(EXIT_TYPE,specialType,true,"sprites/tiles/special/closedExit.png");
     }
 
     @Override
@@ -61,5 +62,10 @@ public final class Exit extends SpecialTile {
             Player player = (Player) entity;
             player.setInitialPosition();
         }
+    }
+
+    @Override
+    protected void setSpriteToDisabled() {
+        setTextureToSprite("sprites/tiles/special/openedExit.png");
     }
 }

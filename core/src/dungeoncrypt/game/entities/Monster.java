@@ -16,7 +16,7 @@ public final class Monster extends Entity {
     private int verticalForce;
 
     public Monster(int x, int y) {
-        super(MONSTER_TYPE,MONSTER_INITIAL_HP,"sprites/monster.png");
+        super(MONSTER_TYPE,MONSTER_INITIAL_HP,"sprites/entities/monsters/monster.png");
         setX(x);
         setY(y);
         this.timer = 0;

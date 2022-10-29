@@ -55,7 +55,7 @@ public class MenuScreen implements Screen {
         table.row().pad(PADDING_TOP, PADDING_LEFT, PADDING_DOWN, PADDING_RIGHT);
         table.add(exit).fillX().uniformX().growX().minWidth(BUTTON_MINWIDTH).maxWidth(BUTTON_MAXWIDTH);
         /* Definition du background du menu */
-        Texture background = new Texture("background.jpg");
+        Texture background = new Texture("images/background.jpg");
         table.setBackground(new TextureRegionDrawable(new TextureRegion(background)));
 
 

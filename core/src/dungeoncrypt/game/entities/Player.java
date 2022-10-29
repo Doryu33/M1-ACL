@@ -12,7 +12,7 @@ import static dungeoncrypt.game.data.Data.*;
 public final class Player extends Entity {
 
     public Player(){
-        super(PLAYER_TYPE,PLAYER_INITIAL_HP,"sprites/isaac.png");
+        super(PLAYER_TYPE,PLAYER_INITIAL_HP,"sprites/entities/player/isaac.png");
         setInitialPosition();
     }
 

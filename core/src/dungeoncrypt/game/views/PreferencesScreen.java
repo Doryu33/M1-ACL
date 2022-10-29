@@ -115,7 +115,7 @@ public class PreferencesScreen implements Screen {
         table.row().pad(PADDING_TOP, 0, PADDING_DOWN, 0);
         table.add(backMainMenu).fillX().uniformX().colspan(2).maxWidth(BUTTON_MAXWIDTH);
         /* Definition du background du menu */
-        Texture background = new Texture("background.jpg");
+        Texture background = new Texture("images/background.jpg");
         table.setBackground(new TextureRegionDrawable(new TextureRegion(background)));
     }
 

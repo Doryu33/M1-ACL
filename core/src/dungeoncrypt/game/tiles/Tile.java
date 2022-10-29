@@ -14,11 +14,7 @@ import static dungeoncrypt.game.data.Data.RENDER_SCALE;
 public abstract class Tile extends Actor {
 
     private final String type;
-
-    protected Sprite sprite;
-
-
-    public abstract boolean isWalkable();
+    private Sprite sprite;
 
     public Tile(String type,String spritePath){
         this.type = type;
@@ -26,6 +22,8 @@ public abstract class Tile extends Actor {
         // A méditer //this.sprite.setBounds(getX(),getY(),RENDER_SCALE,RENDER_SCALE);
 
     }
+
+    public abstract boolean isWalkable();
 
     /**
      * Savoir si la tuile possédent une effet particulier
@@ -37,6 +35,11 @@ public abstract class Tile extends Actor {
 
     public String getType() {
         return type;
+    }
+
+    protected void setTextureToSprite(String spritePath){
+        this.sprite.setTexture(new Texture(Gdx.files.internal(spritePath)));
+        //this.sprite = new Sprite(new Texture(Gdx.files.internal(spritePath)));
     }
 
     /**

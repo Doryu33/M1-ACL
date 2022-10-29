@@ -8,7 +8,7 @@ import static dungeoncrypt.game.data.Data.*;
 public final class HealingTile extends SpecialTile {
 
     public HealingTile() {
-        super(HEALING_TILE_TYPE, HEALTH_SPECIAL_TYPE,"sprites/healingTile.png");
+        super(HEALING_TILE_TYPE, HEALTH_SPECIAL_TYPE,true,"sprites/tiles/special/healingTileEnabled.png");
     }
 
 
@@ -34,6 +34,11 @@ public final class HealingTile extends SpecialTile {
     @Override
     protected void useEffect(Entity entity) {
         entity.addHealthPoint(HP_HEALING_TILE);
+    }
+
+    @Override
+    protected void setSpriteToDisabled() {
+        setTextureToSprite("sprites/tiles/special/healingTileDisabled.png");
     }
 
 

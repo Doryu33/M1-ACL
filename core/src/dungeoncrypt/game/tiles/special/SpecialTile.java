@@ -14,10 +14,12 @@ public abstract class SpecialTile extends Tile {
     private final String specialType;
     //Nombre de fois que l'effet a été utilisé
     private int appliedEffectCounter = 0;
+    private boolean isEnable;
 
-    public SpecialTile(String type, String specialType,String spritePath) {
+    public SpecialTile(String type, String specialType, boolean isEnable, String spritePath) {
         super(type,spritePath);
         this.specialType = specialType;
+        this.isEnable = isEnable;
     }
 
     //Fonctions publiques
@@ -34,13 +36,19 @@ public abstract class SpecialTile extends Tile {
     public void applyEffectOn(Entity entity){
         //Si le compteur n'est pas dépassé ET si l'entité est le joueur OU que les monstres peuvent
         //avoir l'effet, alors appliquer l'effet sur l'entité
-        if(isAppliedEffectCounterOver() &&
+        if(isAppliedEffectCounterNotOver() &&
                 (entity.getType().equals(PLAYER_TYPE) || isMonstersCanBeAffected())){
             useEffect(entity);
 
             //S'il y a un nombre limité d'utilisation, alors incrémenter le nombre d'utilisation
             if(hasLimitedUse()){
                 addOneAppliedEffectCounter();
+                //Si le compteur est dépassé et que la tuile est considéré comme active alors
+                //désactiver la tuile et changer le sprite
+                if(!isAppliedEffectCounterNotOver() && isEnable){
+                    isEnable = false;
+                    setSpriteToDisabled();
+                }
             }
         }
     }
@@ -71,6 +79,11 @@ public abstract class SpecialTile extends Tile {
      */
     protected abstract void useEffect(Entity entity);
 
+    /**
+     * Redéfinir le sprite lorsqu'il est considéré comme désactivé
+     */
+    protected abstract void setSpriteToDisabled();
+
 
 
     //Fonctions privées
@@ -80,7 +93,7 @@ public abstract class SpecialTile extends Tile {
      * Ou qu'il n'y a pas de limite d'utilisation
      * @return vrai si le compteur n'est pas dépassé ou illimité
      */
-    private boolean isAppliedEffectCounterOver(){
+    private boolean isAppliedEffectCounterNotOver(){
         return appliedEffectCounter < getMaxUsageEffect() || !hasLimitedUse();
     }
 

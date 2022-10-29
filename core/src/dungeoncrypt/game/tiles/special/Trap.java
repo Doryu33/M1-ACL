@@ -7,7 +7,7 @@ import static dungeoncrypt.game.data.Data.*;
 public final class Trap extends SpecialTile {
 
     public Trap() {
-        super(TRAP_TYPE, HEALTH_SPECIAL_TYPE,"sprites/trap.png");
+        super(TRAP_TYPE, HEALTH_SPECIAL_TYPE, true,"sprites/tiles/special/trap.png");
     }
 
     @Override
@@ -32,5 +32,10 @@ public final class Trap extends SpecialTile {
     @Override
     protected void useEffect(Entity entity) {
         entity.subtractHealthPoint(HP_TRAP);
+    }
+
+    @Override
+    protected void setSpriteToDisabled() {
+
     }
 }

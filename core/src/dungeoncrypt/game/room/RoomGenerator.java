@@ -55,7 +55,9 @@ public final class RoomGenerator {
             for (int x = 0; x < ROOM_SIZE; x++) {
                 //Lorsque l'on est en haut au centre
                 if(x == EXIT_POS_X && y == EXIT_POS_Y){
-                    tiles[y][x] = new Exit(EXIT_SPECIAL_TYPE_NEW_ROOM);
+                    Exit exit = new Exit(EXIT_SPECIAL_TYPE_NEW_ROOM);
+                    tiles[y][x] = exit;
+                    specialTileList.add(exit);
                 }
                 //Lorsque l'on est sur les bords
                 else if(y == 0 || y == ROOM_SIZE-1 || x == 0 || x == ROOM_SIZE-1){
@@ -242,7 +244,7 @@ public final class RoomGenerator {
         int x;
         String line;
         //Lire le fichier patterns.txt
-        InputStream patternsFile = getClass().getClassLoader().getResourceAsStream("patterns.txt");
+        InputStream patternsFile = getClass().getClassLoader().getResourceAsStream("patterns/patterns.txt");
         System.out.println(patternsFile);
         Scanner fileReader = new Scanner(patternsFile);
         //Lire la première ligne qui contient le nombre de pattern dans le fichier

@@ -6,7 +6,7 @@ import static dungeoncrypt.game.data.Data.FLOOR_TYPE;
 public final class Floor extends Tile {
 
     public Floor() {
-        super(FLOOR_TYPE,"sprites/floor.png");
+        super(FLOOR_TYPE,"sprites/tiles/classic/floor.png");
     }
 
     @Override
