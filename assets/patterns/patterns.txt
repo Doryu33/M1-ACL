@@ -1,37 +1,51 @@
-4 //Nombre de pattern dans le fichier
+5 //Nombre de pattern dans le fichier
 s //s pour signifier le début d'un pattern. Start
+1 f //Le premier chiffre correspond au niveau de difficulté du pattern. Le deuxième permet de savoir si le pattern possède ou non une/des tuiles de soin (t pour True et f pour False)
 ..X.X..
-..X.X..
+..X.XT.
 XXX.XXX
 ...M...
 XXX.XXX
-..X.X..
+.TX.XT.
 ..X.X..
 e //e pour signifier la fin d'un pattern. End
 s
-.......
+2 f
+..X.X..
 .XX.XX.
 .X...X.
 ...M...
 .X...X.
 .XX.XX.
-.......
+.T.....
 e
 s
+4 f
 XXX.XXX
-X.....X
+XX....X
 X.M.M.X
 .......
-X.M.M.X
 X.....X
+XX...XX
 XXX.XXX
 e
 s
+2 t
 .......
 .......
 ..T.T..
 ...H...
 ..T.T..
 .......
+.......
+e
+s
+3 t
+.......
+.TTTTT.
+.......
+.M.H.M.
+.......
+.TTTTT.
 .......
 e

@@ -108,72 +108,81 @@ public final class RoomGenerator {
 
     /**
      * Applique le pattern pour le coin haut gauche. Chiffre 1 du schéma
+     * @param pattern à appliquer
      */
-    private void patternLeftUpCorner(){
-        applyPatternTo(1,1,ROOM_SIZE/3,ROOM_SIZE/3);
+    private void patternLeftUpCorner(char[][] pattern){
+        applyPatternTo(1,1,ROOM_SIZE/3,ROOM_SIZE/3,pattern);
     }
 
     /**
      * Applique le pattern pour la case haut centré. Chiffre 2 du schéma
+     * @param pattern à appliquer
      */
-    private void patternMiddleUp(){
-        applyPatternTo(ROOM_SIZE/3+1,1,(ROOM_SIZE/3)*2,ROOM_SIZE/3);
+    private void patternMiddleUp(char[][] pattern){
+        applyPatternTo(ROOM_SIZE/3+1,1,(ROOM_SIZE/3)*2,ROOM_SIZE/3,pattern);
     }
 
     /**
      * Applique le pattern pour le coin haut droit. Chiffre 3 du schéma
+     * @param pattern à appliquer
      */
-    private void patternRightUpCorner(){
-        applyPatternTo((ROOM_SIZE/3*2)+1,1,(ROOM_SIZE/3)*3,ROOM_SIZE/3);
+    private void patternRightUpCorner(char[][] pattern){
+        applyPatternTo((ROOM_SIZE/3*2)+1,1,(ROOM_SIZE/3)*3,ROOM_SIZE/3,pattern);
     }
 
     /**
      * Applique le pattern pour la case gauche au milieu. Chiffre 4 du schéma
+     * @param pattern à appliquer
      */
-    private void patternLeftCenter(){
-        applyPatternTo(1,(ROOM_SIZE/3)+1,ROOM_SIZE/3,(ROOM_SIZE/3)*2);
+    private void patternLeftCenter(char[][] pattern){
+        applyPatternTo(1,(ROOM_SIZE/3)+1,ROOM_SIZE/3,(ROOM_SIZE/3)*2,pattern);
     }
 
     /**
      * Applique le pattern pour la case au centre. Chiffre 5 du schéma
+     * @param pattern à appliquer
      */
-    private void patternMiddleCenter() { applyPatternTo(ROOM_SIZE/3+1,(ROOM_SIZE/3)+1,(ROOM_SIZE/3)*2,(ROOM_SIZE/3)*2);}
+    private void patternMiddleCenter(char[][] pattern) { applyPatternTo(ROOM_SIZE/3+1,(ROOM_SIZE/3)+1,(ROOM_SIZE/3)*2,(ROOM_SIZE/3)*2,pattern);}
 
     /**
      * Applique le pattern pour la case droite au milieu. Chiffre 6 du schéma
+     * @param pattern à appliquer
      */
-    private void patternRightCenter() { applyPatternTo((ROOM_SIZE/3*2)+1,(ROOM_SIZE/3)+1,(ROOM_SIZE/3)*3,(ROOM_SIZE/3)*2);}
+    private void patternRightCenter(char[][] pattern) { applyPatternTo((ROOM_SIZE/3*2)+1,(ROOM_SIZE/3)+1,(ROOM_SIZE/3)*3,(ROOM_SIZE/3)*2,pattern);}
 
     /**
      * Applique le pattern pour le coin bas gauche. Chiffre 7 du schéma
+     * @param pattern à appliquer
      */
-    private void patternLeftDownCorner(){
-        applyPatternTo(1,(ROOM_SIZE/3)*2+1,ROOM_SIZE/3,(ROOM_SIZE/3)*3);
+    private void patternLeftDownCorner(char[][] pattern){
+        applyPatternTo(1,(ROOM_SIZE/3)*2+1,ROOM_SIZE/3,(ROOM_SIZE/3)*3,pattern);
     }
 
     /**
      * Applique le pattern pour le coin bas centré. Chiffre 8 du schéma
+     * @param pattern à appliquer
      */
-    private void patternMiddleDown(){
-        applyPatternTo(ROOM_SIZE/3+1,(ROOM_SIZE/3)*2+1,(ROOM_SIZE/3)*2,(ROOM_SIZE/3)*3);
+    private void patternMiddleDown(char[][] pattern){
+        applyPatternTo(ROOM_SIZE/3+1,(ROOM_SIZE/3)*2+1,(ROOM_SIZE/3)*2,(ROOM_SIZE/3)*3,pattern);
     }
 
     /**
      * Applique le pattern pour le coin bas droit. Chiffre 9 du schéma
+     * @param pattern à appliquer
      */
-    private void patternRightDownCorner(){
-        applyPatternTo((ROOM_SIZE/3*2)+1,(ROOM_SIZE/3)*2+1,(ROOM_SIZE/3)*3,(ROOM_SIZE/3)*3);
+    private void patternRightDownCorner(char[][] pattern){
+        applyPatternTo((ROOM_SIZE/3*2)+1,(ROOM_SIZE/3)*2+1,(ROOM_SIZE/3)*3,(ROOM_SIZE/3)*3,pattern);
     }
 
     /**
      * Applique les patterns de sorte à former une croix dans la salle. X
      */
     private void crossGeneration(){
-        patternLeftUpCorner();
-        patternRightUpCorner();
-        patternMiddleCenter();
-        patternLeftDownCorner();
-        patternRightDownCorner();
+        patternLeftUpCorner(getRandomPattern());
+        patternRightUpCorner(getRandomPattern());
+        patternMiddleCenter(getRandomHealPattern());
+        patternLeftDownCorner(getRandomPattern());
+        patternRightDownCorner(getRandomPattern());
     }
 
     /**
@@ -181,11 +190,66 @@ public final class RoomGenerator {
      * La case en bas au centre reste vide pour laisser la place au joueur d'apparaitre.
      */
     private void plusGeneration(){
-        patternMiddleUp();
-        patternLeftCenter();
-        patternMiddleCenter();
-        patternRightCenter();
+        patternMiddleUp(getRandomPattern());
+        char[][] randomPattern = getRandomPattern();
+        patternLeftCenter(randomPattern);
+
+        patternMiddleCenter(getRandomHealPattern());
+
+        invertPatternVertically(randomPattern);
+        invertPatternHorizontally(randomPattern);
+        patternRightCenter(randomPattern);
         //patternMiddleDown();
+    }
+
+    /**
+     * Séléctionner un pattern qui possède une/plusieurs tuiles de soin
+     * @return un pattern qui possède une tuile de soin
+     */
+    private char[][] getRandomHealPattern(){
+        int patternChoice = randomNumber.nextInt(numberOfPattern);
+        while(!patterns[patternChoice].hasHeal){
+            patternChoice = randomNumber.nextInt(numberOfPattern);
+        }
+        return patterns[patternChoice].getPattern();
+    }
+
+    /**
+     * Séléctionner un pattern aléatoire mais qui ne possède de tuiles de soin
+     * @return un pattern aléatoire sans tuile de soin
+     */
+    private char[][] getRandomPattern(){
+        int patternChoice = randomNumber.nextInt(numberOfPattern);
+        while(patterns[patternChoice].hasHeal){
+            patternChoice = randomNumber.nextInt(numberOfPattern);
+        }
+        return patterns[patternChoice].getPattern();
+    }
+
+    /**
+     * Inverse horizontallement le pattern en parametre
+     * @param pattern à inverser
+     */
+    private void invertPatternHorizontally(char[][] pattern){
+        for(int i = 0; i < (pattern.length / 2); i++) {
+            char[] temp = pattern[i];
+            pattern[i] = pattern[pattern.length - i - 1];
+            pattern[pattern.length - i - 1] = temp;
+        }
+    }
+
+    /**
+     * Inverse verticalement le pattern en parametre
+     * @param pattern à inverser
+     */
+    private void invertPatternVertically(char[][] pattern){
+        for (int x = 0; x < PATTERN_SIZE; x++) {
+            for (int y = 0; y < PATTERN_SIZE/2; y++) {
+                char tmp = pattern[x][PATTERN_SIZE - y - 1];
+                pattern[x][PATTERN_SIZE - y - 1] = pattern[x][y];
+                pattern[x][y] = tmp;
+            }
+        }
     }
 
     /**
@@ -194,14 +258,15 @@ public final class RoomGenerator {
      * @param yS point Y du coin haut gauche
      * @param xE point X du coin bas droite
      * @param yE point Y du coin bas droite
+     * @param pattern à appliquer
      */
-    private void applyPatternTo(int xS, int yS, int xE, int yE){
+    private void applyPatternTo(int xS, int yS, int xE, int yE, char[][] pattern){
         int xPattern;
         int yPattern = 0;
         for (int y = yS; y <= yE; y++) {
             xPattern = 0;
             for (int x = xS; x <= xE; x++) {
-                switch (actualPattern[yPattern][xPattern]){
+                switch (pattern[yPattern][xPattern]){
                     case 'X':
                         tilesRandomRoom[y][x] = new Wall();
                         break;
@@ -253,12 +318,18 @@ public final class RoomGenerator {
         //Initialisé le tableau de patterns
         patterns = new RoomGenerator.Pattern[numberOfPattern];
 
+        int level = 0;
+        boolean hasHeal = false;
+
         //Tant que nous ne sommes pas à la fin du fichier
         while (fileReader.hasNextLine()) {
             line = fileReader.nextLine();
             //Si la ligne commence par 's' alors nous sommes au début d'un nouveau pattern. On initialise alors le tableau
             if(line.charAt(0) == 's'){
                 pattern = new char[ROOM_SIZE/3][ROOM_SIZE/3];
+                line = fileReader.nextLine();
+                level = Integer.parseInt(String.valueOf(line.charAt(0)));
+                hasHeal = line.charAt(2) == 't';
             }
 
             //Initialise chaque case
@@ -273,7 +344,7 @@ public final class RoomGenerator {
 
             //Si la ligne commence par 'e' alors nous sommes à la fin d'un pattern. On initialise alors l'objet Pattern
             if(line.charAt(0) == 'e'){
-                patterns[indexPatternsArray] = new RoomGenerator.Pattern(pattern);
+                patterns[indexPatternsArray] = new RoomGenerator.Pattern(pattern,level,hasHeal);
                 indexPatternsArray++;
                 y = 0;
             }
@@ -290,11 +361,24 @@ public final class RoomGenerator {
      */
     private static final class Pattern{
         private final char[][] pattern;
-        private Pattern(char[][] p){
+        private final int level;
+        private final boolean hasHeal;
+        private Pattern(char[][] p, int level, boolean hasHeal){
             this.pattern = p;
+            this.level = level;
+            this.hasHeal = hasHeal;
         }
         public char[][] getPattern() {
-            return pattern;
+            return pattern.clone();
+        }
+        public int getLevel() {
+            return level;
+        }
+        public boolean hasHeal() {
+            return hasHeal;
+        }
+        public String toString(){
+            return "Level : "+level+" and hasHeal : "+hasHeal;
         }
     }
 }
