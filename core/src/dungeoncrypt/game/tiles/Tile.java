@@ -39,7 +39,6 @@ public abstract class Tile extends Actor {
 
     protected void setTextureToSprite(String spritePath){
         this.sprite.setTexture(new Texture(Gdx.files.internal(spritePath)));
-        //this.sprite = new Sprite(new Texture(Gdx.files.internal(spritePath)));
     }
 
     /**

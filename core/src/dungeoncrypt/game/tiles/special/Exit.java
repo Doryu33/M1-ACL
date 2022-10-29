@@ -27,9 +27,11 @@ public final class Exit extends SpecialTile {
 
     /**
      * Définir la sortie comme open --> Si le joueur touche la sortie il passe au niveau suivant
+     * Effectuement également le changement de sprite
      */
     public void setOpen(){
         isOpen = true;
+        setSpriteToDisabled();
     }
 
     /**
