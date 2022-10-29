@@ -27,6 +27,14 @@ public abstract class Tile extends Actor {
 
     }
 
+    /**
+     * Savoir si la tuile possédent une effet particulier
+     * Sol, mur n'en ont pas
+     * Piège, soin en ont
+     * @return vrai si la tuile à un effet
+     */
+    public abstract boolean hasSpecialEffect();
+
     public String getType() {
         return type;
     }

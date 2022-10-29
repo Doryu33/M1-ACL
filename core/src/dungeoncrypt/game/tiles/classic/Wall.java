@@ -1,7 +1,9 @@
-package dungeoncrypt.game.tiles;
+package dungeoncrypt.game.tiles.classic;
+import dungeoncrypt.game.tiles.Tile;
+
 import static dungeoncrypt.game.data.Data.WALL_TYPE;
 
-public class Wall extends Tile{
+public final class Wall extends Tile {
 
     public Wall(){
         super(WALL_TYPE,"sprites/wall.png");
@@ -12,6 +14,10 @@ public class Wall extends Tile{
         return false;
     }
 
+    @Override
+    public boolean hasSpecialEffect() {
+        return false;
+    }
 
 
 }

@@ -1,6 +1,7 @@
 package dungeoncrypt.game.room;
 
-import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
@@ -12,8 +13,7 @@ public final class RoomManager {
     private final RoomGenerator roomGenerator = new RoomGenerator();
     private final Room actualRoom;
     private World world;
-
-    private Stage stage;
+    private final Stage stage;
 
     public RoomManager(World world, Stage stage){
         this.world = world;
@@ -37,6 +37,7 @@ public final class RoomManager {
         this.actualRoom.clearRoom();
         this.actualRoom.setEnvironment(this.roomGenerator.generateRandomRoom());
         this.actualRoom.setMonsters(this.roomGenerator.getGeneratedMonsters());
+        this.actualRoom.setSpecialTileList(this.roomGenerator.getSpecialTileList());
         this.actualRoom.setInitialPlayerPosition();
         this.stage.clear();
         createBodys();
@@ -56,12 +57,16 @@ public final class RoomManager {
     public void updatePositionRoom(){
         this.actualRoom.updateInputPlayer(this.actualRoom);
         this.actualRoom.updatePositionMonster(this.actualRoom);
+        if(Gdx.input.isKeyPressed(Input.Keys.N)){
+            createNextRoom();
+        }
     }
 
     /**
      * Afficher la salle actuelle
      */
     public void createBodys(){
+        this.actualRoom.clearBodies();
         this.actualRoom.createBodyTiles();
         this.actualRoom.createBodyPlayer();
         this.actualRoom.createBodyMonsters();

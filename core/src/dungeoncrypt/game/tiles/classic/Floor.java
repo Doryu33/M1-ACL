@@ -1,7 +1,9 @@
-package dungeoncrypt.game.tiles;
+package dungeoncrypt.game.tiles.classic;
+import dungeoncrypt.game.tiles.Tile;
+
 import static dungeoncrypt.game.data.Data.FLOOR_TYPE;
 
-public class Floor extends Tile{
+public final class Floor extends Tile {
 
     public Floor() {
         super(FLOOR_TYPE,"sprites/floor.png");
@@ -10,6 +12,11 @@ public class Floor extends Tile{
     @Override
     public boolean isWalkable() {
         return true;
+    }
+
+    @Override
+    public boolean hasSpecialEffect() {
+        return false;
     }
 
 

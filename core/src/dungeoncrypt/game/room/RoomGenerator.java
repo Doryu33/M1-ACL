@@ -1,10 +1,13 @@
 package dungeoncrypt.game.room;
 
 import dungeoncrypt.game.entities.Monster;
-import dungeoncrypt.game.tiles.Exit;
-import dungeoncrypt.game.tiles.Floor;
+import dungeoncrypt.game.tiles.classic.Floor;
 import dungeoncrypt.game.tiles.Tile;
-import dungeoncrypt.game.tiles.Wall;
+import dungeoncrypt.game.tiles.classic.Wall;
+import dungeoncrypt.game.tiles.special.Exit;
+import dungeoncrypt.game.tiles.special.HealingTile;
+import dungeoncrypt.game.tiles.special.SpecialTile;
+import dungeoncrypt.game.tiles.special.Trap;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -22,6 +25,8 @@ public final class RoomGenerator {
     private final ArrayList<Monster> monsters;
     //Objet pour générer des chiffres aléatoires
     private final Random randomNumber;
+    //Liste de toutes les tuile spéciales de la salle
+    private final ArrayList<SpecialTile> specialTileList;
     //Salle aléatoire générée
     private Tile[][] tilesRandomRoom;
     //Pattern utilisé pour la génération de la salle. Est amené à changer régulierement.
@@ -33,6 +38,7 @@ public final class RoomGenerator {
 
     public RoomGenerator(){
         monsters = new ArrayList<>();
+        specialTileList = new ArrayList<>();
         randomNumber = new Random();
         getAllPatterns();
     }
@@ -49,7 +55,7 @@ public final class RoomGenerator {
             for (int x = 0; x < ROOM_SIZE; x++) {
                 //Lorsque l'on est en haut au centre
                 if(x == EXIT_POS_X && y == EXIT_POS_Y){
-                    tiles[y][x] = new Exit();
+                    tiles[y][x] = new Exit(EXIT_SPECIAL_TYPE_NEW_ROOM);
                 }
                 //Lorsque l'on est sur les bords
                 else if(y == 0 || y == ROOM_SIZE-1 || x == 0 || x == ROOM_SIZE-1){
@@ -68,6 +74,7 @@ public final class RoomGenerator {
      */
     public Tile[][] generateRandomRoom(){
         monsters.clear();
+        specialTileList.clear();
 
         tilesRandomRoom = generateSimpleRoom();
 
@@ -196,6 +203,16 @@ public final class RoomGenerator {
                     case 'X':
                         tilesRandomRoom[y][x] = new Wall();
                         break;
+                    case 'T':
+                        Trap trap = new Trap();
+                        tilesRandomRoom[y][x] = trap;
+                        specialTileList.add(trap);
+                        break;
+                    case 'H':
+                        HealingTile healingTile = new HealingTile();
+                        tilesRandomRoom[y][x] = healingTile;
+                        specialTileList.add(healingTile);
+                        break;
                     case 'M':
                         monsters.add(new Monster(x,y));
                         break;
@@ -243,7 +260,7 @@ public final class RoomGenerator {
             }
 
             //Initialise chaque case
-            if(line.charAt(0) == '.' || line.charAt(0) == 'X' || line.charAt(0) == 'M'){
+            if(line.charAt(0) == '.' || line.charAt(0) == 'X' || line.charAt(0) == 'M' || line.charAt(0) == 'T' || line.charAt(0) == 'H'){
                 x = 0;
                 for (int i = 0; i < line.length(); i++) {
                     pattern[y][x] = line.charAt(i);
@@ -260,6 +277,10 @@ public final class RoomGenerator {
             }
         }
         fileReader.close();
+    }
+
+    public ArrayList<SpecialTile> getSpecialTileList() {
+        return specialTileList;
     }
 
     /**

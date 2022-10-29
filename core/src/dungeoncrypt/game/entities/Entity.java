@@ -21,10 +21,13 @@ public abstract class Entity extends Actor {
     private final String type;
     private Body body;
     protected Sprite sprite;
+    //Entier du nombre de point de vie
+    private int healthPoint;
 
-    public Entity(String type,String spritePath){
+    public Entity(String type,int healthPoint,String spritePath){
         this.type = type;
         this.sprite = new Sprite(new Texture(Gdx.files.internal(spritePath)));
+        this.healthPoint = healthPoint;
     }
 
     public float getX() {
@@ -45,6 +48,34 @@ public abstract class Entity extends Actor {
 
     public String getType() {
         return type;
+    }
+
+    public int getHealthPoint() {
+        return healthPoint;
+    }
+
+    /**
+     * Redéfinit le nombre de point de vie
+     * @param healthPoint le nombre à redéfinir
+     */
+    public void setHealthPoint(int healthPoint) {
+        this.healthPoint = healthPoint;
+    }
+
+    /**
+     * Ajouter des points de vie
+     * @param healthPoint le nombre à ajouter
+     */
+    public void addHealthPoint(int healthPoint){
+        this.healthPoint += healthPoint;
+    }
+
+    /**
+     * Enlever des points de vie
+     * @param healthPoint le nombre à enlever
+     */
+    public void subtractHealthPoint(int healthPoint){
+        this.healthPoint -= healthPoint;
     }
 
     public void setBody(Body body) {

@@ -1,16 +1,15 @@
 package dungeoncrypt.game.room;
 
-import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.Array;
 import dungeoncrypt.game.entities.Monster;
 import dungeoncrypt.game.entities.Player;
 import dungeoncrypt.game.tiles.Tile;
+import dungeoncrypt.game.tiles.special.SpecialTile;
 
 import java.util.ArrayList;
 
@@ -24,8 +23,9 @@ public final class Room {
     private Tile[][] tiles;
     private final ArrayList<Monster> monsters;
     private final Player player;
-    private World world;
-    private Stage stage;
+    private final ArrayList<SpecialTile> specialTileList;
+    private final World world;
+    private final Stage stage;
 
 
     /**
@@ -37,6 +37,7 @@ public final class Room {
         this.tiles = tiles;
         this.player = new Player();
         this.monsters = new ArrayList<>();
+        this.specialTileList = new ArrayList<>();
         this.stage = stage;
     }
 
@@ -65,6 +66,12 @@ public final class Room {
                             break;
                         case FLOOR_TYPE:
                             sb.append(FLOOR_TILE);
+                            break;
+                        case TRAP_TYPE:
+                            sb.append(TRAP_TILE);
+                            break;
+                        case HEALING_TILE_TYPE:
+                            sb.append(HEALING_TILE);
                             break;
                     }
                 }
@@ -128,11 +135,12 @@ public final class Room {
      */
     public void clearRoom(){
         monsters.clear();
+        specialTileList.clear();
     }
 
     /**
      * Met à jour la position du joueur dans la salle
-     * @param actualRoom
+     * @param actualRoom salle actuelle
      */
     public void updateInputPlayer(Room actualRoom){
         this.player.inputUdapte(actualRoom);
@@ -140,7 +148,7 @@ public final class Room {
 
     /**
      * Met à jour la postion des monstres dans la salle
-     * @param actualRoom
+     * @param actualRoom salle actuelle
      */
     public void updatePositionMonster(Room actualRoom){
         for (Monster m:monsters) {
@@ -169,6 +177,14 @@ public final class Room {
      */
     public void setMonsters(ArrayList<Monster> generatedMonsters) {
         monsters.addAll(generatedMonsters);
+    }
+
+    /**
+     * Définit la liste de toutes les tuiles spéciales de la salle
+     * @param specialTileList liste des tuiles spéciales
+     */
+    public void setSpecialTileList(ArrayList<SpecialTile> specialTileList) {
+        this.specialTileList.addAll(specialTileList);
     }
 
     /**
@@ -204,6 +220,18 @@ public final class Room {
         body.createFixture(shape);
         shape.shape.dispose();
         this.stage.addActor(player);
+    }
+
+    /**
+     * Détruit tous les body du monde. Les tuiles, le joueur et les monstres sont détruites.
+     */
+    public void clearBodies(){
+        Array<Body> list = new Array<>();
+        world.getBodies(list);
+        int nb = world.getBodyCount();
+        for (int i = 0; i < nb; i++) {
+            world.destroyBody(list.get(i));
+        }
     }
 
     /**

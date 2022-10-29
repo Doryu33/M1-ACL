@@ -1,20 +1,9 @@
 package dungeoncrypt.game.entities;
 
-
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.CircleShape;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import dungeoncrypt.game.room.Room;
-
 import java.util.Random;
 
 import static dungeoncrypt.game.data.Data.*;
-
 
 /**
  * Gère le comportement et données d'un monstre
@@ -27,7 +16,7 @@ public final class Monster extends Entity {
     private int verticalForce;
 
     public Monster(int x, int y) {
-        super(MONSTER_TYPE,"sprites/monster.png");
+        super(MONSTER_TYPE,MONSTER_INITIAL_HP,"sprites/monster.png");
         setX(x);
         setY(y);
         this.timer = 0;
