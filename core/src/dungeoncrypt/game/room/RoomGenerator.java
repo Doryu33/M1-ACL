@@ -196,8 +196,7 @@ public final class RoomGenerator {
 
         patternMiddleCenter(getRandomHealPattern());
 
-        invertPatternVertically(randomPattern);
-        invertPatternHorizontally(randomPattern);
+        randomPattern = invertPatternHorizontally(randomPattern);
         patternRightCenter(randomPattern);
         //patternMiddleDown();
     }
@@ -227,29 +226,33 @@ public final class RoomGenerator {
     }
 
     /**
-     * Inverse horizontallement le pattern en parametre
+     * Inverse horizontallement le pattern en parametre en créant une copie
      * @param pattern à inverser
      */
-    private void invertPatternHorizontally(char[][] pattern){
+    private char[][] invertPatternHorizontally(char[][] pattern){
+        char[][] newPattern = new char[PATTERN_SIZE][PATTERN_SIZE];
         for(int i = 0; i < (pattern.length / 2); i++) {
             char[] temp = pattern[i];
-            pattern[i] = pattern[pattern.length - i - 1];
-            pattern[pattern.length - i - 1] = temp;
+            newPattern[i] = pattern[pattern.length - i - 1];
+            newPattern[pattern.length - i - 1] = temp;
         }
+        return newPattern;
     }
 
     /**
-     * Inverse verticalement le pattern en parametre
+     * Inverse verticalement le pattern en parametre en créant une copie
      * @param pattern à inverser
      */
-    private void invertPatternVertically(char[][] pattern){
+    private char[][] invertPatternVertically(char[][] pattern){
+        char[][] newPattern = new char[PATTERN_SIZE][PATTERN_SIZE];
         for (int x = 0; x < PATTERN_SIZE; x++) {
             for (int y = 0; y < PATTERN_SIZE/2; y++) {
                 char tmp = pattern[x][PATTERN_SIZE - y - 1];
-                pattern[x][PATTERN_SIZE - y - 1] = pattern[x][y];
-                pattern[x][y] = tmp;
+                newPattern[x][PATTERN_SIZE - y - 1] = pattern[x][y];
+                newPattern[x][y] = tmp;
             }
         }
+        return newPattern;
     }
 
     /**
@@ -369,7 +372,7 @@ public final class RoomGenerator {
             this.hasHeal = hasHeal;
         }
         public char[][] getPattern() {
-            return pattern.clone();
+            return pattern;
         }
         public int getLevel() {
             return level;
