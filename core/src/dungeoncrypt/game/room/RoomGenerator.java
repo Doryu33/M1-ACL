@@ -85,7 +85,7 @@ public final class RoomGenerator {
 
         int patternChoice = randomNumber.nextInt(numberOfPattern);
         actualPattern = patterns[patternChoice].getPattern();
-
+        generationChoice = 0;
         if (generationChoice == 0) {
             plusGeneration();
         } else if (generationChoice == 1) {
@@ -196,7 +196,7 @@ public final class RoomGenerator {
 
         patternMiddleCenter(getRandomHealPattern());
 
-        randomPattern = invertPatternHorizontally(randomPattern);
+        randomPattern = invertPatternVertically(randomPattern);
         patternRightCenter(randomPattern);
         //patternMiddleDown();
     }
@@ -231,10 +231,10 @@ public final class RoomGenerator {
      */
     private char[][] invertPatternHorizontally(char[][] pattern){
         char[][] newPattern = new char[PATTERN_SIZE][PATTERN_SIZE];
-        for(int i = 0; i < (pattern.length / 2); i++) {
-            char[] temp = pattern[i];
-            newPattern[i] = pattern[pattern.length - i - 1];
-            newPattern[pattern.length - i - 1] = temp;
+        int yNewPattern = PATTERN_SIZE-1;
+        for (int y = 0; y < PATTERN_SIZE; y++) {
+            System.arraycopy(pattern[y], 0, newPattern[yNewPattern], 0, PATTERN_SIZE);
+            yNewPattern--;
         }
         return newPattern;
     }
@@ -245,11 +245,12 @@ public final class RoomGenerator {
      */
     private char[][] invertPatternVertically(char[][] pattern){
         char[][] newPattern = new char[PATTERN_SIZE][PATTERN_SIZE];
-        for (int x = 0; x < PATTERN_SIZE; x++) {
-            for (int y = 0; y < PATTERN_SIZE/2; y++) {
-                char tmp = pattern[x][PATTERN_SIZE - y - 1];
-                newPattern[x][PATTERN_SIZE - y - 1] = pattern[x][y];
-                newPattern[x][y] = tmp;
+        int xNewPattern;
+        for (int y = 0; y < PATTERN_SIZE; y++) {
+            xNewPattern = PATTERN_SIZE-1;
+            for (int x = 0; x < PATTERN_SIZE; x++) {
+                newPattern[y][xNewPattern] = pattern[y][x];
+                xNewPattern--;
             }
         }
         return newPattern;
@@ -313,7 +314,6 @@ public final class RoomGenerator {
         String line;
         //Lire le fichier patterns.txt
         InputStream patternsFile = getClass().getClassLoader().getResourceAsStream("patterns/patterns.txt");
-        System.out.println(patternsFile);
         Scanner fileReader = new Scanner(patternsFile);
         //Lire la première ligne qui contient le nombre de pattern dans le fichier
         line = fileReader.nextLine();
@@ -323,6 +323,11 @@ public final class RoomGenerator {
 
         int level = 0;
         boolean hasHeal = false;
+        boolean northAccess,southAccess,westAccess,eastAccess;
+        eastAccess = false;
+        westAccess = false;
+        northAccess = false;
+        southAccess = false;
 
         //Tant que nous ne sommes pas à la fin du fichier
         while (fileReader.hasNextLine()) {
@@ -333,6 +338,28 @@ public final class RoomGenerator {
                 line = fileReader.nextLine();
                 level = Integer.parseInt(String.valueOf(line.charAt(0)));
                 hasHeal = line.charAt(2) == 't';
+
+                eastAccess = false;
+                westAccess = false;
+                northAccess = false;
+                southAccess = false;
+                line = fileReader.nextLine();
+                for (int i = 0; i < line.length(); i++) {
+                    switch (line.charAt(i)){
+                        case 'N':
+                            northAccess = true;
+                            break;
+                        case 'S':
+                            southAccess = true;
+                            break;
+                        case 'E':
+                            eastAccess = true;
+                            break;
+                        case 'O':
+                            westAccess = true;
+                            break;
+                    }
+                }
             }
 
             //Initialise chaque case
@@ -347,10 +374,13 @@ public final class RoomGenerator {
 
             //Si la ligne commence par 'e' alors nous sommes à la fin d'un pattern. On initialise alors l'objet Pattern
             if(line.charAt(0) == 'e'){
-                patterns[indexPatternsArray] = new RoomGenerator.Pattern(pattern,level,hasHeal);
+                patterns[indexPatternsArray] = new RoomGenerator.Pattern(pattern,level,hasHeal,northAccess,southAccess,eastAccess,westAccess);
                 indexPatternsArray++;
                 y = 0;
             }
+        }
+        for (Pattern p:patterns) {
+            System.out.println(p.toString());
         }
         fileReader.close();
     }
@@ -366,11 +396,21 @@ public final class RoomGenerator {
         private final char[][] pattern;
         private final int level;
         private final boolean hasHeal;
-        private Pattern(char[][] p, int level, boolean hasHeal){
+        private final boolean northAccess;
+        private final boolean southAccess;
+        private final boolean eastAccess;
+        private final boolean westAccess;
+
+        private Pattern(char[][] p, int level, boolean hasHeal, boolean northAccess, boolean southAccess, boolean eastAccess, boolean westAccess){
             this.pattern = p;
             this.level = level;
             this.hasHeal = hasHeal;
+            this.northAccess = northAccess;
+            this.southAccess = southAccess;
+            this.eastAccess = eastAccess;
+            this.westAccess = westAccess;
         }
+
         public char[][] getPattern() {
             return pattern;
         }
@@ -381,7 +421,23 @@ public final class RoomGenerator {
             return hasHeal;
         }
         public String toString(){
-            return "Level : "+level+" and hasHeal : "+hasHeal;
+            return "Level : "+level+" and hasHeal : "+hasHeal+
+                    " northAccess : "+northAccess+
+                    " southAccess : "+southAccess+
+                    " eastAccess : "+eastAccess+
+                    " westAccess : "+westAccess;
+        }
+        public boolean hasNorthAccess() {
+            return northAccess;
+        }
+        public boolean hasSouthAccess() {
+            return southAccess;
+        }
+        public boolean hasEastAccess() {
+            return eastAccess;
+        }
+        public boolean hasWestAccess() {
+            return westAccess;
         }
     }
 }
