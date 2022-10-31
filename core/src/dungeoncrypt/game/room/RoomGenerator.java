@@ -215,6 +215,16 @@ public final class RoomGenerator {
 
     }
 
+    private void hGeneration(){
+        patternMiddleCenter5(getRandomPatternWithAccess(0,true,true,true,true).getPattern());
+        patternLeftCenter4(getRandomPatternWithAccess(0,true,true,true,false).getPattern());
+        patternLeftDownCorner1(getRandomPatternWithAccess(0,true,false,false,false).getPattern());
+        patternLeftUpCorner7(getRandomPatternWithAccess(2,false,true,false,false).getPattern());
+        patternRightDownCorner3(getRandomPatternWithAccess(2,true,false,false,false).getPattern());
+        patternRightCenter6(getRandomPatternWithAccess(0,true,true,false,true).getPattern());
+        patternRightUpCorner9(getRandomPatternWithAccess(0,false,true,false,false).getPattern());
+    }
+
     /**
      * Fonction qui permet de récupérer un pattern aléatoire qui correspond aux accès demandés
      * @param withHeal 0 pour un pattern sans tuile de soin, 1 pour un pattern avec une tuile de soin, et 2 pour une tuile complétement aléatoire
