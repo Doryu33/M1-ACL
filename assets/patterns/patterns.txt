@@ -1,7 +1,7 @@
-6 //Nombre de pattern dans le fichier
+12 //Nombre de pattern dans le fichier
 s //s pour signifier le début d'un pattern. Start
 1 f //Le premier chiffre correspond au niveau de difficulté du pattern. Le deuxième permet de savoir si le pattern possède ou non une/des tuiles de soin (t pour True et f pour False)
-NSO
+NSW
 ..X.X..
 ..X.XT.
 XXX.XXX
@@ -12,7 +12,7 @@ XXX.XXX
 e //e pour signifier la fin d'un pattern. End
 s
 2 f
-NSEO
+NSEW
 ..XXX..
 .XX.XX.
 .X...X.
@@ -23,9 +23,9 @@ NSEO
 e
 s
 4 f
-SEO
+SEW
 XXXXXXX
-XX....X
+X.....X
 X.M.M.X
 .......
 X.....X
@@ -34,7 +34,7 @@ XXX.XXX
 e
 s
 2 t
-NSEO
+NSEW
 .......
 .......
 ..T.T..
@@ -45,7 +45,7 @@ NSEO
 e
 s
 3 t
-NSEO
+NSEW
 .......
 .TTTTT.
 .......
@@ -56,7 +56,7 @@ NSEO
 e
 s
 1 f
-EO
+EW
 XXXXXXX
 .......
 .......
@@ -64,4 +64,70 @@ XXXXXXX
 .......
 .......
 XXXXXXX
+e
+s
+1 f
+ES
+XXXXXXX
+X.....X
+X.T...X
+X..T...
+X...T.X
+X.....X
+XXX.XXX
+e
+s
+1 t
+EN
+XXX.XXX
+X.....X
+X.H...X
+X..H...
+X...H.X
+X.....X
+XXXXXXX
+e
+s
+1 t
+N
+XXX.XXX
+X.....X
+X.....X
+X..H..X
+X.TT..X
+X.....X
+XXXXXXX
+e
+s
+2 t
+E
+XXXXXXX
+X.....X
+X..TT.X
+X..HT..
+X..TT.X
+X.....X
+XXXXXXX
+e
+s
+2 f
+S
+XXXXXXX
+X.....X
+X.X...X
+X.X.M.X
+X.X...X
+X.....X
+XXX.XXX
+e
+s
+2 f
+SWN
+XXX.XXX
+X.....X
+X.X.X.X
+...MXTX
+X.X.X.X
+X.....X
+XXX.XXX
 e

@@ -48,13 +48,13 @@ public abstract class Tile extends Actor {
      * @return BodyDef
      */
     public BodyDef createBodyDef(int x,int y,boolean isActive){
-            BodyDef bodyDef = new BodyDef();
-            bodyDef.type = BodyDef.BodyType.StaticBody;
-            bodyDef.position.set(x,y);
-            bodyDef.fixedRotation = true;
-            bodyDef.active = isActive;
-            this.sprite.setBounds(x-(RENDER_SCALE),y-RENDER_SCALE,RENDER_SCALE,RENDER_SCALE);
-            return bodyDef;
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.StaticBody;
+        bodyDef.position.set(x,y);
+        bodyDef.fixedRotation = true;
+        bodyDef.active = isActive;
+        this.sprite.setBounds(x-(RENDER_SCALE),y-RENDER_SCALE,RENDER_SCALE,RENDER_SCALE);
+        return bodyDef;
     }
 
     /**
