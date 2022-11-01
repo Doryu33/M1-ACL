@@ -13,8 +13,7 @@ public final class Player extends Entity {
 
     public Player(){
         super(PLAYER_TYPE,PLAYER_INITIAL_HP,"sprites/entities/player/isaac.png");
-        setInitialPosition();
-    }
+        setInitialPosition(); }
 
     /**
      * Positionne le joueur à des coordonnées spécifiques.

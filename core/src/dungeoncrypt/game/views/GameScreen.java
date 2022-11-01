@@ -8,6 +8,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.*;
+import dungeoncrypt.game.collisions.BodyContactListenner;
+import dungeoncrypt.game.entities.Player;
 import dungeoncrypt.game.room.RoomManager;
 
 import static dungeoncrypt.game.data.Data.*;
@@ -37,13 +39,27 @@ public class GameScreen implements Screen {
 		this.viewport = new FitViewport(width,height,camera);
 		viewport.apply();
 
-
+		/**
+		 * Création et gestion du monde monde
+		 */
 		this.world = new World(new Vector2(0,0), false);
+		//Creaion de l'écouteur de collision
+		this.world.setContactListener(new BodyContactListenner(this));
 
-		b2dr = new Box2DDebugRenderer();
 
+		/**
+		 * Stage
+		 */
 		this.stage = new Stage();
 
+		/**
+		 * Debug mode
+		 */
+		b2dr = new Box2DDebugRenderer();
+
+		/**
+		 * RoomManager
+		 */
 		this.roomManager = new RoomManager(world, stage);
 
 
