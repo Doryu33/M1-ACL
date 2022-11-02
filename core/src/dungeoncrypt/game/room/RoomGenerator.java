@@ -11,7 +11,6 @@ import dungeoncrypt.game.tiles.special.Trap;
 
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -30,8 +29,6 @@ public final class RoomGenerator {
     private final ArrayList<SpecialTile> specialTileList;
     //Salle aléatoire générée
     private Tile[][] tilesRandomRoom;
-    //Pattern utilisé pour la génération de la salle. Est amené à changer régulierement.
-    private char[][] actualPattern;
     //Liste de tous les patterns
     private RoomGenerator.Pattern[] patterns;
     //Nombre de pattern au total
@@ -81,18 +78,32 @@ public final class RoomGenerator {
 
         tilesRandomRoom = generateSimpleRoom();
 
-        int numberOfGenerations = 2;
+        int numberOfGenerations = 7;
         int generationChoice = randomNumber.nextInt(numberOfGenerations);
 
-        int patternChoice = randomNumber.nextInt(numberOfPattern);
-        actualPattern = patterns[patternChoice].getPattern();
-        generationChoice = 0;
-        if (generationChoice == 0) {
-            labyrinthGeneration();
-        } else if (generationChoice == 1) {
-            crossGeneration();
+        switch (generationChoice){
+            case 0:
+                labyrinthGeneration();
+                break;
+            case 1:
+                crossGeneration();
+                break;
+            case 2:
+                fullPathGeneration();
+                break;
+            case 3:
+                hGeneration();
+                break;
+            case 4:
+                yGeneration();
+                break;
+            case 5:
+                i9generation();
+                break;
+            case 6:
+                tGeneration();
+                break;
         }
-
         return tilesRandomRoom;
     }
 
@@ -176,52 +187,153 @@ public final class RoomGenerator {
     }
 
     /**
-     * Applique les patterns de sorte à former une croix dans la salle. X
+     * Génération en forme de X
      */
     private void crossGeneration(){
+        int variant = randomNumber.nextInt(2);
+        if(variant == 0){
+            patternRightCenter6(getRandomPatternWithAccess(1,true,true,false,true).getPattern());
+        }
+        patternLeftUpCorner7(getRandomPatternWithAccess(0,false,true,true,false).getPattern());
+        patternRightUpCorner9(getRandomPatternWithAccess(0,false,true,false,true).getPattern());
+        patternMiddleCenter5(getRandomPatternWithAccess(0,true,true,true,true).getPattern());
+        patternLeftDownCorner1(getRandomPatternWithAccess(0,true,false,true,false).getPattern());
+        patternRightDownCorner3(getRandomPatternWithAccess(0,true,false,false,true).getPattern());
+    }
+
+    /**
+     * Génération sous forme d'un T penché sur le côté
+     */
+    private void tGeneration(){
+        int variant = randomNumber.nextInt(2);
+        if(variant == 0){
+            patternRightDownCorner3(getRandomPatternWithAccess(0,true,false,false,true).getPattern());
+            patternRightCenter6(getRandomPatternWithAccess(0,true,true,false,true).getPattern());
+            patternRightUpCorner9(getRandomPatternWithAccess(0,false,true,false,true).getPattern());
+            patternLeftCenter4(getRandomPatternWithAccess(2,false,false,true,false).getPattern());
+        }else{
+            patternLeftDownCorner1(getRandomPatternWithAccess(0,true,false,true,false).getPattern());
+            patternLeftCenter4(getRandomPatternWithAccess(0,true,true,true,false).getPattern());
+            patternLeftUpCorner7(getRandomPatternWithAccess(0,false,true,true,false).getPattern());
+            patternRightCenter6(getRandomPatternWithAccess(2,false,false,false,true).getPattern());
+        }
+        patternMiddleCenter5(getRandomPatternWithAccess(0,false,false,true,true).getPattern());
+    }
+
+    /**
+     * Génération sous forme de I9
+     */
+    private void i9generation(){
+        int variant = randomNumber.nextInt(2);
+        if (variant == 0){
+            patternMiddleCenter5(getRandomPatternWithAccess(0,true,true,true,false).getPattern());
+            patternRightDownCorner3(getRandomPatternWithAccess(0,true,false,false,false).getPattern());
+        }else{
+            patternMiddleCenter5(getRandomPatternWithAccess(0,true,false,true,false).getPattern());
+            patternRightDownCorner3(getRandomPatternWithAccess(0,true,false,false,true).getPattern());
+        }
+        patternMiddleUp8(getRandomPatternWithAccess(0,true,true,true,true).getPattern());
+        patternRightUpCorner9(getRandomPatternWithAccess(0,false,true,false,true).getPattern());
+        patternRightCenter6(getRandomPatternWithAccess(0,true,true,false,true).getPattern());
+        patternLeftUpCorner7(getRandomPatternWithAccess(0,false,true,true,false).getPattern());
+        patternLeftCenter4(getRandomPatternWithAccess(0,true,true,false,false).getPattern());
+        patternLeftDownCorner1(getRandomPatternWithAccess(variant+1,true,false,false,false).getPattern());
+    }
+
+    /**
+     * Génération sous forme d'un Y inversé
+     */
+    private void yGeneration(){
+        int variant = randomNumber.nextInt(3);
+        if(variant == 0){
+            patternRightCenter6(getRandomPatternWithAccess(0,false,true,false,true).getPattern());
+            patternLeftCenter4(getRandomPatternWithAccess(0,false,true,true,false).getPattern());
+        }else if(variant == 1){
+            patternRightCenter6(getRandomPatternWithAccess(0,true,true,false,true).getPattern());
+            patternRightUpCorner9(getRandomPatternWithAccess(1,false,true,false,false).getPattern());
+            patternLeftCenter4(getRandomPatternWithAccess(0,false,true,true,false).getPattern());
+        }else{
+            Pattern randomPatternWithAccess = getRandomPatternWithAccess(0,false,true,true,false);
+            patternLeftCenter4(randomPatternWithAccess.getPattern());
+            randomPatternWithAccess = invertPatternVertically(randomPatternWithAccess);
+            patternRightCenter6(randomPatternWithAccess.getPattern());
+        }
+        patternMiddleCenter5(getRandomPatternWithAccess(0,true,true,true,true).getPattern());
+        patternMiddleUp8(getRandomPatternWithAccess(0,true,true,false,false).getPattern());
+        patternRightDownCorner3(getRandomPatternWithAccess(0,true,false,false,false).getPattern());
+        patternLeftDownCorner1(getRandomPatternWithAccess(0,true,false,false,false).getPattern());
+    }
+
+    /**
+     * Génération avec tous les chemins connecté entre les patterns
+     */
+    private void fullPathGeneration(){
+        int variant = randomNumber.nextInt(3);
+        if(variant == 0){
+            //Entrée par 5
+            patternLeftDownCorner1(getRandomPatternWithAccess(0,true,false,false,false).getPattern());
+            patternRightDownCorner3(getRandomPatternWithAccess(2,true,false,false,false).getPattern());
+            patternMiddleCenter5(getRandomPatternWithAccess(0,true,true,true,true).getPattern());
+        }else if(variant == 1){
+            //Entrée par 3
+            patternLeftDownCorner1(getRandomPatternWithAccess(1,true,false,false,false).getPattern());
+            patternRightDownCorner3(getRandomPatternWithAccess(0,true,false,false,true).getPattern());
+            patternMiddleCenter5(getRandomPatternWithAccess(0,true,false,true,true).getPattern());
+        }else{
+            //Entrée par 1
+            patternLeftDownCorner1(getRandomPatternWithAccess(0,true,false,true,false).getPattern());
+            patternRightDownCorner3(getRandomPatternWithAccess(1,true,false,false,false).getPattern());
+            patternMiddleCenter5(getRandomPatternWithAccess(0,true,false,true,true).getPattern());
+        }
+        patternLeftCenter4(getRandomPatternWithAccess(0,true,true,true,false).getPattern());
+        patternRightCenter6(getRandomPatternWithAccess(0,true,true,false,true).getPattern());
+        patternLeftUpCorner7(getRandomPatternWithAccess(0,false,true,true,false).getPattern());
+        patternMiddleUp8(getRandomPatternWithAccess(0,true,true,true,true).getPattern());
+        patternRightUpCorner9(getRandomPatternWithAccess(0,false,true,false,true).getPattern());
 
     }
 
     /**
-     * Applique les patterns de sorte à former un plus dans la salle. +
-     * La case en bas au centre reste vide pour laisser la place au joueur d'apparaitre.
+     * Génération sous forme d'un petit labyrinth
      */
-    private void plusGeneration(){
-        Pattern p = getRandomPatternWithoutHeal();
-
-        p = rotatePatternClockwise(p);
-        patternMiddleUp8(p.getPattern());
-
-        p = rotatePatternClockwise(p);
-        patternLeftCenter4(p.getPattern());
-
-        p = rotatePatternClockwise(p);
-        patternMiddleCenter5(p.getPattern());
-
-        p = getRandomPatternWithAccess(0,false,false,false,true);
-        patternRightCenter6(p.getPattern());
-        //patternMiddleDown();
-    }
-
     private void labyrinthGeneration(){
-        patternLeftDownCorner1(getRandomPatternWithAccess(0,true,false,true,false).getPattern());
+        int variant = randomNumber.nextInt(2);
+        if(variant == 0){
+            patternLeftDownCorner1(getRandomPatternWithAccess(0,true,false,true,false).getPattern());
+            patternRightDownCorner3(getRandomPatternWithAccess(1,true,false,false,false).getPattern());
+            patternLeftUpCorner7(getRandomPatternWithAccess(0,false,true,false,false).getPattern());
+            patternRightUpCorner9(getRandomPatternWithAccess(0,false,true,false,true).getPattern());
+            patternMiddleUp8(getRandomPatternWithAccess(0,true,false,true,false).getPattern());
+        }else{
+            patternLeftDownCorner1(getRandomPatternWithAccess(1,true,false,false,false).getPattern());
+            patternRightDownCorner3(getRandomPatternWithAccess(0,true,false,false,true).getPattern());
+            patternLeftUpCorner7(getRandomPatternWithAccess(0,false,true,true,false).getPattern());
+            patternRightUpCorner9(getRandomPatternWithAccess(0,false,true,false,false).getPattern());
+            patternMiddleUp8(getRandomPatternWithAccess(0,true,false,false,true).getPattern());
+        }
         patternLeftCenter4(getRandomPatternWithAccess(0,true,true,true,false).getPattern());
-        patternLeftUpCorner7(getRandomPatternWithAccess(0,false,true,false,false).getPattern());
         patternMiddleCenter5(getRandomPatternWithAccess(0,false,false,true,true).getPattern());
         patternRightCenter6(getRandomPatternWithAccess(0,true,true,false,true).getPattern());
-        patternRightDownCorner3(getRandomPatternWithAccess(1,true,false,false,false).getPattern());
-        patternRightUpCorner9(getRandomPatternWithAccess(0,false,true,false,true).getPattern());
-        patternMiddleUp8(getRandomPatternWithAccess(0,true,false,true,false).getPattern());
-
     }
 
+    /**
+     * Génération sous forme d'un H
+     */
     private void hGeneration(){
+        int variant = randomNumber.nextInt(2);
+        if (variant == 0){
+            Pattern randomPatternWithAccess = getRandomPatternWithAccess(0, true, true, true, false);
+            patternLeftCenter4(randomPatternWithAccess.getPattern());
+            randomPatternWithAccess = invertPatternVertically(randomPatternWithAccess);
+            patternRightCenter6(randomPatternWithAccess.getPattern());
+        }else{
+            patternLeftCenter4(getRandomPatternWithAccess(0,true,true,true,false).getPattern());
+            patternRightCenter6(getRandomPatternWithAccess(0,true,true,false,true).getPattern());
+        }
         patternMiddleCenter5(getRandomPatternWithAccess(0,true,true,true,true).getPattern());
-        patternLeftCenter4(getRandomPatternWithAccess(0,true,true,true,false).getPattern());
         patternLeftDownCorner1(getRandomPatternWithAccess(0,true,false,false,false).getPattern());
         patternLeftUpCorner7(getRandomPatternWithAccess(2,false,true,false,false).getPattern());
         patternRightDownCorner3(getRandomPatternWithAccess(2,true,false,false,false).getPattern());
-        patternRightCenter6(getRandomPatternWithAccess(0,true,true,false,true).getPattern());
         patternRightUpCorner9(getRandomPatternWithAccess(0,false,true,false,false).getPattern());
     }
 

@@ -1,13 +1,13 @@
-18 //Nombre de pattern dans le fichier
+61 //Nombre de pattern dans le fichier
 s //s pour signifier le début d'un pattern. Start
 1 f //Le premier chiffre correspond au niveau de difficulté du pattern. Le deuxième permet de savoir si le pattern possède ou non une/des tuiles de soin (t pour True et f pour False)
-NSW
+NSWE
 ..X.X..
-..X.XT.
+..X.X..
 XXX.XXX
-...M..X
+...M...
 XXX.XXX
-.TX.XT.
+..X.X..
 ..X.X..
 e //e pour signifier la fin d'un pattern. End
 s
@@ -22,25 +22,25 @@ T.....T
 T.....T
 e
 s
-4 f
-SEW
-XXXXXXX
-X.....X
-X.M.M.X
-.......
-X.....X
+3 f
+NSEW
 XX...XX
-XXX.XXX
+XM....X
+.......
+...M...
+.......
+X....MX
+XX...XX
 e
 s
 2 t
 NSEW
 .......
-.......
+.T...T.
 ..T.T..
 ...H...
 ..T.T..
-.......
+.T...T.
 .......
 e
 s
@@ -56,14 +56,278 @@ NSEW
 e
 s
 1 f
+NSEW
+XXX.XXX
+X.....X
+X.....X
+...M...
+X.....X
+X.....X
+XXX.XXX
+e
+s
+2 f
+NSEW
+XXX.XXX
+X.....X
+X..M..X
+.......
+X..M..X
+X.....X
+XXX.XXX
+e
+s
+1 f
+NSEW
+XXX.XXX
+X.....X
+X.X.X.X
+..XMX..
+X.X.X.X
+X.....X
+XXX.XXX
+e
+s
+0 f
+NSEW
+XXX.XXX
+X.....X
+X.....X
+.......
+X.....X
+X.....X
+XXX.XXX
+e
+s
+2 f
+NSEW
+XXX.XXX
+X....MX
+X...T.X
+...X...
+X.T...X
+XM....X
+XXX.XXX
+e
+s
+1 f
+NSEW
+XXX.XXX
+XX...XX
+X.X.X.X
+...M...
+X.X.X.X
+XX...XX
+XXX.XXX
+e
+s
+3 f
+SEW
+XXXXXXX
+XT...TX
+X..M..X
+.......
+X..M..X
+XT...TX
+XXX.XXX
+e
+s
+0 f
+NSE
+XXX.XXX
+X.....X
+X.....X
+X......
+X.....X
+X.....X
+XXX.XXX
+e
+s
+2 f
+SWN
+XXX.XXX
+X.....X
+X.X.X.X
+...MXTX
+X.X.X.X
+X.....X
+XXX.XXX
+e
+s
+2 f
+SWN
+XXX.XXX
+X.....X
+X.X.X.X
+..TMX.X
+X.X.X.X
+X.....X
+XXX.XXX
+e
+s
+2 f
+SWN
+XXX.XXX
+X.....X
+X.T.X.X
+..TMXMX
+X.T.X.X
+X.....X
+XXX.XXX
+e
+s
+0 f
+SNE
+XXX.XXX
+X...X.X
+X.XX..X
+X...X..
+XXX.X.X
+X.....X
+XXX.XXX
+e
+s
+1 f
+SNE
+XXX.XXX
+X.....X
+X.....X
+X..M...
+X.....X
+X.....X
+XXX.XXX
+e
+s
+3 f
+SNE
+XXX.XXX
+XXT.TXX
+XXT.TTX
+XXT....
+XXT.TTX
+XXT.TXX
+XXX.XXX
+e
+s
+1 f
+SNE
+XXX.XXX
+XTT.TTX
+XT....X
+XXX....
+XT....X
+XTT.TTX
+XXX.XXX
+e
+s
+0 t
+SNE
+XXX.XXX
+X.....X
+X.....X
+X..H...
+X.....X
+X.....X
+XXX.XXX
+e
+s
+1 t
+SNE
+XXX.XXX
+X...T.X
+XT....X
+X..H...
+XT....X
+X...T.X
+XXX.XXX
+e
+s
+1 f
 EW
 XXXXXXX
-.......
-.......
+TTTTTTT
+T.....T
 ...M...
-.......
-.......
+T.....T
+TTTTTTT
 XXXXXXX
+e
+s
+2 f
+EW
+XXXXXXX
+X.XMX.X
+X.X.X.X
+.......
+X.X.X.X
+X.XMX.X
+XXXXXXX
+e
+s
+0 f
+NS
+XXX.XXX
+X.....X
+X.....X
+X.....X
+X.....X
+X.....X
+XXX.XXX
+e
+s
+4 f
+NS
+XXT...X
+XTTTT.X
+X...T.X
+X.T...X
+X.TTTXX
+X...TXX
+XTT.XXX
+e
+s
+0 f
+NS
+XXX...X
+XXXXX.X
+X...X.X
+X.X...X
+X.XXXXX
+X...XXX
+XXX.XXX
+e
+s
+0 f
+NS
+XXX.XXX
+X.....X
+X.XXX.X
+X.XXX.X
+X.XXX.X
+X.....X
+XXX.XXX
+e
+s
+0 f
+NS
+XXX.XXX
+X.....X
+X.XTX.X
+X.TTT.X
+X.XTX.X
+X.....X
+XXX.XXX
+e
+s
+1 f
+NS
+XXX.XXX
+X.....X
+X.XXX.X
+X..M..X
+X.XXX.X
+X.....X
+XXX.XXX
 e
 s
 1 f
@@ -77,26 +341,169 @@ X.....X
 XXX.XXX
 e
 s
-1 t
+0 t
+ES
+XXXXXXX
+X.....X
+X.X.X.X
+X.X.X..
+X.X.XXX
+XHX...X
+XXX.XXX
+e
+s
+0 t
 EN
 XXX.XXX
 X.....X
-X.H...X
+X.....X
 X..H...
-X...H.X
+X.....X
 X.....X
 XXXXXXX
 e
 s
-1 t
-N
+1 f
+SN
 XXX.XXX
 X.....X
 X.....X
-X..H..X
-X.TT..X
+X..M..X
+X.....X
+X.....X
+XXX.XXX
+e
+s
+1 f
+SN
+XXX.XXX
+X.....X
+X.....X
+X.M.M.X
+X.....X
+X.....X
+XXX.XXX
+e
+s
+1 f
+NW
+XXX.XXX
+X.....X
+X.....X
+...M..X
+X.....X
 X.....X
 XXXXXXX
+e
+s
+2 f
+NW
+XXX.XXX
+X.....X
+X...M.X
+......X
+X...M.X
+X.....X
+XXXXXXX
+e
+s
+0 f
+SN
+XXX.XXX
+XX....X
+X..X.XX
+X.XX..X
+X...X.X
+XXX...X
+XXX.XXX
+e
+s
+0 f
+SE
+XXXXXXX
+X...XXX
+X.X...X
+X.XXX..
+X.XXX.X
+X...X.X
+XXX.XXX
+e
+s
+0 f
+SN
+XXX.XXX
+XXX...X
+XXXXX.X
+X.....X
+X.XXXXX
+X...XXX
+XXX.XXX
+e
+s
+2 f
+SE
+XXXXXXX
+X...XXX
+X.X...X
+X.XMX..
+X.XXX.X
+X...X.X
+XXX.XXX
+e
+s
+2 t
+SW
+XTTTTTX
+X....TT
+X.TTH.T
+...XT.T
+XT..T.T
+XTT...T
+XXX.XXX
+e
+s
+0 f
+SW
+XXXXXXX
+X.....X
+X.XXX.X
+....T.X
+XXXXX.X
+X.....X
+XXX.XXX
+e
+s
+1 f
+SW
+XXXXXXX
+X...M.X
+XXX...X
+..X...X
+X.XXX.X
+X.....X
+XXX.XXX
+e
+s
+1 f
+SW
+XXXXXXX
+X.....X
+X.T.T.X
+......X
+X.T.T.X
+X.....X
+XXX.XXX
+e
+s
+1 f
+NS
+XXX.XXX
+X.....X
+X...T.X
+X.TTT.X
+X.T...X
+X.....X
+XXX.XXX
 e
 s
 2 t
@@ -121,62 +528,73 @@ X.....X
 XXX.XXX
 e
 s
-2 f
-SWN
+0 t
+S
+XXXXXXX
+XXXHXXX
 XXX.XXX
+X.....X
+X.XXX.X
+X..X..X
+XX...XX
+e
+s
+1 f
+S
+XXXXXXX
+XXXMXXX
+XXX.XXX
+X.....X
+X.XXX.X
+X..X..X
+XX...XX
+e
+s
+1 f
+S
+XXXXXXX
+X.....X
+X.....X
+X..M..X
+X.XXX.X
+X.....X
+XXX.XXX
+e
+s
+1 f
+S
+XXXXXXX
+X..M..X
+X.XXX.X
 X.....X
 X.X.X.X
-...MXTX
 X.X.X.X
-X.....X
-XXX.XXX
-e
-s
-1 f
-SE
-XXXXXXX
-X...XXX
-X.X...X
-X.XXX..
-X.XXX.X
-X...X.X
-XXX.XXX
-e
-s
-1 f
-SN
-XXX.XXX
-XXX...X
-XXXXX.X
-X.....X
-X.XXXXX
-X...XXX
-XXX.XXX
-e
-s
-1 f
-SNE
-XXX.XXX
-X...X.X
-X.XX..X
-X...X..
-XXX.X.X
-X.....X
 XXX.XXX
 e
 s
 2 f
-SE
+S
 XXXXXXX
-X...XXX
-X.X...X
-X.XMX..
+X..M..X
 X.XXX.X
-X...X.X
+X.....X
+X.T.T.X
+X.T.T.X
 XXX.XXX
 e
 s
-1 t
+3 f
+S
+XXXXXXX
+X..M..X
+X.XXX.X
+X.....X
+X.X.X.X
+XMX.XMX
+XXX.XXX
+e
+s
+0 t
 S
 XXXXXXX
 XH....X
@@ -196,4 +614,59 @@ XMX...X
 X.XXX.X
 XHX...X
 XXX.XXX
+e
+s
+1 f
+S
+XXXXXXX
+X.....X
+X.....X
+X..M..X
+X.....X
+X.....X
+XXX.XXX
+e
+s
+2 f
+S
+XXXXXXX
+X.....X
+X.....X
+X.M.M.X
+X.....X
+X.....X
+XXX.XXX
+e
+s
+0 t
+W
+XXXXXXX
+X.....X
+X.....X
+...H..X
+X.....X
+X.....X
+XXXXXXX
+e
+s
+1 t
+N
+XXX.XXX
+X.....X
+XTT.TTX
+X.....X
+X..H..X
+X.....X
+XXXXXXX
+e
+s
+0 f
+E
+XXXXXXX
+X.....X
+X.....X
+X......
+X.....X
+X.....X
+XXXXXXX
 e
