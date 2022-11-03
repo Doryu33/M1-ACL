@@ -1,13 +1,11 @@
 package dungeoncrypt.game.collisions;
 
-import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.*;
 import dungeoncrypt.game.entities.Entity;
 import dungeoncrypt.game.entities.Monster;
 import dungeoncrypt.game.entities.Player;
 import dungeoncrypt.game.tiles.special.SpecialTile;
 import dungeoncrypt.game.views.GameScreen;
-import jdk.nashorn.internal.parser.JSONParser;
 
 public class BodyContactListenner implements ContactListener {
     private GameScreen parent;
@@ -22,6 +20,8 @@ public class BodyContactListenner implements ContactListener {
      * Il faut donc utiliser 2 IF pour spécifier chaque cas.
      */
     public void beginContact(Contact contact) {
+        Boolean debugMod = true;
+        //
         Fixture fa = contact.getFixtureA();
         Fixture fb = contact.getFixtureB();
         //On récupère les objets stockés dans les UserData
@@ -30,28 +30,29 @@ public class BodyContactListenner implements ContactListener {
         //Static bodies only
         if(fa.getBody().getType().equals(BodyDef.BodyType.StaticBody) || fb.getBody().getType().equals(BodyDef.BodyType.StaticBody)){
             //Collision entre Special tile et Joueur
-
             if(obj1 instanceof SpecialTile && obj2 instanceof Player){
-                System.out.println(fa.getBody().getUserData()+" has hit1 "+ fb.getBody().getUserData());
+                if(debugMod){
+                    System.out.println(fa.getBody().getUserData()+" has hit1 "+ fb.getBody().getUserData());
+                }
                 tileEffectPlayer(fb,fa);
-
             }
             if(obj2 instanceof Player && obj1 instanceof SpecialTile){
-                System.out.println(fa.getBody().getUserData()+" has hit2 "+ fb.getBody().getUserData());
+                if(debugMod){
+                    System.out.println(fa.getBody().getUserData()+" has hit2 "+ fb.getBody().getUserData());
+                }
                 tileEffectPlayer(fb,fa);
             }
         //Dynamic bodies only
         } else {
             if(obj1 instanceof Player && obj2 instanceof Monster){
                 monstreDamagePlayer(fa,fb);
-                return;
             } else if(obj1 instanceof Monster && obj2 instanceof Player){
                 monstreDamagePlayer(fb,fa);
-                return;
             } else {
-                //debug only
-                //System.out.println("Contact");
-                //System.out.println(fa.getBody().getUserData()+" has hit "+ fb.getBody().getUserData());
+                if(debugMod){
+                    //System.out.println("Contact");
+                    //System.out.println(fa.getBody().getUserData()+" has hit "+ fb.getBody().getUserData());
+                }
             }
         }
     }
