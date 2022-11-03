@@ -29,8 +29,6 @@ public final class RoomGenerator {
     private final ArrayList<SpecialTile> specialTileList;
     //Salle aléatoire générée
     private Tile[][] tilesRandomRoom;
-    //Pattern utilisé pour la génération de la salle. Est amené à changer régulierement.
-    private char[][] actualPattern;
     //Liste de tous les patterns
     private RoomGenerator.Pattern[] patterns;
     //Nombre de pattern au total
@@ -80,112 +78,441 @@ public final class RoomGenerator {
 
         tilesRandomRoom = generateSimpleRoom();
 
-        int numberOfGenerations = 2;
+        int numberOfGenerations = 7;
         int generationChoice = randomNumber.nextInt(numberOfGenerations);
 
-        int patternChoice = randomNumber.nextInt(numberOfPattern);
-        actualPattern = patterns[patternChoice].getPattern();
-
-        if (generationChoice == 0) {
-            plusGeneration();
-        } else if (generationChoice == 1) {
-            crossGeneration();
+        switch (generationChoice){
+            case 0:
+                labyrinthGeneration();
+                break;
+            case 1:
+                crossGeneration();
+                break;
+            case 2:
+                fullPathGeneration();
+                break;
+            case 3:
+                hGeneration();
+                break;
+            case 4:
+                yGeneration();
+                break;
+            case 5:
+                i9generation();
+                break;
+            case 6:
+                tGeneration();
+                break;
         }
-
         return tilesRandomRoom;
     }
 
     /*
      * Représentation de la délimitation d'une salle
      * |-----------------|
-     * |  1  |  2  |  3  |
+     * |  7  |  8  |  9  |
      * |-----|-----|-----|
      * |  4  |  5  |  6  |
      * |-----|-----|-----|
-     * |  7  |  8  |  9  |
+     * |  1  |  2  |  3  |
      * |-----------------|
      */
 
     /**
-     * Applique le pattern pour le coin haut gauche. Chiffre 1 du schéma
+     * Applique le pattern pour le coin haut gauche. Chiffre 7 du schéma
+     * @param pattern à appliquer
      */
-    private void patternLeftUpCorner(){
-        applyPatternTo(1,1,ROOM_SIZE/3,ROOM_SIZE/3);
+    private void patternLeftUpCorner7(char[][] pattern){
+        applyPatternTo(1,1,ROOM_SIZE/3,ROOM_SIZE/3,pattern);
     }
 
     /**
-     * Applique le pattern pour la case haut centré. Chiffre 2 du schéma
+     * Applique le pattern pour la case haut centré. Chiffre 8 du schéma
+     * @param pattern à appliquer
      */
-    private void patternMiddleUp(){
-        applyPatternTo(ROOM_SIZE/3+1,1,(ROOM_SIZE/3)*2,ROOM_SIZE/3);
+    private void patternMiddleUp8(char[][] pattern){
+        applyPatternTo(ROOM_SIZE/3+1,1,(ROOM_SIZE/3)*2,ROOM_SIZE/3,pattern);
     }
 
     /**
-     * Applique le pattern pour le coin haut droit. Chiffre 3 du schéma
+     * Applique le pattern pour le coin haut droit. Chiffre 9 du schéma
+     * @param pattern à appliquer
      */
-    private void patternRightUpCorner(){
-        applyPatternTo((ROOM_SIZE/3*2)+1,1,(ROOM_SIZE/3)*3,ROOM_SIZE/3);
+    private void patternRightUpCorner9(char[][] pattern){
+        applyPatternTo((ROOM_SIZE/3*2)+1,1,(ROOM_SIZE/3)*3,ROOM_SIZE/3,pattern);
     }
 
     /**
      * Applique le pattern pour la case gauche au milieu. Chiffre 4 du schéma
+     * @param pattern à appliquer
      */
-    private void patternLeftCenter(){
-        applyPatternTo(1,(ROOM_SIZE/3)+1,ROOM_SIZE/3,(ROOM_SIZE/3)*2);
+    private void patternLeftCenter4(char[][] pattern){
+        applyPatternTo(1,(ROOM_SIZE/3)+1,ROOM_SIZE/3,(ROOM_SIZE/3)*2,pattern);
     }
 
     /**
      * Applique le pattern pour la case au centre. Chiffre 5 du schéma
+     * @param pattern à appliquer
      */
-    private void patternMiddleCenter() { applyPatternTo(ROOM_SIZE/3+1,(ROOM_SIZE/3)+1,(ROOM_SIZE/3)*2,(ROOM_SIZE/3)*2);}
+    private void patternMiddleCenter5(char[][] pattern) { applyPatternTo(ROOM_SIZE/3+1,(ROOM_SIZE/3)+1,(ROOM_SIZE/3)*2,(ROOM_SIZE/3)*2,pattern);}
 
     /**
      * Applique le pattern pour la case droite au milieu. Chiffre 6 du schéma
+     * @param pattern à appliquer
      */
-    private void patternRightCenter() { applyPatternTo((ROOM_SIZE/3*2)+1,(ROOM_SIZE/3)+1,(ROOM_SIZE/3)*3,(ROOM_SIZE/3)*2);}
+    private void patternRightCenter6(char[][] pattern) { applyPatternTo((ROOM_SIZE/3*2)+1,(ROOM_SIZE/3)+1,(ROOM_SIZE/3)*3,(ROOM_SIZE/3)*2,pattern);}
 
     /**
-     * Applique le pattern pour le coin bas gauche. Chiffre 7 du schéma
+     * Applique le pattern pour le coin bas gauche. Chiffre 1 du schéma
+     * @param pattern à appliquer
      */
-    private void patternLeftDownCorner(){
-        applyPatternTo(1,(ROOM_SIZE/3)*2+1,ROOM_SIZE/3,(ROOM_SIZE/3)*3);
+    private void patternLeftDownCorner1(char[][] pattern){
+        applyPatternTo(1,(ROOM_SIZE/3)*2+1,ROOM_SIZE/3,(ROOM_SIZE/3)*3,pattern);
     }
 
     /**
-     * Applique le pattern pour le coin bas centré. Chiffre 8 du schéma
+     * Applique le pattern pour le coin bas centré. Chiffre 2 du schéma
+     * @param pattern à appliquer
      */
-    private void patternMiddleDown(){
-        applyPatternTo(ROOM_SIZE/3+1,(ROOM_SIZE/3)*2+1,(ROOM_SIZE/3)*2,(ROOM_SIZE/3)*3);
+    private void patternMiddleDown2(char[][] pattern){
+        applyPatternTo(ROOM_SIZE/3+1,(ROOM_SIZE/3)*2+1,(ROOM_SIZE/3)*2,(ROOM_SIZE/3)*3,pattern);
     }
 
     /**
-     * Applique le pattern pour le coin bas droit. Chiffre 9 du schéma
+     * Applique le pattern pour le coin bas droit. Chiffre 3 du schéma
+     * @param pattern à appliquer
      */
-    private void patternRightDownCorner(){
-        applyPatternTo((ROOM_SIZE/3*2)+1,(ROOM_SIZE/3)*2+1,(ROOM_SIZE/3)*3,(ROOM_SIZE/3)*3);
+    private void patternRightDownCorner3(char[][] pattern){
+        applyPatternTo((ROOM_SIZE/3*2)+1,(ROOM_SIZE/3)*2+1,(ROOM_SIZE/3)*3,(ROOM_SIZE/3)*3,pattern);
     }
 
     /**
-     * Applique les patterns de sorte à former une croix dans la salle. X
+     * Génération en forme de X
      */
     private void crossGeneration(){
-        patternLeftUpCorner();
-        patternRightUpCorner();
-        patternMiddleCenter();
-        patternLeftDownCorner();
-        patternRightDownCorner();
+        int variant = randomNumber.nextInt(2);
+        if(variant == 0){
+            patternRightCenter6(getRandomPatternWithAccess(1,true,true,false,true).getPattern());
+        }
+        patternLeftUpCorner7(getRandomPatternWithAccess(0,false,true,true,false).getPattern());
+        patternRightUpCorner9(getRandomPatternWithAccess(0,false,true,false,true).getPattern());
+        patternMiddleCenter5(getRandomPatternWithAccess(0,true,true,true,true).getPattern());
+        patternLeftDownCorner1(getRandomPatternWithAccess(0,true,false,true,false).getPattern());
+        patternRightDownCorner3(getRandomPatternWithAccess(0,true,false,false,true).getPattern());
     }
 
     /**
-     * Applique les patterns de sorte à former un plus dans la salle. +
-     * La case en bas au centre reste vide pour laisser la place au joueur d'apparaitre.
+     * Génération sous forme d'un T penché sur le côté
      */
-    private void plusGeneration(){
-        patternMiddleUp();
-        patternLeftCenter();
-        patternMiddleCenter();
-        patternRightCenter();
-        //patternMiddleDown();
+    private void tGeneration(){
+        int variant = randomNumber.nextInt(2);
+        if(variant == 0){
+            patternRightDownCorner3(getRandomPatternWithAccess(0,true,false,false,true).getPattern());
+            patternRightCenter6(getRandomPatternWithAccess(0,true,true,false,true).getPattern());
+            patternRightUpCorner9(getRandomPatternWithAccess(0,false,true,false,true).getPattern());
+            patternLeftCenter4(getRandomPatternWithAccess(2,false,false,true,false).getPattern());
+        }else{
+            patternLeftDownCorner1(getRandomPatternWithAccess(0,true,false,true,false).getPattern());
+            patternLeftCenter4(getRandomPatternWithAccess(0,true,true,true,false).getPattern());
+            patternLeftUpCorner7(getRandomPatternWithAccess(0,false,true,true,false).getPattern());
+            patternRightCenter6(getRandomPatternWithAccess(2,false,false,false,true).getPattern());
+        }
+        patternMiddleCenter5(getRandomPatternWithAccess(0,false,false,true,true).getPattern());
+    }
+
+    /**
+     * Génération sous forme de I9
+     */
+    private void i9generation(){
+        int variant = randomNumber.nextInt(2);
+        if (variant == 0){
+            patternMiddleCenter5(getRandomPatternWithAccess(0,true,true,true,false).getPattern());
+            patternRightDownCorner3(getRandomPatternWithAccess(0,true,false,false,false).getPattern());
+        }else{
+            patternMiddleCenter5(getRandomPatternWithAccess(0,true,false,true,false).getPattern());
+            patternRightDownCorner3(getRandomPatternWithAccess(0,true,false,false,true).getPattern());
+        }
+        patternMiddleUp8(getRandomPatternWithAccess(0,true,true,true,true).getPattern());
+        patternRightUpCorner9(getRandomPatternWithAccess(0,false,true,false,true).getPattern());
+        patternRightCenter6(getRandomPatternWithAccess(0,true,true,false,true).getPattern());
+        patternLeftUpCorner7(getRandomPatternWithAccess(0,false,true,true,false).getPattern());
+        patternLeftCenter4(getRandomPatternWithAccess(0,true,true,false,false).getPattern());
+        patternLeftDownCorner1(getRandomPatternWithAccess(variant+1,true,false,false,false).getPattern());
+    }
+
+    /**
+     * Génération sous forme d'un Y inversé
+     */
+    private void yGeneration(){
+        int variant = randomNumber.nextInt(3);
+        if(variant == 0){
+            patternRightCenter6(getRandomPatternWithAccess(0,false,true,false,true).getPattern());
+            patternLeftCenter4(getRandomPatternWithAccess(0,false,true,true,false).getPattern());
+        }else if(variant == 1){
+            patternRightCenter6(getRandomPatternWithAccess(0,true,true,false,true).getPattern());
+            patternRightUpCorner9(getRandomPatternWithAccess(1,false,true,false,false).getPattern());
+            patternLeftCenter4(getRandomPatternWithAccess(0,false,true,true,false).getPattern());
+        }else{
+            Pattern randomPatternWithAccess = getRandomPatternWithAccess(0,false,true,true,false);
+            patternLeftCenter4(randomPatternWithAccess.getPattern());
+            randomPatternWithAccess = invertPatternVertically(randomPatternWithAccess);
+            patternRightCenter6(randomPatternWithAccess.getPattern());
+        }
+        patternMiddleCenter5(getRandomPatternWithAccess(0,true,true,true,true).getPattern());
+        patternMiddleUp8(getRandomPatternWithAccess(0,true,true,false,false).getPattern());
+        patternRightDownCorner3(getRandomPatternWithAccess(0,true,false,false,false).getPattern());
+        patternLeftDownCorner1(getRandomPatternWithAccess(0,true,false,false,false).getPattern());
+    }
+
+    /**
+     * Génération avec tous les chemins connecté entre les patterns
+     */
+    private void fullPathGeneration(){
+        int variant = randomNumber.nextInt(3);
+        if(variant == 0){
+            //Entrée par 5
+            patternLeftDownCorner1(getRandomPatternWithAccess(0,true,false,false,false).getPattern());
+            patternRightDownCorner3(getRandomPatternWithAccess(2,true,false,false,false).getPattern());
+            patternMiddleCenter5(getRandomPatternWithAccess(0,true,true,true,true).getPattern());
+        }else if(variant == 1){
+            //Entrée par 3
+            patternLeftDownCorner1(getRandomPatternWithAccess(1,true,false,false,false).getPattern());
+            patternRightDownCorner3(getRandomPatternWithAccess(0,true,false,false,true).getPattern());
+            patternMiddleCenter5(getRandomPatternWithAccess(0,true,false,true,true).getPattern());
+        }else{
+            //Entrée par 1
+            patternLeftDownCorner1(getRandomPatternWithAccess(0,true,false,true,false).getPattern());
+            patternRightDownCorner3(getRandomPatternWithAccess(1,true,false,false,false).getPattern());
+            patternMiddleCenter5(getRandomPatternWithAccess(0,true,false,true,true).getPattern());
+        }
+        patternLeftCenter4(getRandomPatternWithAccess(0,true,true,true,false).getPattern());
+        patternRightCenter6(getRandomPatternWithAccess(0,true,true,false,true).getPattern());
+        patternLeftUpCorner7(getRandomPatternWithAccess(0,false,true,true,false).getPattern());
+        patternMiddleUp8(getRandomPatternWithAccess(0,true,true,true,true).getPattern());
+        patternRightUpCorner9(getRandomPatternWithAccess(0,false,true,false,true).getPattern());
+
+    }
+
+    /**
+     * Génération sous forme d'un petit labyrinth
+     */
+    private void labyrinthGeneration(){
+        int variant = randomNumber.nextInt(2);
+        if(variant == 0){
+            patternLeftDownCorner1(getRandomPatternWithAccess(0,true,false,true,false).getPattern());
+            patternRightDownCorner3(getRandomPatternWithAccess(1,true,false,false,false).getPattern());
+            patternLeftUpCorner7(getRandomPatternWithAccess(0,false,true,false,false).getPattern());
+            patternRightUpCorner9(getRandomPatternWithAccess(0,false,true,false,true).getPattern());
+            patternMiddleUp8(getRandomPatternWithAccess(0,true,false,true,false).getPattern());
+        }else{
+            patternLeftDownCorner1(getRandomPatternWithAccess(1,true,false,false,false).getPattern());
+            patternRightDownCorner3(getRandomPatternWithAccess(0,true,false,false,true).getPattern());
+            patternLeftUpCorner7(getRandomPatternWithAccess(0,false,true,true,false).getPattern());
+            patternRightUpCorner9(getRandomPatternWithAccess(0,false,true,false,false).getPattern());
+            patternMiddleUp8(getRandomPatternWithAccess(0,true,false,false,true).getPattern());
+        }
+        patternLeftCenter4(getRandomPatternWithAccess(0,true,true,true,false).getPattern());
+        patternMiddleCenter5(getRandomPatternWithAccess(0,false,false,true,true).getPattern());
+        patternRightCenter6(getRandomPatternWithAccess(0,true,true,false,true).getPattern());
+    }
+
+    /**
+     * Génération sous forme d'un H
+     */
+    private void hGeneration(){
+        int variant = randomNumber.nextInt(2);
+        if (variant == 0){
+            Pattern randomPatternWithAccess = getRandomPatternWithAccess(0, true, true, true, false);
+            patternLeftCenter4(randomPatternWithAccess.getPattern());
+            randomPatternWithAccess = invertPatternVertically(randomPatternWithAccess);
+            patternRightCenter6(randomPatternWithAccess.getPattern());
+        }else{
+            patternLeftCenter4(getRandomPatternWithAccess(0,true,true,true,false).getPattern());
+            patternRightCenter6(getRandomPatternWithAccess(0,true,true,false,true).getPattern());
+        }
+        patternMiddleCenter5(getRandomPatternWithAccess(0,true,true,true,true).getPattern());
+        patternLeftDownCorner1(getRandomPatternWithAccess(0,true,false,false,false).getPattern());
+        patternLeftUpCorner7(getRandomPatternWithAccess(2,false,true,false,false).getPattern());
+        patternRightDownCorner3(getRandomPatternWithAccess(2,true,false,false,false).getPattern());
+        patternRightUpCorner9(getRandomPatternWithAccess(0,false,true,false,false).getPattern());
+    }
+
+    /**
+     * Fonction qui permet de récupérer un pattern aléatoire qui correspond aux accès demandés
+     * @param withHeal 0 pour un pattern sans tuile de soin, 1 pour un pattern avec une tuile de soin, et 2 pour une tuile complétement aléatoire
+     * @param northAccess souhaité
+     * @param southAccess souhaité
+     * @param eastAccess souhaité
+     * @param westAccess souhaité
+     * @return le pattern correspondant
+     */
+    private Pattern getRandomPatternWithAccess(int withHeal, boolean northAccess, boolean southAccess, boolean eastAccess, boolean westAccess){
+        Pattern pattern;
+        if(withHeal == 0){
+            pattern = getRandomPatternWithoutHeal();
+        }else if(withHeal == 1){
+            pattern = getRandomHealPattern();
+        }else{
+            pattern = getRandomPattern();
+        }
+
+        Pattern possiblePattern;
+        while(pattern.hasNorthAccess() != northAccess || pattern.hasSouthAccess() != southAccess
+                || pattern.hasEastAccess() != eastAccess || pattern.hasWestAccess() != westAccess){
+
+            possiblePattern = canThisPatternBe(pattern,northAccess,southAccess, eastAccess, westAccess);
+            if(possiblePattern != null){
+                return possiblePattern;
+            }
+
+            if(withHeal == 0){
+                pattern = getRandomPatternWithoutHeal();
+            }else if(withHeal == 1){
+                pattern = getRandomHealPattern();
+            }else{
+                pattern = getRandomPattern();
+            }
+        }
+        return pattern;
+    }
+
+    /**
+     * Savoir si le pattern passé en paramètre peut correspondre aux demandes. Càd, savoir si les accès du pattern peuvent correspondre avec ceux passés en paramètre
+     * tout en inversant horizontallement et/ou verticalement le pattern.
+     * @param pattern à analyser
+     * @param northAccess souhaité
+     * @param southAccess souhaité
+     * @param eastAccess souhaité
+     * @param westAccess souhaité
+     * @return une copie inversée du pattern passé en paramètre si c'est possible. null sinon.
+     */
+    private Pattern canThisPatternBe(Pattern pattern, boolean northAccess, boolean southAccess, boolean eastAccess, boolean westAccess){
+        pattern = invertPatternHorizontally(pattern);
+        if(isPatternMatchesTo(pattern,northAccess,southAccess,eastAccess,westAccess)){
+            return pattern;
+        }
+
+        pattern = invertPatternVertically(pattern);
+        if(isPatternMatchesTo(pattern,northAccess,southAccess,eastAccess,westAccess)){
+            return pattern;
+        }
+
+        pattern = invertPatternHorizontally(pattern);
+        if(isPatternMatchesTo(pattern,northAccess,southAccess,eastAccess,westAccess)){
+            return pattern;
+        }
+
+        for (int i = 0; i < 3; i++) {
+            pattern = rotatePatternClockwise(pattern);
+            if(isPatternMatchesTo(pattern,northAccess,southAccess,eastAccess,westAccess)){
+                return pattern;
+            }
+        }
+        return null;
+    }
+    //Fonction simple pour savoir si les champs du pattern correspondent avec ceux en paramètres
+    private boolean isPatternMatchesTo(Pattern pattern, boolean northAccess, boolean southAccess, boolean eastAccess, boolean westAccess){
+        return pattern.hasNorthAccess() == northAccess && pattern.hasSouthAccess() == southAccess
+                && pattern.hasEastAccess() == eastAccess && pattern.hasWestAccess() == westAccess;
+    }
+
+    /**
+     * Séléctionner un pattern qui possède une/plusieurs tuiles de soin
+     * @return un pattern qui possède une tuile de soin
+     */
+    private Pattern getRandomHealPattern(){
+        int patternChoice = randomNumber.nextInt(numberOfPattern);
+        while(!patterns[patternChoice].hasHeal){
+            patternChoice = randomNumber.nextInt(numberOfPattern);
+        }
+        return getPattern(patternChoice);
+    }
+
+    /**
+     * Séléctionner un pattern aléatoire mais qui ne possède de tuiles de soin
+     * @return un pattern aléatoire sans tuile de soin
+     */
+    private Pattern getRandomPatternWithoutHeal(){
+        int patternChoice = randomNumber.nextInt(numberOfPattern);
+        while(patterns[patternChoice].hasHeal){
+            patternChoice = randomNumber.nextInt(numberOfPattern);
+        }
+        return getPattern(patternChoice);
+    }
+
+    /**
+     * Séléctionner un pattern aléatoire
+     * @return un pattern aléatoire
+     */
+    private Pattern getRandomPattern(){
+        int patternChoice = randomNumber.nextInt(numberOfPattern);
+        return getPattern(patternChoice);
+    }
+
+    /**
+     * Récupérer une copie du pattern
+     * @param index de la liste de tous les patterns
+     * @return une copie du pattern
+     */
+    private Pattern getPattern(int index){
+        return new Pattern(patterns[index]);
+    }
+
+    /**
+     * Inverse horizontallement le pattern en parametre en créant une copie
+     * @param pattern à inverser
+     * @return une copie du pattern avec la transformation
+     */
+    private Pattern invertPatternHorizontally(Pattern pattern){
+        char[][] newArrayPattern = new char[PATTERN_SIZE][PATTERN_SIZE];
+        char[][] arrayPattern = pattern.getPattern();
+        int yNewPattern = PATTERN_SIZE-1;
+        for (int y = 0; y < PATTERN_SIZE; y++) {
+            System.arraycopy(arrayPattern[y], 0, newArrayPattern[yNewPattern], 0, PATTERN_SIZE);
+            yNewPattern--;
+        }
+        Pattern p = new Pattern(pattern,newArrayPattern);
+        p.flipHorizontally();
+        return p;
+    }
+
+    /**
+     * Inverse verticalement le pattern en parametre en créant une copie
+     * @param pattern à inverser
+     * @return une copie du pattern avec la transformation
+     */
+    private Pattern invertPatternVertically(Pattern pattern){
+        char[][] newArrayPattern = new char[PATTERN_SIZE][PATTERN_SIZE];
+        char[][] arrayPattern = pattern.getPattern();
+        int xNewPattern;
+        for (int y = 0; y < PATTERN_SIZE; y++) {
+            xNewPattern = PATTERN_SIZE-1;
+            for (int x = 0; x < PATTERN_SIZE; x++) {
+                newArrayPattern[y][xNewPattern] = arrayPattern[y][x];
+                xNewPattern--;
+            }
+        }
+        Pattern p = new Pattern(pattern,newArrayPattern);
+        p.flipVertically();
+        return p;
+    }
+
+    /**
+     * Inverse dans le sens horaire le pattern en parametre en créant une copie
+     * @param pattern qui doit subir une rotation
+     * @return une copie du pattern avec la transformation
+     */
+    private Pattern rotatePatternClockwise(Pattern pattern){
+        char[][] p = pattern.getPattern();
+        char[][] newArrayPattern = new char[PATTERN_SIZE][PATTERN_SIZE];
+        for (int r = 0; r < PATTERN_SIZE; r++) {
+            for (int c = 0; c < PATTERN_SIZE; c++) {
+                newArrayPattern[c][PATTERN_SIZE-1-r] = p[r][c];
+            }
+        }
+        Pattern pat = new Pattern(pattern,newArrayPattern);
+        pat.rotateClockwise();
+        return pat;
     }
 
     /**
@@ -194,14 +521,15 @@ public final class RoomGenerator {
      * @param yS point Y du coin haut gauche
      * @param xE point X du coin bas droite
      * @param yE point Y du coin bas droite
+     * @param pattern à appliquer
      */
-    private void applyPatternTo(int xS, int yS, int xE, int yE){
+    private void applyPatternTo(int xS, int yS, int xE, int yE, char[][] pattern){
         int xPattern;
         int yPattern = 0;
         for (int y = yS; y <= yE; y++) {
             xPattern = 0;
             for (int x = xS; x <= xE; x++) {
-                switch (actualPattern[yPattern][xPattern]){
+                switch (pattern[yPattern][xPattern]){
                     case 'X':
                         tilesRandomRoom[y][x] = new Wall();
                         break;
@@ -245,13 +573,26 @@ public final class RoomGenerator {
         String line;
         //Lire le fichier patterns.txt
         InputStream patternsFile = getClass().getClassLoader().getResourceAsStream("patterns/patterns.txt");
-        System.out.println(patternsFile);
         Scanner fileReader = new Scanner(patternsFile);
         //Lire la première ligne qui contient le nombre de pattern dans le fichier
         line = fileReader.nextLine();
-        numberOfPattern = Integer.parseInt(String.valueOf(line.charAt(0)));
+        int index = 0;
+        StringBuilder numberP = new StringBuilder();
+        while(line.charAt(index) != ' '){
+            numberP.append(line.charAt(index));
+            index++;
+        }
+        numberOfPattern = Integer.parseInt(numberP.toString());
         //Initialisé le tableau de patterns
         patterns = new RoomGenerator.Pattern[numberOfPattern];
+
+        int level = 0;
+        boolean hasHeal = false;
+        boolean northAccess,southAccess,westAccess,eastAccess;
+        eastAccess = false;
+        westAccess = false;
+        northAccess = false;
+        southAccess = false;
 
         //Tant que nous ne sommes pas à la fin du fichier
         while (fileReader.hasNextLine()) {
@@ -259,6 +600,31 @@ public final class RoomGenerator {
             //Si la ligne commence par 's' alors nous sommes au début d'un nouveau pattern. On initialise alors le tableau
             if(line.charAt(0) == 's'){
                 pattern = new char[ROOM_SIZE/3][ROOM_SIZE/3];
+                line = fileReader.nextLine();
+                level = Integer.parseInt(String.valueOf(line.charAt(0)));
+                hasHeal = line.charAt(2) == 't';
+
+                eastAccess = false;
+                westAccess = false;
+                northAccess = false;
+                southAccess = false;
+                line = fileReader.nextLine();
+                for (int i = 0; i < line.length(); i++) {
+                    switch (line.charAt(i)){
+                        case 'N':
+                            northAccess = true;
+                            break;
+                        case 'S':
+                            southAccess = true;
+                            break;
+                        case 'E':
+                            eastAccess = true;
+                            break;
+                        case 'W':
+                            westAccess = true;
+                            break;
+                    }
+                }
             }
 
             //Initialise chaque case
@@ -273,7 +639,7 @@ public final class RoomGenerator {
 
             //Si la ligne commence par 'e' alors nous sommes à la fin d'un pattern. On initialise alors l'objet Pattern
             if(line.charAt(0) == 'e'){
-                patterns[indexPatternsArray] = new RoomGenerator.Pattern(pattern);
+                patterns[indexPatternsArray] = new RoomGenerator.Pattern(pattern,level,hasHeal,northAccess,southAccess,eastAccess,westAccess);
                 indexPatternsArray++;
                 y = 0;
             }
@@ -289,12 +655,98 @@ public final class RoomGenerator {
      * Class pour garder en mémoire les différents patterns
      */
     private static final class Pattern{
-        private final char[][] pattern;
-        private Pattern(char[][] p){
+        private char[][] pattern;
+        private final int level;
+        private final boolean hasHeal;
+        private boolean northAccess;
+        private boolean southAccess;
+        private boolean eastAccess;
+        private boolean westAccess;
+
+        private Pattern(char[][] p, int level, boolean hasHeal, boolean northAccess, boolean southAccess, boolean eastAccess, boolean westAccess){
             this.pattern = p;
+            this.level = level;
+            this.hasHeal = hasHeal;
+            this.northAccess = northAccess;
+            this.southAccess = southAccess;
+            this.eastAccess = eastAccess;
+            this.westAccess = westAccess;
         }
+
+        private Pattern(Pattern pattern){
+            this.pattern = pattern.copyPattern();
+            this.level = pattern.getLevel();
+            this.hasHeal = pattern.hasHeal;
+            this.northAccess = pattern.hasNorthAccess();
+            this.southAccess = pattern.hasSouthAccess();
+            this.eastAccess = pattern.hasEastAccess();
+            this.westAccess = pattern.hasWestAccess();
+        }
+
+        private Pattern(Pattern pattern,char[][] p){
+            this.pattern = p;
+            this.level = pattern.getLevel();
+            this.hasHeal = pattern.hasHeal;
+            this.northAccess = pattern.hasNorthAccess();
+            this.southAccess = pattern.hasSouthAccess();
+            this.eastAccess = pattern.hasEastAccess();
+            this.westAccess = pattern.hasWestAccess();
+        }
+
         public char[][] getPattern() {
             return pattern;
+        }
+        public char[][] copyPattern() {
+            char[][] p = new char[PATTERN_SIZE][PATTERN_SIZE];
+            for (int y = 0; y < PATTERN_SIZE; y++) {
+                System.arraycopy(pattern[y], 0, p[y], 0, PATTERN_SIZE);
+            }
+            return p;
+        }
+        public int getLevel() {
+            return level;
+        }
+        public boolean hasHeal() {
+            return hasHeal;
+        }
+        public String toString(){
+            return "Level : "+level+" and hasHeal : "+hasHeal+
+                    " northAccess : "+northAccess+
+                    " southAccess : "+southAccess+
+                    " eastAccess : "+eastAccess+
+                    " westAccess : "+westAccess;
+        }
+        public boolean hasNorthAccess() {
+            return northAccess;
+        }
+        public boolean hasSouthAccess() {
+            return southAccess;
+        }
+        public boolean hasEastAccess() {
+            return eastAccess;
+        }
+        public boolean hasWestAccess() {
+            return westAccess;
+        }
+        public void flipVertically(){
+            boolean tmp = eastAccess;
+            eastAccess = westAccess;
+            westAccess = tmp;
+        }
+        public void flipHorizontally(){
+            boolean tmp = northAccess;
+            northAccess = southAccess;
+            southAccess = tmp;
+        }
+        public void rotateClockwise() {
+            boolean tmpEast = eastAccess;
+            boolean tmpWest = westAccess;
+            boolean tmpNorth = northAccess;
+            boolean tmpSouth = southAccess;
+            eastAccess = tmpNorth;
+            southAccess = tmpEast;
+            westAccess = tmpSouth;
+            northAccess = tmpWest;
         }
     }
 }
