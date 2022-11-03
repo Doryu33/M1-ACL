@@ -100,16 +100,16 @@ public class PreferencesScreen implements Screen {
         stage.addActor(table);
         /* Remplissage de la table */
         table.add(titleLab).colspan(2);
-        table.row().pad(PADDING_TOP, 0, PADDING_DOWN, 0);;
+        table.row().pad(PADDING_TOP, 0, PADDING_DOWN, 0);
         table.add(volumeMusicLab).fillX().uniformX().left();
         table.add(volumeMusicSlider).fillX().uniformX();
-        table.row().pad(PADDING_TOP, 0, PADDING_DOWN, 0);;
+        table.row().pad(PADDING_TOP, 0, PADDING_DOWN, 0);
         table.add(musicOnOffLab).fillX().uniformX();
         table.add(enableMusicBox).fillX().uniformX();
-        table.row().pad(PADDING_TOP, 0, PADDING_DOWN, 0);;
+        table.row().pad(PADDING_TOP, 0, PADDING_DOWN, 0);
         table.add(volumeSoundLabel).fillX().uniformX();
         table.add(volumeSoundEffectsSlider).fillX().uniformX();
-        table.row().pad(PADDING_TOP, 0, PADDING_DOWN, 0);;
+        table.row().pad(PADDING_TOP, 0, PADDING_DOWN, 0);
         table.add(soundOnOffLab).fillX().uniformX();
         table.add(enableSoundEffectBox).fillX().uniformX();
         table.row().pad(PADDING_TOP, 0, PADDING_DOWN, 0);

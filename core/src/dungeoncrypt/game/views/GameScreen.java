@@ -33,6 +33,7 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void show () {
+		Gdx.input.setInputProcessor(stage);
 		float width = Gdx.graphics.getWidth();
 		float height = Gdx.graphics.getHeight();
 		camera.position.set(RENDER_SCALE*12,RENDER_SCALE*12,0);
