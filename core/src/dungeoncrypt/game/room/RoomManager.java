@@ -81,5 +81,9 @@ public final class RoomManager {
         }
 
     }
+
+    public Room getActualRoom() {
+        return actualRoom;
+    }
 }
 
