@@ -115,6 +115,7 @@ public class GameScreen implements Screen {
 		}
 		if(live <= 0) {
 			batch.draw(new Texture("images/deadbar.png"),400,435,400,350);
+			parent.changeScreen(ENDGAME);
 		}
 		batch.end();
 
