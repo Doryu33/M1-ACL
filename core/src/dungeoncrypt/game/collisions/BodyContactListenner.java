@@ -2,7 +2,7 @@ package dungeoncrypt.game.collisions;
 
 import com.badlogic.gdx.physics.box2d.*;
 import dungeoncrypt.game.entities.Entity;
-import dungeoncrypt.game.entities.Monster;
+import dungeoncrypt.game.entities.monsters.Monster;
 import dungeoncrypt.game.entities.Player;
 import dungeoncrypt.game.tiles.special.SpecialTile;
 import dungeoncrypt.game.views.GameScreen;

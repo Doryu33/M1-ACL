@@ -36,12 +36,20 @@ public class Data {
     public static final String PLAYER_TYPE = "Player";
     public static final String MONSTER_TYPE = "Monster";
 
+    //String pour définir le type spécial d'un monstre
+    public static final String SKELETON_TYPE = "Skeleton";
+    public static final String ZOMBIE_TYPE = "Zombie";
+    public static final String GHOST_TYPE = "Ghost";
+
     //Caractère pour définir l'affichage de chaque élément
     public static final char FLOOR_TILE = ' ';
     public static final char WALL_TILE = 'X';
-    public static final char EXIT_TILE = 'S';
+    public static final char EXIT_TILE = 'E';
     public static final char PLAYER_TILE = 'P';
-    public static final char MONSTER_TILE = 'M';
+    public static final char MONSTER_TILE = 'M'; //monstre quelconque
+    public static final char ZOMBIE_TILE = 'Z';
+    public static final char SKELETON_TILE = 'S';
+    public static final char GHOST_TILE = 'G';
     public static final char HEALING_TILE = 'H';
     public static final char TRAP_TILE = 'T';
 
@@ -49,7 +57,9 @@ public class Data {
     public static final int PLAYER_INITIAL_HP = 50;
 
     //Constantes numériques pour les statistiques des monstres
-    public static final int MONSTER_INITIAL_HP = 20;
+    public static final int SKELETON_INITIAL_HP = 20;
+    public static final int ZOMBIE_INITIAL_HP = 20;
+    public static final int GHOST_INITIAL_HP = 20;
 
     //Constantes numériques pour les tuiles spéciales
     //Nombre de point de vie que donne la tuile HealingTile

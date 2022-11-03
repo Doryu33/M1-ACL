@@ -1,6 +1,9 @@
 package dungeoncrypt.game.room;
 
-import dungeoncrypt.game.entities.Monster;
+import dungeoncrypt.game.entities.monsters.Ghost;
+import dungeoncrypt.game.entities.monsters.Monster;
+import dungeoncrypt.game.entities.monsters.Skeleton;
+import dungeoncrypt.game.entities.monsters.Zombie;
 import dungeoncrypt.game.tiles.classic.Floor;
 import dungeoncrypt.game.tiles.Tile;
 import dungeoncrypt.game.tiles.classic.Wall;
@@ -544,7 +547,27 @@ public final class RoomGenerator {
                         specialTileList.add(healingTile);
                         break;
                     case 'M':
-                        monsters.add(new Monster(x,y));
+                        int choice = randomNumber.nextInt(3);
+                        switch (choice){
+                            case 0:
+                                monsters.add(new Skeleton(x,y));
+                                break;
+                            case 1:
+                                monsters.add(new Zombie(x,y));
+                                break;
+                            case 2:
+                                monsters.add(new Ghost(x,y));
+                                break;
+                        }
+                        break;
+                    case 'S':
+                        monsters.add(new Skeleton(x,y));
+                        break;
+                    case 'Z':
+                        monsters.add(new Zombie(x,y));
+                        break;
+                    case 'G':
+                        monsters.add(new Ghost(x,y));
                         break;
                 }
                 xPattern++;
