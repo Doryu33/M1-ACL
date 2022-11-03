@@ -22,7 +22,6 @@ public final class Monster extends Entity {
         this.timer = 0;
         this.horizontalForce = 0;
         this.verticalForce = 0;
-
     }
 
     /**

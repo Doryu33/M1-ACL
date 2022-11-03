@@ -188,7 +188,7 @@ public final class Room {
     }
 
     /**
-     * Crée les Bodys des tuiles
+     * Crée les Bodies des tuiles
      */
     public void createBodyTiles(){
         int yPos = ROOM_SIZE*RENDER_SCALE;
@@ -201,6 +201,7 @@ public final class Room {
                 else {
                     body = this.world.createBody(tiles[y][x].createBodyDef(x * RENDER_SCALE + RENDER_SCALE, yPos, true));
                 }
+                body.setUserData(tiles[y][x]);
                 FixtureDef shape = tiles[y][x].createShape();
                 body.createFixture(shape);
                 shape.shape.dispose();
@@ -216,10 +217,15 @@ public final class Room {
     public void createBodyPlayer(){
         Body body = this.world.createBody(player.createBodyDef());
         player.setBody(body);
+        player.getBody().setUserData(player);
         FixtureDef shape = player.createShape();
         body.createFixture(shape);
         shape.shape.dispose();
         this.stage.addActor(player);
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 
     /**
@@ -241,6 +247,7 @@ public final class Room {
         for (Monster monster : monsters){
             Body body = this.world.createBody(monster.createBodyDef());
             monster.setBody(body);
+            monster.getBody().setUserData(monster);
             FixtureDef shape = monster.createShape();
             body.createFixture(shape);
             shape.shape.dispose();
