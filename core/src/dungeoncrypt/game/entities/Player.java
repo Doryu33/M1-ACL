@@ -60,7 +60,7 @@ public final class Player extends Entity {
             }*/
         }
 
-        getBody().setLinearVelocity(horizontalForce*50,verticalForce*50);
+        getBody().setLinearVelocity(horizontalForce*100,verticalForce*100);
         this.sprite.setPosition(getBody().getPosition().x-(RENDER_SCALE), getBody().getPosition().y-(RENDER_SCALE));
     }
 }

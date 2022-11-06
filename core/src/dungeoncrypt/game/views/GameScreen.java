@@ -80,7 +80,7 @@ public class GameScreen implements Screen {
 		stage.act(Gdx.graphics.getDeltaTime());
 		stage.draw();
 
-		int live = roomManager.getActualRoom().getPlayer().getHealthPoint();
+		int live = roomManager.getActualRoom().getPlayerHP();
 
 		batch.begin();
 		if(live == 50) {

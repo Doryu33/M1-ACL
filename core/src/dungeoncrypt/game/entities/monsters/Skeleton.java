@@ -17,6 +17,10 @@ public final class Skeleton extends Monster {
         super(x, y, SKELETON_INITIAL_HP, SKELETON_TYPE, "sprites/entities/monsters/skeleton.gif");
     }
 
+    /**
+     * Met à jour la position du monstre en fonction d'un nombre aléatoire entre 0 compris et 4 non compris
+     * @param actualRoom salle actuelle
+     */
     @Override
     public void updatePosition(Room actualRoom) {
         timeSeconds += Gdx.graphics.getDeltaTime();

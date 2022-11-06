@@ -223,8 +223,15 @@ public final class Room {
         this.stage.addActor(player);
     }
 
-    public Player getPlayer() {
-        return player;
+    public int getPlayerHP(){ return player.getHealthPoint();}
+
+    public float getPlayerPosX(){
+        return player.getBody().getPosition().x;
+
+    }
+
+    public float getPlayerPosY(){
+        return player.getBody().getPosition().y;
     }
 
     /**
@@ -243,8 +250,14 @@ public final class Room {
      * Crée les Bodys des monstres
      */
     public void createBodyMonsters(){
+        Body body;
         for (Monster monster : monsters){
-            Body body = this.world.createBody(monster.createBodyDef());
+            if (monster.getSpecialType().equals(GHOST_TYPE)){
+                body = this.world.createBody(monster.createBodyDef());
+            }else{
+                body = this.world.createBody(monster.createBodyDef());
+            }
+
             monster.setBody(body);
             monster.getBody().setUserData(monster);
             FixtureDef shape = monster.createShape();

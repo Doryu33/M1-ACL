@@ -24,8 +24,12 @@ public abstract class Monster extends Entity {
     }
 
     /**
-     * Met à jour la position du monstre en fonction d'un nombre aléatoire entre 0 compris et 4 non compris
+     * Mets à jour la position du monstre
      * @param actualRoom salle actuelle
      */
     public abstract void updatePosition(Room actualRoom);
+
+    public String getSpecialType() {
+        return specialType;
+    }
 }
