@@ -11,7 +11,6 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.*;
 import dungeoncrypt.game.collisions.BodyContactListenner;
-import dungeoncrypt.game.entities.Player;
 import dungeoncrypt.game.room.RoomManager;
 
 import static dungeoncrypt.game.data.Data.*;
@@ -27,9 +26,9 @@ public class GameScreen implements Screen {
 
 	private Stage stage;
 	private Viewport viewport;
-	private Main parent;
-	public GameScreen(Main main){
-		parent = main;
+	private ScreenManager parent;
+	public GameScreen(ScreenManager screenManager){
+		parent = screenManager;
 		camera = new OrthographicCamera();
 		batch = new SpriteBatch();
 	}

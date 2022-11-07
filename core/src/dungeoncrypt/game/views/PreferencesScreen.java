@@ -19,7 +19,7 @@ import static dungeoncrypt.game.data.Data.*;
 
 public class PreferencesScreen implements Screen {
 
-    private final Main parent;
+    private final ScreenManager parent;
     private final Stage stage;
     private Label titleLab;
     private Label volumeMusicLab;
@@ -27,8 +27,8 @@ public class PreferencesScreen implements Screen {
     private Label musicOnOffLab;
     private Label soundOnOffLab;
 
-    public PreferencesScreen(Main main){
-        parent = main;
+    public PreferencesScreen(ScreenManager screenManager){
+        parent = screenManager;
         final AppPreferences appPref = new AppPreferences();
 
         /* Chargement du skin du menu */

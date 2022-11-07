@@ -2,8 +2,7 @@ package dungeoncrypt.game;
 
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
-import dungeoncrypt.game.views.GameScreen;
-import dungeoncrypt.game.views.Main;
+import dungeoncrypt.game.views.ScreenManager;
 import terminal.room.RoomManager;
 import static dungeoncrypt.game.data.Data.RENDER_SCALE;
 import static dungeoncrypt.game.data.Data.ROOM_SIZE;
@@ -27,7 +26,7 @@ public class DesktopLauncher {
 			config.setWindowedMode(RENDER_SCALE*ROOM_SIZE,RENDER_SCALE*ROOM_SIZE);
 			config.setForegroundFPS(60);
 			config.setTitle("DungeonCrypt");
-			new Lwjgl3Application(new Main(), config);
+			new Lwjgl3Application(new ScreenManager(), config);
 		}
 	}
 }

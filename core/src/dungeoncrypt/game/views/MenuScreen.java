@@ -17,12 +17,12 @@ import static dungeoncrypt.game.data.Data.*;
 
 public class MenuScreen implements Screen {
 
-    private Main parent;
+    private ScreenManager parent;
     private Stage stage;
 
-    public MenuScreen(Main main){
+    public MenuScreen(ScreenManager screenManager){
         /* Definition du parent */
-        parent = main;
+        parent = screenManager;
 
         /* Creation du stage */
         stage = new Stage(new ScreenViewport());
