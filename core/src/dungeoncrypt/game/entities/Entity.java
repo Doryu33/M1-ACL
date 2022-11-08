@@ -8,8 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
-import static dungeoncrypt.game.data.Data.RENDER_SCALE;
-import static dungeoncrypt.game.data.Data.ROOM_SIZE;
+import static dungeoncrypt.game.data.Data.*;
 
 /**
  * Gère le comportement et données communes d'une entitée
@@ -106,7 +105,7 @@ public abstract class Entity extends Actor {
     public FixtureDef createShape(boolean isSensor){
         CircleShape shape = new CircleShape();
         shape.setPosition(new Vector2(0, 0));
-        shape.setRadius(RENDER_SCALE/2f);
+        shape.setRadius(RENDER_SCALE_ENTITY/2f);
 
         FixtureDef fixtureCircle = new FixtureDef();
         fixtureCircle.isSensor = isSensor;

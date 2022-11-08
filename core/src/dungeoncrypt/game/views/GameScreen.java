@@ -85,7 +85,7 @@ public class GameScreen implements Screen {
 			stage.draw();
 		}
 
-		int score = roomManager.getActualRoom().getPlayer().getScore();
+		int score = roomManager.getActualRoom().getPlayerScore();
 		int live = roomManager.getActualRoom().getPlayerHP();
 
 		batch.begin();

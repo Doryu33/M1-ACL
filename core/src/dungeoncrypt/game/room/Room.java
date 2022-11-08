@@ -224,6 +224,7 @@ public final class Room {
     }
 
     public int getPlayerHP(){ return player.getHealthPoint();}
+    public int getPlayerScore(){return player.getScore();}
 
     public float getPlayerPosX(){
         return player.getBody().getPosition().x;
