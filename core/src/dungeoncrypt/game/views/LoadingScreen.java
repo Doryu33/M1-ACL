@@ -4,9 +4,9 @@ import com.badlogic.gdx.Screen;
 import static dungeoncrypt.game.data.Data.*;
 
 public class LoadingScreen implements Screen {
-    private Main parent;
-    public LoadingScreen(Main main){
-        parent = main;
+    private ScreenManager parent;
+    public LoadingScreen(ScreenManager screenManager){
+        parent = screenManager;
     }
 
     @Override
