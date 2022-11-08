@@ -89,5 +89,20 @@ public class Data {
     public final static int BUTTON_MINWIDTH = 150;
     public final static int BUTTON_MAXWIDTH = 350;
 
+    //Constantes pour afficher le mode debug ou non
+    public final static boolean DEBUG_MODE = false;
+
+    //Constantes pour la vitesse du joueur
+    public final static int MOVE_SPEED = 100;
+
+    //Coordonnées de la barre de vie
+    public final static int HEALTH_BAR_X = 0;
+    public final static int HEALTH_BAR_Y = 435;
+
+    //Coordonnées de l'affichage du score
+    public final static int SCORE_X = 550;
+    public final static int SCORE_Y = 735;
+    public final static int FONT_SIZE = 20;
+
 }
 

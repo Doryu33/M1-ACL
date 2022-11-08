@@ -11,7 +11,6 @@ import static dungeoncrypt.game.data.Data.*;
 public final class Monster extends Entity {
 
     private int timer;
-
     private int horizontalForce;
     private int verticalForce;
 
@@ -56,7 +55,7 @@ public final class Monster extends Entity {
         if (timer == 100){
             timer =0;
         }
-        getBody().setLinearVelocity(horizontalForce*50,verticalForce*50);
+        getBody().setLinearVelocity(horizontalForce*MOVE_SPEED,verticalForce*MOVE_SPEED);
         this.sprite.setPosition(getBody().getPosition().x-(RENDER_SCALE),getBody().getPosition().y-(RENDER_SCALE));
 
     }

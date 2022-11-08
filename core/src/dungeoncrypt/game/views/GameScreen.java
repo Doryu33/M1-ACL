@@ -13,25 +13,25 @@ import com.badlogic.gdx.utils.viewport.*;
 import dungeoncrypt.game.collisions.BodyContactListenner;
 import dungeoncrypt.game.entities.Player;
 import dungeoncrypt.game.room.RoomManager;
+import dungeoncrypt.game.tools.Police;
 
 import static dungeoncrypt.game.data.Data.*;
 
 public class GameScreen implements Screen {
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
-
 	private World world;
 	private Box2DDebugRenderer b2dr;
-
 	private RoomManager roomManager;
-
 	private Stage stage;
 	private Viewport viewport;
 	private Main parent;
+	private Police police;
 	public GameScreen(Main main){
 		parent = main;
 		camera = new OrthographicCamera();
 		batch = new SpriteBatch();
+		police = Police.getInstance();
 	}
 
 	@Override
@@ -59,7 +59,9 @@ public class GameScreen implements Screen {
 		/**
 		 * Debug mode
 		 */
-		b2dr = new Box2DDebugRenderer();
+		if(DEBUG_MODE){
+			b2dr = new Box2DDebugRenderer();
+		}
 
 		/**
 		 * RoomManager
@@ -77,51 +79,56 @@ public class GameScreen implements Screen {
 
 
 
-		stage.act(Gdx.graphics.getDeltaTime());
-		stage.draw();
+		if(DEBUG_MODE){
+			b2dr.render(world, camera.combined);
+		}else{
+			stage.act(Gdx.graphics.getDeltaTime());
+			stage.draw();
+		}
 
 		int live = roomManager.getActualRoom().getPlayer().getHealthPoint();
+		int score = roomManager.getActualRoom().getPlayer().getScore();
 
 		batch.begin();
+		police.draw(batch, "Score : "+score, SCORE_X,SCORE_Y);
 		if(live == 50) {
-			batch.draw(new Texture("images/greenbar.png"),400,435,400,350);
+			batch.draw(new Texture("images/greenbar.png"),HEALTH_BAR_X,HEALTH_BAR_Y,400,350);
 		}
 		if(live == 45) {
-			batch.draw(new Texture("images/greenbar90.png"),400,435,400,350);
+			batch.draw(new Texture("images/greenbar90.png"),HEALTH_BAR_X,HEALTH_BAR_Y,400,350);
 		}
 		if(live == 40) {
-			batch.draw(new Texture("images/greenbar80.png"),400,435,400,350);
+			batch.draw(new Texture("images/greenbar80.png"),HEALTH_BAR_X,HEALTH_BAR_Y,400,350);
 		}
 		if(live == 35) {
-			batch.draw(new Texture("images/greenbar70.png"),400,435,400,350);
+			batch.draw(new Texture("images/greenbar70.png"),HEALTH_BAR_X,HEALTH_BAR_Y,400,350);
 		}
 		if(live == 30) {
-			batch.draw(new Texture("images/greenbar60.png"),400,435,400,350);
+			batch.draw(new Texture("images/greenbar60.png"),HEALTH_BAR_X,HEALTH_BAR_Y,400,350);
 		}
 		if(live == 25) {
-			batch.draw(new Texture("images/orangebar50.png"),400,435,400,350);
+			batch.draw(new Texture("images/orangebar50.png"),HEALTH_BAR_X,HEALTH_BAR_Y,400,350);
 		}
 		if(live == 20) {
-			batch.draw(new Texture("images/orangebar40.png"),400,435,400,350);
+			batch.draw(new Texture("images/orangebar40.png"),HEALTH_BAR_X,HEALTH_BAR_Y,400,350);
 		}
 		if(live == 15) {
-			batch.draw(new Texture("images/orangebar30.png"),400,435,400,350);
+			batch.draw(new Texture("images/orangebar30.png"),HEALTH_BAR_X,HEALTH_BAR_Y,400,350);
 		}
 		if(live == 10) {
-			batch.draw(new Texture("images/redbar20.png"),400,435,400,350);
+			batch.draw(new Texture("images/redbar20.png"),HEALTH_BAR_X,HEALTH_BAR_Y,400,350);
 		}
 		if(live == 5) {
-			batch.draw(new Texture("images/redbar10.png"),400,435,400,350);
+			batch.draw(new Texture("images/redbar10.png"),HEALTH_BAR_X,HEALTH_BAR_Y,400,350);
 		}
 		if(live <= 0) {
-			batch.draw(new Texture("images/deadbar.png"),400,435,400,350);
+			batch.draw(new Texture("images/deadbar.png"),HEALTH_BAR_X,HEALTH_BAR_Y,400,350);
 			parent.changeScreen(ENDGAME);
 		}
 		batch.end();
 
 
 
-		//b2dr.render(world, camera.combined);
 	}
 
 	public void resize(int width, int height){
@@ -146,8 +153,11 @@ public class GameScreen implements Screen {
 
 	public void dispose () {
 		world.dispose();
-		stage.dispose();
-		b2dr.dispose();
+		if(DEBUG_MODE){
+			b2dr.dispose();
+		}else{
+			stage.dispose();
+		}
 	}
 
 	public void update(float delta){

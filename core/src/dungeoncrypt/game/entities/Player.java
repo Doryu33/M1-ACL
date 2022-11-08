@@ -11,9 +11,13 @@ import static dungeoncrypt.game.data.Data.*;
  */
 public final class Player extends Entity {
 
+    private int score;
+
     public Player(){
         super(PLAYER_TYPE,PLAYER_INITIAL_HP,"sprites/entities/player/isaac.png");
-        setInitialPosition(); }
+        setInitialPosition();
+        this.score = 0;
+    }
 
     /**
      * Positionne le joueur à des coordonnées spécifiques.
@@ -60,7 +64,27 @@ public final class Player extends Entity {
             }*/
         }
 
-        getBody().setLinearVelocity(horizontalForce*50,verticalForce*50);
+        if (Gdx.input.isKeyPressed(Input.Keys.P)) {
+            addScore(1);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.O)) {
+            subtractScore(1);
+        }
+
+        getBody().setLinearVelocity(horizontalForce*MOVE_SPEED,verticalForce*MOVE_SPEED);
+
         this.sprite.setPosition(getBody().getPosition().x-(RENDER_SCALE), getBody().getPosition().y-(RENDER_SCALE));
+    }
+
+    public void addScore(int point){
+        this.score += point;
+    }
+
+    public void subtractScore(int point){
+        this.score -= point;
+    }
+
+    public int getScore(){
+        return this.score;
     }
 }
