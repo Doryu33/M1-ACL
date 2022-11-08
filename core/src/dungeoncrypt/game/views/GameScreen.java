@@ -24,10 +24,7 @@ public class GameScreen implements Screen {
 	private RoomManager roomManager;
 	private Stage stage;
 	private Viewport viewport;
-	private Main parent;
 	private Police police;
-	public GameScreen(Main main){
-		parent = main;
 	private ScreenManager parent;
 	public GameScreen(ScreenManager screenManager){
 		parent = screenManager;
