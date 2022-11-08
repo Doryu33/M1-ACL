@@ -4,7 +4,7 @@ import com.badlogic.gdx.Game;
 import static dungeoncrypt.game.data.Data.*;
 
 
-public class Main extends Game {
+public class ScreenManager extends Game {
 
     private LoadingScreen loadingScreen;
     private PreferencesScreen preferencesScreen;

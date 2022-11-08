@@ -19,11 +19,11 @@ import static dungeoncrypt.game.data.Data.*;
 
 public class EndScreen implements Screen {
 
-    private Main parent;
+    private ScreenManager parent;
     private Stage stage;
-    public EndScreen(Main main){
+    public EndScreen(ScreenManager screenManager){
         /* Definition du parent */
-        parent = main;
+        parent = screenManager;
 
         /* Creation du stage */
         stage = new Stage(new ScreenViewport());
