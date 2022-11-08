@@ -66,9 +66,8 @@ public abstract class Tile extends Actor {
         shape.setAsBox(RENDER_SCALE/2f,RENDER_SCALE/2f);
 
         FixtureDef fixturePolygon = new FixtureDef();
-
+        fixturePolygon.isSensor = true;
         fixturePolygon.shape = shape;
-
         return fixturePolygon;
     }
 
