@@ -217,7 +217,7 @@ public final class Room {
         Body body = this.world.createBody(player.createBodyDef());
         player.setBody(body);
         player.getBody().setUserData(player);
-        FixtureDef shape = player.createShape();
+        FixtureDef shape = player.createShape(false);
         body.createFixture(shape);
         shape.shape.dispose();
         this.stage.addActor(player);
@@ -251,16 +251,17 @@ public final class Room {
      */
     public void createBodyMonsters(){
         Body body;
+        FixtureDef shape;
         for (Monster monster : monsters){
-            if (monster.getSpecialType().equals(GHOST_TYPE)){
-                body = this.world.createBody(monster.createBodyDef());
-            }else{
-                body = this.world.createBody(monster.createBodyDef());
-            }
-
+            body = this.world.createBody(monster.createBodyDef());
             monster.setBody(body);
             monster.getBody().setUserData(monster);
-            FixtureDef shape = monster.createShape();
+            if (monster.getSpecialType().equals(GHOST_TYPE)){
+                shape = monster.createShape(true);
+            }else{
+                shape = monster.createShape(false);
+            }
+
             body.createFixture(shape);
             shape.shape.dispose();
             this.stage.addActor(monster);

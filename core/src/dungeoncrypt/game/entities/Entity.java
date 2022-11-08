@@ -6,8 +6,6 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
-import com.badlogic.gdx.physics.bullet.softbody.SoftBodyConfigData;
-import com.badlogic.gdx.physics.bullet.softbody.Softbody;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 import static dungeoncrypt.game.data.Data.RENDER_SCALE;
@@ -105,13 +103,13 @@ public abstract class Entity extends Actor {
      * Créer la forme de l'entity / BodyShape rond 1x1
      * @return la forme
      */
-    public FixtureDef createShape(){
+    public FixtureDef createShape(boolean isSensor){
         CircleShape shape = new CircleShape();
         shape.setPosition(new Vector2(0, 0));
         shape.setRadius(RENDER_SCALE/2f);
 
         FixtureDef fixtureCircle = new FixtureDef();
-
+        fixtureCircle.isSensor = isSensor;
         fixtureCircle.shape = shape;
 
         return fixtureCircle;

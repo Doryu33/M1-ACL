@@ -11,8 +11,9 @@ public final class Zombie extends Monster {
     }
 
     @Override
+    //Créer le pathfinding
     public void updatePosition(Room actualRoom) {
-
+        this.sprite.setPosition(getBody().getPosition().x-(RENDER_SCALE),getBody().getPosition().y-(RENDER_SCALE));
     }
 }
 
