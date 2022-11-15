@@ -72,6 +72,45 @@ public final class RoomGenerator {
     }
 
     /**
+     * Créer une salle a partir d'un tableau de char (utilisé pour la savegarde/chargement)
+     * @param savedRoom un tableau de char contenant la salle
+     * @return un tableau de tiles
+     */
+    public Tile[][] generateLoadedRoom(char [][] savedRoom){
+        Tile[][] tiles = new Tile[ROOM_SIZE][ROOM_SIZE];
+        this.specialTileList.clear();
+        for(int y=0; y < ROOM_SIZE; y++){
+            for (int x=0; x < ROOM_SIZE; x++){
+                switch (savedRoom[y][x]){
+                    case FLOOR_TILE:
+                        tiles[y][x] = new Floor();
+                        break;
+                    case WALL_TILE:
+                        tiles[y][x] = new Wall();
+                        break;
+                    case EXIT_TILE:
+                        Exit exit = new Exit(EXIT_SPECIAL_TYPE_NEW_ROOM);
+                        tiles[y][x] = exit;
+                        this.specialTileList.add(exit);
+                        break;
+                    case HEALING_TILE:
+                        HealingTile ht = new HealingTile();
+                        tiles[y][x] = ht;
+                        this.specialTileList.add(ht);
+                        break;
+                    case TRAP_TILE:
+                        Trap trap = new Trap();
+                        tiles[y][x] = trap;
+                        this.specialTileList.add(trap);
+                        break;
+                }
+            }
+        }
+
+        return tiles;
+    }
+
+    /**
      * Génère une salle avec des patterns et une génération aléatoire.
      * @return l'environnement de la salle
      */

@@ -87,4 +87,8 @@ public final class Player extends Entity {
     public int getScore(){
         return this.score;
     }
+
+    public void setScore(int score){
+        this.score = score;
+    }
 }

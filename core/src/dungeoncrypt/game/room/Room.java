@@ -81,6 +81,36 @@ public final class Room {
     }
 
     /**
+     * Genere un tableau de char representant la salle actuelle.
+     * @return un tableau de char.
+     */
+    public char[][] getRoomComposition() {
+        char[][] room = new char[ROOM_SIZE][ROOM_SIZE];
+        for (int y = 0; y < ROOM_SIZE; y++) {
+            for (int x = 0; x < ROOM_SIZE; x++) {
+                    switch (tiles[y][x].getType()){
+                        case EXIT_TYPE:
+                            room[y][x] = EXIT_TILE;
+                            break;
+                        case WALL_TYPE:
+                            room[y][x] = WALL_TILE;
+                            break;
+                        case FLOOR_TYPE:
+                            room[y][x] = FLOOR_TILE;
+                            break;
+                        case TRAP_TYPE:
+                            room[y][x] = TRAP_TILE;
+                            break;
+                        case HEALING_TILE_TYPE:
+                            room[y][x] = HEALING_TILE;
+                            break;
+                    }
+                }
+        }
+        return room;
+    }
+
+    /**
      * Savoir si à la position x,y un monstre est présent. Retourne vrai s'il y en a un
      * @param x position x
      * @param y position y
@@ -223,8 +253,34 @@ public final class Room {
         this.stage.addActor(player);
     }
 
+
+    /**
+     * Getter des PV du joueur.
+     * @return les PV du joueur.
+     */
     public int getPlayerHP(){ return player.getHealthPoint();}
+
+    /**
+     * Setter des PV du joueur.
+     * @param hp la nouvelle valeur de PV du joueur.
+     */
+    public void setPlayerHP(int hp){
+        this.player.setHealthPoint(hp);
+    }
+
+    /**
+     * Getter du score du joueur
+     * @return le score du joueur
+     */
     public int getPlayerScore(){return player.getScore();}
+
+    /**
+     * Setter du score du joueur
+     * @param score le nouveau score du joueur
+     */
+    public void setPlayerScore(int score){
+        this.player.setScore(score);
+    }
 
     public float getPlayerPosX(){
         return player.getBody().getPosition().x;

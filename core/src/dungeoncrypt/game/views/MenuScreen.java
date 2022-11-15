@@ -75,6 +75,14 @@ public class MenuScreen implements Screen {
             }
         });
 
+        /* Bouton charger une partie */
+        loadGame.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                parent.changeScreen(LOAD_APPLICATION);
+            }
+        });
+
         /* Bouton option */
         preferences.addListener(new ChangeListener() {
             @Override

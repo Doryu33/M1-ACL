@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import dungeoncrypt.game.tools.SaveManager;
 
 /**
  * Gère les différents comportement et données de la salle où le joueur est présent
@@ -14,12 +15,33 @@ public final class RoomManager {
     private final Room actualRoom;
     private World world;
     private final Stage stage;
+    private final SaveManager saveManager;
 
+    /**
+     * Constructeur par défaut. Instancie une nouvelle partie.
+     * @param world Le monde du jeu
+     * @param stage Le stage du jeu
+     */
     public RoomManager(World world, Stage stage){
         this.world = world;
         this.stage = stage;
+        this.saveManager = new SaveManager();
         actualRoom = new Room(world, stage, roomGenerator.generateSimpleRoom());
         createNextRoom();
+    }
+
+    /**
+     * Constructeur via sauvegarde. Instancie une partie en se basant sur l'état d'une sauvegarde.
+     * @param world Le monde du jeu.
+     * @param stage Le stage du jeu.
+     * @param save La sauvegarde du jeu a restaurée.
+     */
+    public RoomManager(World world, Stage stage, SaveManager save){
+        this.saveManager = save;
+        this.world = world;
+        this.stage = stage;
+        actualRoom = new Room(world, stage, roomGenerator.generateSimpleRoom());
+        loadRoom(this.saveManager);
     }
 
     /**
@@ -44,6 +66,21 @@ public final class RoomManager {
     }
 
     /**
+     * Permet de créer une salle depuis une sauvegarde afin de restaurer l'état de la partie.
+     * @param save
+     */
+    public void loadRoom(SaveManager save){
+        this.actualRoom.clearRoom();
+        this.actualRoom.setEnvironment(this.roomGenerator.generateLoadedRoom(save.tilesList));
+        this.actualRoom.setSpecialTileList(this.roomGenerator.getSpecialTileList());
+        this.actualRoom.setInitialPlayerPosition();
+        this.actualRoom.setPlayerHP(save.PlayerHealth);
+        this.actualRoom.setPlayerScore(save.PlayerScore);
+        this.stage.clear();
+        createBodys();
+    }
+
+    /**
      * Afficher la salle actuelle en mode terminal
      * @return chaine de caractère de la salle actuelle
      */
@@ -60,6 +97,13 @@ public final class RoomManager {
         if(Gdx.input.isKeyPressed(Input.Keys.N)){
             createNextRoom();
         }
+        if(Gdx.input.isKeyPressed(Input.Keys.J)) {
+            this.saveManager.saveProgression("DungeonCrypt-Save",this.actualRoom);
+        }
+    }
+
+    public SaveManager getSaveManager() {
+        return saveManager;
     }
 
     /**

@@ -1,6 +1,8 @@
 package dungeoncrypt.game.views;
 
 import com.badlogic.gdx.Game;
+import dungeoncrypt.game.tools.SaveManager;
+
 import static dungeoncrypt.game.data.Data.*;
 
 
@@ -11,6 +13,7 @@ public class ScreenManager extends Game {
     private MenuScreen menuScreen;
     private GameScreen gameScreen;
     private EndScreen endScreen;
+    private SaveManager saveManager = null;
 
     @Override
     /**
@@ -21,6 +24,10 @@ public class ScreenManager extends Game {
         setScreen(loadingScreen);
     }
 
+
+    public SaveManager getSaveManager() {
+        return saveManager;
+    }
 
     /**
      * Permet de changer le screen a afficher
@@ -37,6 +44,13 @@ public class ScreenManager extends Game {
                 this.setScreen(preferencesScreen);
                 break;
             case APPLICATION:
+                this.saveManager = null;
+                if(gameScreen == null) gameScreen = new GameScreen(this);
+                this.setScreen(gameScreen);
+                break;
+            case LOAD_APPLICATION:
+                this.saveManager = new SaveManager();
+                this.saveManager.loadProgression("PathToSave");
                 if(gameScreen == null) gameScreen = new GameScreen(this);
                 this.setScreen(gameScreen);
                 break;

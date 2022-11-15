@@ -92,6 +92,7 @@ public class Data {
     public final static int PREFERENCES = 1;
     public final static int APPLICATION = 2;
     public final static int ENDGAME = 3;
+    public final static int LOAD_APPLICATION = 4;
     //Constantes pour la taille des boutons du menu
     public final static int PADDING_TOP = 10;
     public final static int PADDING_LEFT = 200;
