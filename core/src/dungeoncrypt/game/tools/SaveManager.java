@@ -79,7 +79,6 @@ public class SaveManager {
         } catch (Exception e) {
             System.out.println("Message " + e);
         }
-        System.out.println(this.toString());
     }
 
     /**

@@ -74,7 +74,6 @@ public final class RoomManager {
         this.actualRoom.setEnvironment(this.roomGenerator.generateLoadedRoom(save.tilesList));
         this.actualRoom.setSpecialTileList(this.roomGenerator.getSpecialTileList());
         this.actualRoom.setInitialPlayerPosition();
-        //this.actualRoom.setPlayerPosition(save.posX, save.posY);
         this.actualRoom.setPlayerHP(save.PlayerHealth);
         this.actualRoom.setPlayerScore(save.PlayerScore);
         this.stage.clear();
@@ -99,9 +98,10 @@ public final class RoomManager {
             createNextRoom();
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.J)) {
-            this.saveManager.saveProgression("DungeonCrypt-Save",this.actualRoom);
+            this.saveManager.saveProgression("DungeonCrypt-DebugSave",this.actualRoom);
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.K)) {
+            this.saveManager.loadProgression("DungeonCrypt-DebugSave");
             this.loadRoom(this.saveManager);
         }
     }

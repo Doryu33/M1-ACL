@@ -25,3 +25,5 @@ D pour aller à droite
 Pour debug/test:
 N pour générer une nouvelle salle
 O/P augmenter/diminuer le score
+J pour sauvegarder la partie (fichier DebugSave.txt)
+K pour charger la partie ((fichier DebugSave.txt)
