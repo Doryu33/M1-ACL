@@ -70,6 +70,10 @@ public class GameScreen implements Screen {
 
 	}
 
+	public RoomManager getRoomManager() {
+		return roomManager;
+	}
+
 	@Override
 	public void render (float delta) {
 		update(Gdx.graphics.getDeltaTime());
@@ -161,5 +165,9 @@ public class GameScreen implements Screen {
 	public void update(float delta){
 		world.step(1/60f, 6, 2);
 		roomManager.updatePositionRoom();
+	}
+
+	public World getworld() {
+		return this.world;
 	}
 }
