@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import dungeoncrypt.game.entities.Entity;
 
 import static dungeoncrypt.game.data.Data.*;
 
@@ -85,6 +86,10 @@ public abstract class Weapon extends Actor {
 
     public int getDamage() {
         return damage;
+    }
+
+    public void setDamageTo(Entity entity){
+        entity.subtractHealthPoint(damage);
     }
 
     public Body getBody() {
