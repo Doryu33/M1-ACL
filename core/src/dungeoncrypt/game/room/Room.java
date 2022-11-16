@@ -142,7 +142,7 @@ public final class Room {
      * @param actualRoom salle actuelle
      */
     public void updateInputPlayer(Room actualRoom){
-        this.player.inputUdapte(actualRoom);
+        this.player.inputUpdate(actualRoom);
     }
 
     /**
@@ -221,6 +221,7 @@ public final class Room {
         body.createFixture(shape);
         shape.shape.dispose();
         this.stage.addActor(player);
+        this.stage.addActor(player.getWeapon());
     }
 
     public int getPlayerHP(){ return player.getHealthPoint();}
