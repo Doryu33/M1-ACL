@@ -60,7 +60,7 @@ public class Data {
     //Constantes numériques pour les statistiques des monstres
     public static final int SKELETON_INITIAL_HP = 20;
     public static final int ZOMBIE_INITIAL_HP = 20;
-    public static final int GHOST_INITIAL_HP = 20;
+    public static final int GHOST_INITIAL_HP = 10;
 
     //Constantes numériques pour les tuiles spéciales
     //Nombre de point de vie que donne la tuile HealingTile
