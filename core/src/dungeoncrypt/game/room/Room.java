@@ -195,6 +195,20 @@ public final class Room {
             monsters.remove(monster);
             System.out.println("MONSTRE MORT");
             monster.setVisible(false);
+            String type = monster.getSpecialType();
+            switch (type){
+                case ZOMBIE_TYPE:
+                    player.addScore(ZOMBIE_SCORE);
+                    break;
+                case SKELETON_TYPE:
+                    player.addScore(SKELETON_SCORE);
+                    break;
+                case GHOST_TYPE:
+                    player.addScore(GHOST_SCORE);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 

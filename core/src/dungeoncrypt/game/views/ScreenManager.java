@@ -3,6 +3,8 @@ package dungeoncrypt.game.views;
 import com.badlogic.gdx.Game;
 import dungeoncrypt.game.tools.SaveManager;
 
+import java.io.File;
+
 import static dungeoncrypt.game.data.Data.*;
 
 
@@ -50,9 +52,25 @@ public class ScreenManager extends Game {
                 break;
             case LOAD_APPLICATION:
                 this.saveManager = new SaveManager();
-                this.saveManager.loadProgression("DungeonCrypt-Save");
-                if(gameScreen == null) gameScreen = new GameScreen(this);
-                this.setScreen(gameScreen);
+                //Check if save exist
+                File saveFile = new File(SAVE_NAME+".txt");
+                Boolean saveExist = (saveFile.exists() && !saveFile.isDirectory());
+                if(saveExist){
+                    this.saveManager.loadProgression(SAVE_NAME);
+                    if(gameScreen == null) gameScreen = new GameScreen(this);
+                    this.setScreen(gameScreen);
+                }
+                break;
+            case CONTINUE_LOAD_APPLICATION:
+                this.saveManager = new SaveManager();
+                //check if autosave exist
+                File autoSaveFile = new File(AUTO_SAVE_NAME+".txt");
+                Boolean autoSaveExist = (autoSaveFile.exists() && !autoSaveFile.isDirectory());
+                if(autoSaveExist){
+                    this.saveManager.loadProgression(AUTO_SAVE_NAME);
+                    if(gameScreen == null) gameScreen = new GameScreen(this);
+                    this.setScreen(gameScreen);
+                }
                 break;
             case ENDGAME:
                 if(endScreen == null) endScreen = new EndScreen(this);

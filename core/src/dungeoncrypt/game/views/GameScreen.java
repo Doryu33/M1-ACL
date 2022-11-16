@@ -71,12 +71,8 @@ public class GameScreen implements Screen {
 		 * Si saveManager est null, alors on crée une nouvelle partie.
 		 * Sinon on charge la partie si un fichier de sauvegarde existe.
 		 */
-		File saveFile = new File("DungeonCrypt-Save.txt");
-		File debugSaveFile = new File("DungeonCrypt-DebugSave.txt");
-		Boolean saveExist;
-		saveExist = (saveFile.exists() && !saveFile.isDirectory()) || (debugSaveFile.exists() && !debugSaveFile.isDirectory());
-		System.out.println(saveExist);
-		if(parent.getSaveManager() == null || !saveExist){
+
+		if(parent.getSaveManager() == null){
 			this.roomManager = new RoomManager(world, stage);
 		} else {
 			this.roomManager = new RoomManager(world,stage, parent.getSaveManager());

@@ -39,6 +39,7 @@ public class MenuScreen implements Screen {
 
         /* Creation des boutons du menu */
         TextButton newGame = new TextButton("Nouvelle Partie", skin);
+        TextButton continuGame = new TextButton("Continuer la partie", skin);
         TextButton loadGame = new TextButton("Charger une partie", skin);
         TextButton preferences = new TextButton("Options", skin);
         TextButton exit = new TextButton("Quitter", skin);
@@ -48,6 +49,8 @@ public class MenuScreen implements Screen {
         /* Remplissage de la table pour l'affichage du menu */
         table.row().pad(PADDING_TOP, PADDING_LEFT, PADDING_DOWN, PADDING_RIGHT);
         table.add(newGame).fillX().uniformX().growX().minWidth(BUTTON_MINWIDTH).maxWidth(BUTTON_MAXWIDTH);
+        table.row().pad(PADDING_TOP, PADDING_LEFT, PADDING_DOWN, PADDING_RIGHT);
+        table.add(continuGame).fillX().uniformX().growX().minWidth(BUTTON_MINWIDTH).maxWidth(BUTTON_MAXWIDTH);
         table.row().pad(PADDING_TOP, PADDING_LEFT, PADDING_DOWN, PADDING_RIGHT);
         table.add(loadGame).fillX().uniformX().growX().minWidth(BUTTON_MINWIDTH).maxWidth(BUTTON_MAXWIDTH);
         table.row().pad(PADDING_TOP, PADDING_LEFT, PADDING_DOWN, PADDING_RIGHT);
@@ -72,6 +75,14 @@ public class MenuScreen implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 parent.changeScreen(APPLICATION);
+            }
+        });
+
+        /* Bouton charger une partie */
+        continuGame.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                parent.changeScreen(CONTINUE_LOAD_APPLICATION);
             }
         });
 

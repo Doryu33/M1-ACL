@@ -6,6 +6,9 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import dungeoncrypt.game.tools.SaveManager;
 
+import static dungeoncrypt.game.data.Data.AUTO_SAVE_NAME;
+import static dungeoncrypt.game.data.Data.DEBUG_SAVE_NAME;
+
 /**
  * Gère les différents comportement et données de la salle où le joueur est présent
  */
@@ -98,10 +101,10 @@ public final class RoomManager {
             createNextRoom();
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.J)) {
-            this.saveManager.saveProgression("DungeonCrypt-DebugSave",this.actualRoom);
+            this.saveManager.saveProgression(DEBUG_SAVE_NAME,this.actualRoom);
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.K)) {
-            this.saveManager.loadProgression("DungeonCrypt-DebugSave");
+            this.saveManager.loadProgression(DEBUG_SAVE_NAME);
             this.loadRoom(this.saveManager);
         }
     }

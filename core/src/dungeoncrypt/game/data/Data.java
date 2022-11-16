@@ -60,7 +60,13 @@ public class Data {
     //Constantes numériques pour les statistiques des monstres
     public static final int SKELETON_INITIAL_HP = 20;
     public static final int ZOMBIE_INITIAL_HP = 20;
-    public static final int GHOST_INITIAL_HP = 10;
+    public static final int GHOST_INITIAL_HP = 5;
+
+    //Constantes numériques pour les points des monstres
+    public static final int SKELETON_SCORE = 20;
+    public static final int ZOMBIE_SCORE = 20;
+    public static final int GHOST_SCORE = 5;
+
 
     //Constantes numériques pour les tuiles spéciales
     //Nombre de point de vie que donne la tuile HealingTile
@@ -98,6 +104,7 @@ public class Data {
     public final static int APPLICATION = 2;
     public final static int ENDGAME = 3;
     public final static int LOAD_APPLICATION = 4;
+    public final static int CONTINUE_LOAD_APPLICATION = 5;
     //Constantes pour la taille des boutons du menu
     public final static int PADDING_TOP = 10;
     public final static int PADDING_LEFT = 200;
@@ -120,6 +127,11 @@ public class Data {
     public final static int SCORE_X = 550;
     public final static int SCORE_Y = 735;
     public final static int FONT_SIZE = 20;
+
+    //Nom des sauvegardes
+    public final static String AUTO_SAVE_NAME ="DungeonCrypt-AutoSave";
+    public final static String SAVE_NAME ="DungeonCrypt-Save";
+    public final static String DEBUG_SAVE_NAME ="DungeonCrypt-DebugSave";
 
 }
 
