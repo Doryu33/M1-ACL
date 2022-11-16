@@ -15,6 +15,8 @@ import dungeoncrypt.game.room.RoomManager;
 import dungeoncrypt.game.tools.Police;
 import dungeoncrypt.game.tools.SaveManager;
 
+import java.io.File;
+
 import static dungeoncrypt.game.data.Data.*;
 
 public class GameScreen implements Screen {
@@ -67,9 +69,10 @@ public class GameScreen implements Screen {
 		/**
 		 * RoomManager
 		 * Si saveManager est null, alors on crée une nouvelle partie.
-		 * Sinon on charge la partie.
+		 * Sinon on charge la partie si un fichier de sauvegarde existe.
 		 */
-		if(parent.getSaveManager() == null){
+		File f = new File("DungeonCrypt-Save.txt");
+		if(parent.getSaveManager() == null || !(f.exists() && !f.isDirectory())){
 			this.roomManager = new RoomManager(world, stage);
 		} else {
 			this.roomManager = new RoomManager(world,stage, parent.getSaveManager());

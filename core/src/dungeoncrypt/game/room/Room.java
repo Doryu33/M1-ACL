@@ -201,6 +201,16 @@ public final class Room {
     }
 
     /**
+     * Set la position du joueur a des coordonnées précises
+     * @param x pos X
+     * @param y pos Y
+     */
+    public void setPlayerPosition(float x, float y){
+        this.player.setX(x);
+        this.player.setY(y);
+    }
+
+    /**
      * Définir les monstres de la salle à partir de la liste générée par RoomGenerator
      * @param generatedMonsters liste des monstres de la salle
      */

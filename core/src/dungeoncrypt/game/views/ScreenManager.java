@@ -50,7 +50,7 @@ public class ScreenManager extends Game {
                 break;
             case LOAD_APPLICATION:
                 this.saveManager = new SaveManager();
-                this.saveManager.loadProgression("PathToSave");
+                this.saveManager.loadProgression("DungeonCrypt-Save");
                 if(gameScreen == null) gameScreen = new GameScreen(this);
                 this.setScreen(gameScreen);
                 break;
