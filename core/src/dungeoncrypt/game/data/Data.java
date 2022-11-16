@@ -24,6 +24,7 @@ public class Data {
     public static final String EXIT_TYPE = "Exit";
     public static final String HEALING_TILE_TYPE = "HealingTile";
     public static final String TRAP_TYPE = "Trap";
+    public static final String SWORD_TYPE = "Sword";
 
     //String pour définir le type spécial d'une tuile. Ce type permet de savoir sur quoi intéragit la tuile (Santé, Armure, Niveau, etc)
     //Par exemple les tuiles HealingTile et Trap intéragissent avec la santé.
@@ -66,6 +67,10 @@ public class Data {
     public static final int HP_HEALING_TILE = 10;
     //Nombre de point de vie que fait perdre la tuile Trap
     public static final int HP_TRAP = 5;
+
+    //Constantes numériques pour les Armes
+    //Nombre de point de vie que donne l'arme Sword
+    public static final int HP_SWORD = 5;
 
     //Constantes numériques du nombre maximum d'utilisation de l'effet d'une tuile
     //Définir à -1 pour une utilisation illimité

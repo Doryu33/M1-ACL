@@ -3,6 +3,7 @@ package dungeoncrypt.game.room;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import dungeoncrypt.game.entities.monsters.Monster;
@@ -172,7 +173,7 @@ public final class Room {
      * @param actualRoom salle actuelle
      */
     public void updateInputPlayer(Room actualRoom){
-        this.player.inputUdapte(actualRoom);
+        this.player.inputUpdate(actualRoom);
     }
 
     /**
@@ -182,6 +183,18 @@ public final class Room {
     public void updatePositionMonster(Room actualRoom){
         for (Monster m:monsters) {
             m.updatePosition(actualRoom);
+        }
+    }
+
+    /**
+     * Permet de tuer un monstre. Le retire de la salle et supprime son affichage + ses collisions
+     * @param monster
+     */
+    public void killMonster(Monster monster){
+        if (monsters.contains(monster)){
+            monsters.remove(monster);
+            System.out.println("MONSTRE MORT");
+            monster.setVisible(false);
         }
     }
 
@@ -261,6 +274,7 @@ public final class Room {
         body.createFixture(shape);
         shape.shape.dispose();
         this.stage.addActor(player);
+        this.stage.addActor(player.getWeapon());
     }
 
 

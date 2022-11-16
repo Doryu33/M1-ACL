@@ -1,11 +1,15 @@
 package dungeoncrypt.game.collisions;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.*;
 import dungeoncrypt.game.entities.Entity;
 import dungeoncrypt.game.entities.monsters.Monster;
 import dungeoncrypt.game.entities.Player;
 import dungeoncrypt.game.tiles.special.SpecialTile;
 import dungeoncrypt.game.views.GameScreen;
+import dungeoncrypt.game.weapons.Weapon;
+
+import static dungeoncrypt.game.data.Data.DEBUG_MODE;
 
 public class BodyContactListenner implements ContactListener {
     private GameScreen parent;
@@ -20,38 +24,48 @@ public class BodyContactListenner implements ContactListener {
      * Il faut donc utiliser 2 IF pour spécifier chaque cas.
      */
     public void beginContact(Contact contact) {
-        Boolean debugMod = true;
         //
-        Fixture fa = contact.getFixtureA();
-        Fixture fb = contact.getFixtureB();
+        Fixture fixtureA = contact.getFixtureA();
+        Fixture fixtureB = contact.getFixtureB();
         //On récupère les objets stockés dans les UserData
-        Object obj1 = fa.getBody().getUserData();
-        Object obj2 = fb.getBody().getUserData();
+        Object objA = fixtureA.getBody().getUserData();
+        Object objB = fixtureB.getBody().getUserData();
         //Static bodies only
-        if(fa.getBody().getType().equals(BodyDef.BodyType.StaticBody) || fb.getBody().getType().equals(BodyDef.BodyType.StaticBody)){
+        if(fixtureA.getBody().getType().equals(BodyDef.BodyType.StaticBody) || fixtureB.getBody().getType().equals(BodyDef.BodyType.StaticBody)){
             //Collision entre Special tile et Joueur
-            if(obj1 instanceof SpecialTile && obj2 instanceof Player){
-                if(debugMod){
-                    System.out.println(fa.getBody().getUserData()+" has hit1 "+ fb.getBody().getUserData());
+            if(objA instanceof SpecialTile && objB instanceof Player){
+                if(DEBUG_MODE){
+                    System.out.println(fixtureA.getBody().getUserData()+" has hit1 "+ fixtureB.getBody().getUserData());
                 }
-                tileEffectPlayer(fb,fa);
+                tileEffectPlayer(fixtureB,fixtureA);
             }
-            if(obj2 instanceof Player && obj1 instanceof SpecialTile){
-                if(debugMod){
-                    System.out.println(fa.getBody().getUserData()+" has hit2 "+ fb.getBody().getUserData());
+            if(objB instanceof Player && objA instanceof SpecialTile){
+                if(DEBUG_MODE){
+                    System.out.println(fixtureA.getBody().getUserData()+" has hit2 "+ fixtureB.getBody().getUserData());
                 }
-                tileEffectPlayer(fb,fa);
+                tileEffectPlayer(fixtureB,fixtureA);
             }
         //Dynamic bodies only
         } else {
-            if(obj1 instanceof Player && obj2 instanceof Monster){
-                monstreDamagePlayer(fa,fb);
-            } else if(obj1 instanceof Monster && obj2 instanceof Player){
-                monstreDamagePlayer(fb,fa);
+            if(objA instanceof Monster){
+                if (objB instanceof Player){
+                    monstreDamagePlayer(fixtureB, fixtureA);
+                } else if(objB instanceof Weapon) {
+                    weaponDamageMonster(fixtureB,fixtureA);
+                    System.out.println("Monster hit weapon");
+
+                }
+            } else if (objB instanceof Monster){
+                if(objA instanceof Player){
+                    monstreDamagePlayer(fixtureA,fixtureB);
+                } else if (objA instanceof Weapon){
+                    weaponDamageMonster(fixtureA, fixtureB);
+                    System.out.println("Monster hit weapon");
+                }
             } else {
-                if(debugMod){
-                    //System.out.println("Contact");
-                    //System.out.println(fa.getBody().getUserData()+" has hit "+ fb.getBody().getUserData());
+                if(DEBUG_MODE){
+                    System.out.println("Contact");
+                    System.out.println(fixtureA.getBody().getUserData()+" has hit "+ fixtureB.getBody().getUserData());
                 }
             }
         }
@@ -84,10 +98,28 @@ public class BodyContactListenner implements ContactListener {
 
     /**
      * Fonction utilisée pour appliquer l'effet de la case au joueur
-     * @param fplayer
-     * @param ftile
+     * @param playerFixture
+     * @param tileFixture
      */
-    private void tileEffectPlayer (Fixture fplayer, Fixture ftile){
-        ((SpecialTile) ftile.getBody().getUserData()).applyEffectOn((Entity) fplayer.getBody().getUserData());
+    private void tileEffectPlayer (Fixture playerFixture, Fixture tileFixture){
+        ((SpecialTile) tileFixture.getBody().getUserData()).applyEffectOn((Entity) playerFixture.getBody().getUserData());
+    }
+
+    private void weaponDamageMonster(Fixture weaponFixture, Fixture monsterFixture){
+        final Entity monster = ((Entity) monsterFixture.getBody().getUserData());
+        Weapon weapon = (Weapon) weaponFixture.getBody().getUserData();
+        weapon.setDamageTo(monster);
+
+        if(monster.getHealthPoint() <= 0){
+            parent.getRoomManager().getActualRoom().killMonster((Monster) monster);
+            Gdx.app.postRunnable(new Runnable() {
+                @Override
+                public void run () {
+                    parent.getworld().destroyBody(monster.getBody());
+                }
+            });
+        }
+        System.out.println("MONSTRE touché par WEAPON. PV restant: "+((Entity) monsterFixture.getBody().getUserData()).getHealthPoint());
+
     }
 }
