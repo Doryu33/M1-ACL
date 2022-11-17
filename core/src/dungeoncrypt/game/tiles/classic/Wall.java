@@ -3,8 +3,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import dungeoncrypt.game.tiles.Tile;
 
-import static dungeoncrypt.game.data.Data.RENDER_SCALE;
-import static dungeoncrypt.game.data.Data.WALL_TYPE;
+import static dungeoncrypt.game.data.Data.*;
 
 public final class Wall extends Tile {
 
@@ -35,6 +34,10 @@ public final class Wall extends Tile {
         fixturePolygon.isSensor = false;
         fixturePolygon.shape = shape;
         return fixturePolygon;
+    }
+
+    public char getCharTile(){
+        return WALL_TILE;
     }
 
 }

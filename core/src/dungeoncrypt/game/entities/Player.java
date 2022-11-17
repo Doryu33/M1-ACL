@@ -52,7 +52,7 @@ public final class Player extends Entity {
         int horizontalForce = 0;
 
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && !isWeaponActive) {
             weapon.setVisible(true);
             isWeaponActive = true;
             if (weapon.getBody() != null) {

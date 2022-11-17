@@ -9,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
+import static dungeoncrypt.game.data.Data.FLOOR_TILE;
 import static dungeoncrypt.game.data.Data.RENDER_SCALE;
 
 public abstract class Tile extends Actor {
@@ -80,5 +81,7 @@ public abstract class Tile extends Actor {
     public void draw(Batch batch, float parentAlpha){
         sprite.draw(batch);
     }
+
+    public abstract char getCharTile();
 
 }

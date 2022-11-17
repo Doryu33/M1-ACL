@@ -1,5 +1,8 @@
 package dungeoncrypt.game.room;
 
+import dungeoncrypt.game.AStar.AStarManager;
+import dungeoncrypt.game.AStar.Node;
+import dungeoncrypt.game.AStar2.Grid;
 import dungeoncrypt.game.entities.monsters.Ghost;
 import dungeoncrypt.game.entities.monsters.Monster;
 import dungeoncrypt.game.entities.monsters.Skeleton;
@@ -30,6 +33,7 @@ public final class RoomGenerator {
     private final Random randomNumber;
     //Liste de toutes les tuile spéciales de la salle
     private final ArrayList<SpecialTile> specialTileList;
+    private final AStarManager aStarManager;
     //Salle aléatoire générée
     private Tile[][] tilesRandomRoom;
     //Liste de tous les patterns
@@ -41,6 +45,7 @@ public final class RoomGenerator {
         monsters = new ArrayList<>();
         specialTileList = new ArrayList<>();
         randomNumber = new Random();
+        aStarManager = AStarManager.instance;
         getAllPatterns();
     }
 
@@ -146,6 +151,34 @@ public final class RoomGenerator {
                 tGeneration();
                 break;
         }
+
+        //aStarManager.transformToGraph(tilesRandomRoom);
+
+        boolean[][] arrayWalkable = new boolean[ROOM_SIZE][ROOM_SIZE];
+        for (int y = 0; y < ROOM_SIZE; y++) {
+            for (int x = 0; x < ROOM_SIZE; x++) {
+                if(tilesRandomRoom[y][x].getCharTile() == ' ' || tilesRandomRoom[y][x].getCharTile() == 'T'){
+                    arrayWalkable[y][x] = true;
+                }else{
+                    arrayWalkable[y][x] = false;
+                }
+            }
+        }
+        Grid instance = Grid.instance;
+        instance.setGrid(arrayWalkable);
+        for (int x = 0; x < ROOM_SIZE; x++) {
+            for (int y = 0; y < ROOM_SIZE; y++) {
+                if(arrayWalkable[x][y])
+                    System.out.print(".");
+                else
+                    System.out.print("X");
+            }
+            System.out.println("");
+        }
+
+        monsters.clear();
+        monsters.add(new Zombie(12,20));
+
         return tilesRandomRoom;
     }
 

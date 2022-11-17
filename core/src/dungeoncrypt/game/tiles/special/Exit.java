@@ -70,4 +70,8 @@ public final class Exit extends SpecialTile {
     protected void setSpriteToDisabled() {
         setTextureToSprite("sprites/tiles/special/openedExit.png");
     }
+
+    public char getCharTile(){
+        return EXIT_TILE;
+    }
 }

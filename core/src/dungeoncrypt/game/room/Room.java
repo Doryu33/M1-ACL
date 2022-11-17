@@ -10,6 +10,7 @@ import dungeoncrypt.game.entities.monsters.Monster;
 import dungeoncrypt.game.entities.Player;
 import dungeoncrypt.game.tiles.Tile;
 import dungeoncrypt.game.tiles.special.SpecialTile;
+import dungeoncrypt.game.tools.SingletonGetPosPlayer;
 
 import java.util.ArrayList;
 
@@ -39,6 +40,8 @@ public final class Room {
         this.monsters = new ArrayList<>();
         this.specialTileList = new ArrayList<>();
         this.stage = stage;
+        SingletonGetPosPlayer s = SingletonGetPosPlayer.instance;
+        s.setPlayer(player);
     }
 
     /**

@@ -1,6 +1,7 @@
 package dungeoncrypt.game.tiles.classic;
 import dungeoncrypt.game.tiles.Tile;
 
+import static dungeoncrypt.game.data.Data.FLOOR_TILE;
 import static dungeoncrypt.game.data.Data.FLOOR_TYPE;
 
 public final class Floor extends Tile {
@@ -19,5 +20,7 @@ public final class Floor extends Tile {
         return false;
     }
 
-
+    public char getCharTile(){
+        return FLOOR_TILE;
+    }
 }
