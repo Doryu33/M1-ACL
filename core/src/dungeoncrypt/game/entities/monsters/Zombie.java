@@ -20,7 +20,7 @@ public final class Zombie extends Monster {
     private float playerPosX;
     private float playerPosY;
     protected float timeSeconds = 0f;
-    protected float period = 1f;    //Temps en seconde
+    protected float period = 0.1f;    //Temps en seconde
     private List<Node> path;
     private List<Point> pathOfPoints;
     private int integerPartXMonster;
@@ -37,6 +37,25 @@ public final class Zombie extends Monster {
         singletonPlayerPos = SingletonGetPosPlayer.instance;
     }
 
+    public void aux(){
+        float decimalPart = ((getBody().getPosition().x)+(RENDER_SCALE/2f))/RENDER_SCALE;
+        integerPartXMonster = (int) decimalPart;
+
+        float decimalPartXMonster = decimalPart-integerPartXMonster;
+        if(decimalPartXMonster >= 0.5f){
+            integerPartXMonster++;
+        }
+
+        decimalPart = ((getBody().getPosition().y)+(RENDER_SCALE/2f))/RENDER_SCALE;
+        integerPartYMonster = (int) decimalPart;
+        float decimalPartYMonster = decimalPart-integerPartYMonster;
+        if(decimalPartYMonster >= 0.5f){
+            integerPartYMonster++;
+        }
+        integerPartYMonster = ROOM_SIZE - integerPartYMonster;
+    }
+    
+    
     @Override
     //Créer le pathfinding
     public void updatePosition(Room actualRoom) {
@@ -55,34 +74,26 @@ public final class Zombie extends Monster {
             posYTarget = pathOfPoints.get(0).y;
 
         }
+
+        aux();
+
         if(integerPartXMonster > posXTarget){
             horizontalForce = horizontalForce - 1;
         }else if(integerPartXMonster < posXTarget){
             horizontalForce = horizontalForce + 1;
         }
         if(integerPartYMonster > posYTarget){
-            verticalForce = verticalForce - 1;
-        }else if(integerPartYMonster < posYTarget) {
             verticalForce = verticalForce + 1;
+        }else if(integerPartYMonster < posYTarget) {
+            verticalForce = verticalForce - 1;
         }
-        getBody().setLinearVelocity(horizontalForce*45,verticalForce*45);
+        getBody().setLinearVelocity(horizontalForce*50,verticalForce*50);
         this.sprite.setPosition(getBody().getPosition().x-(RENDER_SCALE),getBody().getPosition().y-(RENDER_SCALE));
     }
 
     private void getPath(){
-        float decimalPart = getBody().getPosition().x/RENDER_SCALE;
-        integerPartXMonster = (int) getBody().getPosition().x/RENDER_SCALE;
-        float decimalPartXMonster = decimalPart-integerPartXMonster;
-        if(decimalPartXMonster >= 0.5f){
-            integerPartXMonster++;
-        }
-
-        decimalPart = getBody().getPosition().y/RENDER_SCALE;
-        integerPartYMonster = (int) getBody().getPosition().y/RENDER_SCALE;
-        float decimalPartYMonster = decimalPart-integerPartYMonster;
-        if(decimalPartYMonster >= 0.5f){
-            integerPartYMonster++;
-        }
+        
+        aux();
 
         String tileMonster = (char) (integerPartXMonster+64) + String.valueOf(integerPartYMonster);
         Point startPoint = new Point(integerPartXMonster, integerPartYMonster);
@@ -90,19 +101,20 @@ public final class Zombie extends Monster {
         playerPosX = singletonPlayerPos.getX();
         playerPosY = singletonPlayerPos.getY();
 
-        decimalPart = playerPosX/RENDER_SCALE;
-        integerPartXPlayer = (int) playerPosX/RENDER_SCALE;
+        float decimalPart = (playerPosX +(RENDER_SCALE/2f))/RENDER_SCALE;
+        integerPartXPlayer = (int) decimalPart;
         float decimalPartXPlayer = decimalPart-integerPartXPlayer;
         if(decimalPartXPlayer > 0.5f){
             integerPartXPlayer++;
         }
 
-        decimalPart = playerPosY/RENDER_SCALE;
-        integerPartYPlayer = (int) playerPosY/RENDER_SCALE;
+        decimalPart = (playerPosY +(RENDER_SCALE/2f))/RENDER_SCALE;
+        integerPartYPlayer = (int) decimalPart;
         float decimalPartYPlayer = decimalPart-integerPartYPlayer;
         if(decimalPartYPlayer > 0.5f){
             integerPartYPlayer++;
         }
+        integerPartYPlayer = ROOM_SIZE - integerPartYPlayer;
 
         String tilePlayer = (char) (integerPartXPlayer+64) + String.valueOf(integerPartYPlayer);
         Point targetPoint = new Point(integerPartXPlayer, integerPartYPlayer);
@@ -117,22 +129,6 @@ public final class Zombie extends Monster {
 
 
         pathOfPoints = PathFinding.findPath(startPoint, targetPoint, false);
-        if(pathOfPoints.size() == 0){
-            startPoint = new Point(integerPartXMonster+1, integerPartYMonster);
-            pathOfPoints = PathFinding.findPath(startPoint, targetPoint, false);
-        }
-        if(pathOfPoints.size() == 0){
-            startPoint = new Point(integerPartXMonster-1, integerPartYMonster);
-            pathOfPoints = PathFinding.findPath(startPoint, targetPoint, false);
-        }
-        if(pathOfPoints.size() == 0){
-            startPoint = new Point(integerPartXMonster, integerPartYMonster+1);
-            pathOfPoints = PathFinding.findPath(startPoint, targetPoint, false);
-        }
-        if(pathOfPoints.size() == 0){
-            startPoint = new Point(integerPartXMonster, integerPartYMonster-1);
-            pathOfPoints = PathFinding.findPath(startPoint, targetPoint, false);
-        }
 
         for (Point point : pathOfPoints) System.out.print(point);
         System.out.println("");
