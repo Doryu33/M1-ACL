@@ -1,4 +1,4 @@
-package dungeoncrypt.game.AStar2;
+package dungeoncrypt.game.AStarAlgorithm;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,7 +19,6 @@ public class PathFinding {
     public static List<Point> findPath(Point startPos, Point targetPos, boolean allowDiagonals) {
         // Find path
         List<Node> pathInNodes = findPathNodes(startPos, targetPos, allowDiagonals);
-        
 
         // Convert to a list of points and return
         List<Point> pathInPoints = new ArrayList<Point>();
@@ -28,9 +27,7 @@ public class PathFinding {
             for (Node node : pathInNodes){
                 pathInPoints.add(new Point(node.x, node.y));
             }
-            System.out.println("pathInPoints.size() = " + pathInPoints.size());
         }
-            
 
         return pathInPoints;
     }
@@ -45,8 +42,8 @@ public class PathFinding {
     private static List<Node> findPathNodes(Point startPos, Point targetPos, boolean allowDiagonals) {
         Grid grid = Grid.instance;
         Node[][] nodes = grid.getGrid();
-        Node startNode = nodes[startPos.x][startPos.y];
-        Node targetNode = nodes[targetPos.x][targetPos.y];
+        Node startNode = nodes[startPos.y][startPos.x];
+        Node targetNode = nodes[targetPos.y][targetPos.x];
 
         List<Node> openSet = new ArrayList<Node>();
         HashSet<Node> closedSet = new HashSet<Node>();

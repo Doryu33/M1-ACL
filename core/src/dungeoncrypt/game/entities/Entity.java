@@ -18,13 +18,15 @@ public abstract class Entity extends Actor {
     private float x;
     private float y;
     private final String type;
+    private final String specialType;
     private Body body;
     protected Sprite sprite;
     //Entier du nombre de point de vie
     private int healthPoint;
 
-    public Entity(String type,int healthPoint,String spritePath){
+    public Entity(String type, String specialType, int healthPoint,String spritePath){
         this.type = type;
+        this.specialType = specialType;
         this.sprite = new Sprite(new Texture(Gdx.files.internal(spritePath)));
         this.healthPoint = healthPoint;
     }
@@ -123,5 +125,9 @@ public abstract class Entity extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha){
         sprite.draw(batch);
+    }
+
+    public String getSpecialType() {
+        return specialType;
     }
 }

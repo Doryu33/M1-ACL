@@ -1,141 +1,115 @@
 package dungeoncrypt.game.entities.monsters;
 
 import com.badlogic.gdx.Gdx;
-import dungeoncrypt.game.AStar.AStarManager;
-import dungeoncrypt.game.AStar.Node;
-import dungeoncrypt.game.AStar2.PathFinding;
-import dungeoncrypt.game.AStar2.Point;
+import dungeoncrypt.game.AStarAlgorithm.PathFinding;
+import dungeoncrypt.game.AStarAlgorithm.Point;
 import dungeoncrypt.game.room.Room;
 import dungeoncrypt.game.tools.SingletonGetPosPlayer;
 
 import java.util.List;
-import java.util.Random;
 
 import static dungeoncrypt.game.data.Data.*;
 
 public final class Zombie extends Monster {
 
-    private final AStarManager aStarManager;
     private final SingletonGetPosPlayer singletonPlayerPos;
-    private float playerPosX;
-    private float playerPosY;
     protected float timeSeconds = 0f;
     protected float period = 0.1f;    //Temps en seconde
-    private List<Node> path;
     private List<Point> pathOfPoints;
     private int integerPartXMonster;
     private int integerPartYMonster;
-    private int integerPartXPlayer;
-    private int integerPartYPlayer;
-    private int index = 0;
     private int posXTarget;
     private int posYTarget;
+    private boolean movingLeft;
+    private boolean movingDown;
 
     public Zombie(int x, int y) {
         super(x, y,ZOMBIE_INITIAL_HP,ZOMBIE_TYPE,"sprites/entities/monsters/zombie.gif");
-        aStarManager = AStarManager.instance;
         singletonPlayerPos = SingletonGetPosPlayer.instance;
     }
 
-    public void aux(){
-        float decimalPart = ((getBody().getPosition().x)+(RENDER_SCALE/2f))/RENDER_SCALE;
-        integerPartXMonster = (int) decimalPart;
-
-        float decimalPartXMonster = decimalPart-integerPartXMonster;
-        if(decimalPartXMonster >= 0.5f){
-            integerPartXMonster++;
-        }
-
-        decimalPart = ((getBody().getPosition().y)+(RENDER_SCALE/2f))/RENDER_SCALE;
-        integerPartYMonster = (int) decimalPart;
-        float decimalPartYMonster = decimalPart-integerPartYMonster;
-        if(decimalPartYMonster >= 0.5f){
-            integerPartYMonster++;
-        }
-        integerPartYMonster = ROOM_SIZE - integerPartYMonster;
-    }
-    
-    
+    /**
+     * Met à jour la direction du monstre.
+     * Toutes les 0.1 secondes, le monstre génère le chemin le plus court vers le joueur
+     */
     @Override
-    //Créer le pathfinding
     public void updatePosition(Room actualRoom) {
         timeSeconds += Gdx.graphics.getDeltaTime();
+        this.verticalForce = 0;
+        this.horizontalForce = 0;
 
         if(timeSeconds > period){
             timeSeconds -= period;
             getPath();
         }
 
-        this.verticalForce = 0;
-        this.horizontalForce = 0;
-
         if(pathOfPoints != null && pathOfPoints.size() > 0){
             posXTarget = pathOfPoints.get(0).x;
             posYTarget = pathOfPoints.get(0).y;
-
         }
 
-        aux();
+        fixPosition();
 
         if(integerPartXMonster > posXTarget){
+            //Gauche
             horizontalForce = horizontalForce - 1;
+            movingLeft = true;
         }else if(integerPartXMonster < posXTarget){
+            //Droite
             horizontalForce = horizontalForce + 1;
+            movingLeft = false;
         }
         if(integerPartYMonster > posYTarget){
+            //Haut
             verticalForce = verticalForce + 1;
+            movingDown = false;
         }else if(integerPartYMonster < posYTarget) {
+            //Bas
             verticalForce = verticalForce - 1;
+            movingDown = true;
         }
         getBody().setLinearVelocity(horizontalForce*50,verticalForce*50);
         this.sprite.setPosition(getBody().getPosition().x-(RENDER_SCALE),getBody().getPosition().y-(RENDER_SCALE));
     }
 
-    private void getPath(){
-        
-        aux();
+    /**
+     * Fixer les positions du monstre pour matcher avec l'algo de pathfinding
+     */
+    private void fixPosition(){
+        float monsterPosX = getBody().getPosition().x-(RENDER_SCALE);
+        float monsterPosY = getBody().getPosition().y-(RENDER_SCALE);
 
-        String tileMonster = (char) (integerPartXMonster+64) + String.valueOf(integerPartYMonster);
+        integerPartXMonster = (int) monsterPosX/RENDER_SCALE;
+        integerPartYMonster = (int) monsterPosY/RENDER_SCALE;
+        integerPartYMonster = ROOM_SIZE-1 - integerPartYMonster;
+
+        if(movingDown && movingLeft){
+            integerPartYMonster++;
+        }
+        else if(movingLeft){
+            integerPartXMonster++;
+        }
+        else if(movingDown){
+            integerPartYMonster--;
+        }
+    }
+
+    /**
+     * Récupérer le chemin pour atteindre le joueur via l'algo de pathfinding A*
+     */
+    private void getPath(){
+        fixPosition();
         Point startPoint = new Point(integerPartXMonster, integerPartYMonster);
 
-        playerPosX = singletonPlayerPos.getX();
-        playerPosY = singletonPlayerPos.getY();
+        float playerPosX = singletonPlayerPos.getX()-(RENDER_SCALE/2f);
+        float playerPosY = singletonPlayerPos.getY()-(RENDER_SCALE/2f);
 
-        float decimalPart = (playerPosX +(RENDER_SCALE/2f))/RENDER_SCALE;
-        integerPartXPlayer = (int) decimalPart;
-        float decimalPartXPlayer = decimalPart-integerPartXPlayer;
-        if(decimalPartXPlayer > 0.5f){
-            integerPartXPlayer++;
-        }
+        int integerPartXPlayer = (int) playerPosX/RENDER_SCALE;
+        int integerPartYPlayer = (int) playerPosY/RENDER_SCALE;
+        integerPartYPlayer = ROOM_SIZE-1 - integerPartYPlayer;
 
-        decimalPart = (playerPosY +(RENDER_SCALE/2f))/RENDER_SCALE;
-        integerPartYPlayer = (int) decimalPart;
-        float decimalPartYPlayer = decimalPart-integerPartYPlayer;
-        if(decimalPartYPlayer > 0.5f){
-            integerPartYPlayer++;
-        }
-        integerPartYPlayer = ROOM_SIZE - integerPartYPlayer;
-
-        String tilePlayer = (char) (integerPartXPlayer+64) + String.valueOf(integerPartYPlayer);
         Point targetPoint = new Point(integerPartXPlayer, integerPartYPlayer);
-
-/*
-        aStarManager.printGraph();
-        Node n = aStarManager.aStar(tileMonster,tilePlayer);
-        path = aStarManager.getPath(n);
-        aStarManager.printPath(n);
-
- */
-
-
         pathOfPoints = PathFinding.findPath(startPoint, targetPoint, false);
-
-        for (Point point : pathOfPoints) System.out.print(point);
-        System.out.println("");
-
-
-
-        index = 0;
     }
 }
 

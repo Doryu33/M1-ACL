@@ -45,6 +45,12 @@ public class BodyContactListenner implements ContactListener {
                 }
                 tileEffectPlayer(fixtureB,fixtureA);
             }
+            if(objB instanceof Monster && objA instanceof SpecialTile){
+                if(DEBUG_MODE){
+                    System.out.println(fixtureA.getBody().getUserData()+" has hit2 "+ fixtureB.getBody().getUserData());
+                }
+                tileEffectMonster(fixtureB,fixtureA);
+            }
         //Dynamic bodies only
         } else {
             if(objA instanceof Monster){
@@ -103,6 +109,25 @@ public class BodyContactListenner implements ContactListener {
      */
     private void tileEffectPlayer (Fixture playerFixture, Fixture tileFixture){
         ((SpecialTile) tileFixture.getBody().getUserData()).applyEffectOn((Entity) playerFixture.getBody().getUserData());
+    }
+
+    /**
+     * Fonction utilisée pour appliquer l'effet de la case au monstre
+     * @param monsterFixture
+     * @param tileFixture
+     */
+    private void tileEffectMonster(Fixture monsterFixture, Fixture tileFixture) {
+        final Entity monster = ((Entity) monsterFixture.getBody().getUserData());
+        ((SpecialTile) tileFixture.getBody().getUserData()).applyEffectOn(monster);
+        if(monster.getHealthPoint() <= 0){
+            parent.getRoomManager().getActualRoom().killMonster((Monster) monster);
+            Gdx.app.postRunnable(new Runnable() {
+                @Override
+                public void run () {
+                    parent.getworld().destroyBody(monster.getBody());
+                }
+            });
+        }
     }
 
     private void weaponDamageMonster(Fixture weaponFixture, Fixture monsterFixture){

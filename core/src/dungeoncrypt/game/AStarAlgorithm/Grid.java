@@ -1,4 +1,4 @@
-package dungeoncrypt.game.AStar2;
+package dungeoncrypt.game.AStarAlgorithm;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,10 +25,11 @@ public class Grid {
         gridHeight = ROOM_SIZE;
         nodes = new Node[ROOM_SIZE][ROOM_SIZE];
 
-        for (int x = 0; x < ROOM_SIZE; x++)
-            for (int y = 0; y < ROOM_SIZE; y++)
-                nodes[x][y] = new Node(x, y, walkableTiles[x][y] ? 1.0f : 0.0f);
-
+        for (int y = 0; y < ROOM_SIZE; y++) {
+            for (int x = 0; x < ROOM_SIZE; x++) {
+                nodes[y][x] = new Node(x, y, walkableTiles[y][x] ? 1.0f : 0.0f);
+            }
+        }
     }
 
     public Node[][] getGrid(){
@@ -55,10 +56,10 @@ public class Grid {
     public List<Node> get4Neighbours(Node node) {
         List<Node> neighbours = new ArrayList<Node>();
 
-        if (node.y + 1 >= 0 && node.y + 1  < gridHeight) neighbours.add(nodes[node.x][node.y + 1]); // N
-        if (node.y - 1 >= 0 && node.y - 1  < gridHeight) neighbours.add(nodes[node.x][node.y - 1]); // S
-        if (node.x + 1 >= 0 && node.x + 1  < gridHeight) neighbours.add(nodes[node.x + 1][node.y]); // E
-        if (node.x - 1 >= 0 && node.x - 1  < gridHeight) neighbours.add(nodes[node.x - 1][node.y]); // W
+        if (node.y - 1 >= 0 && node.y - 1  < gridHeight) neighbours.add(nodes[node.y - 1][node.x]); // N
+        if (node.y + 1 >= 0 && node.y + 1  < gridHeight) neighbours.add(nodes[node.y + 1][node.x]); // S
+        if (node.x + 1 >= 0 && node.x + 1  < gridHeight) neighbours.add(nodes[node.y][node.x + 1]); // E
+        if (node.x - 1 >= 0 && node.x - 1  < gridHeight) neighbours.add(nodes[node.y][node.x - 1]); // W
 
         return neighbours;
     }

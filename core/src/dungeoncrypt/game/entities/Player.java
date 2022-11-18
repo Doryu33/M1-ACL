@@ -26,7 +26,7 @@ public final class Player extends Entity {
     private float period = 2f;
     private boolean isWeaponActive = false;
     public Player(){
-        super(PLAYER_TYPE,PLAYER_INITIAL_HP,"sprites/entities/player/isaac.png");
+        super(PLAYER_TYPE,PLAYER_TYPE,PLAYER_INITIAL_HP,"sprites/entities/player/isaac.png");
         setInitialPosition();
         this.score = 0;
         this.weapon = new Sword();

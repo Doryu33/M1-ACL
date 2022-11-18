@@ -37,6 +37,9 @@ public class Data {
     public static final String PLAYER_TYPE = "Player";
     public static final String MONSTER_TYPE = "Monster";
 
+    //String pour définir le type spécial d'un joueur. Identique à PLAYER_TYPE pour le moment mais peut-être utile dans le futur
+    public static final String PLAYER_SPECIAL_TYPE = "Player";
+
     //String pour définir le type spécial d'un monstre
     public static final String SKELETON_TYPE = "Skeleton";
     public static final String ZOMBIE_TYPE = "Zombie";
@@ -59,11 +62,11 @@ public class Data {
 
     //Constantes numériques pour les statistiques des monstres
     public static final int SKELETON_INITIAL_HP = 20;
-    public static final int ZOMBIE_INITIAL_HP = 20;
+    public static final int ZOMBIE_INITIAL_HP = 15;
     public static final int GHOST_INITIAL_HP = 5;
 
     //Constantes numériques pour les points des monstres
-    public static final int SKELETON_SCORE = 20;
+    public static final int SKELETON_SCORE = 10;
     public static final int ZOMBIE_SCORE = 20;
     public static final int GHOST_SCORE = 5;
 

@@ -1,4 +1,4 @@
-package dungeoncrypt.game.AStar2;
+package dungeoncrypt.game.AStarAlgorithm;
 
 /**
  * A node in the grid map
