@@ -9,13 +9,12 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
-import static dungeoncrypt.game.data.Data.FLOOR_TILE;
 import static dungeoncrypt.game.data.Data.RENDER_SCALE;
 
 public abstract class Tile extends Actor {
 
     private final String type;
-    private Sprite sprite;
+    private final Sprite sprite;
 
     public Tile(String type,String spritePath){
         this.type = type;
@@ -65,7 +64,6 @@ public abstract class Tile extends Actor {
     public FixtureDef createShape(){
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(RENDER_SCALE/2f,RENDER_SCALE/2f);
-
         FixtureDef fixturePolygon = new FixtureDef();
         fixturePolygon.isSensor = true;
         fixturePolygon.shape = shape;

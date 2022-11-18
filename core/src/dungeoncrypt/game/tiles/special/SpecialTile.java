@@ -47,7 +47,7 @@ public abstract class SpecialTile extends Tile {
                 //désactiver la tuile et changer le sprite
                 if(!isAppliedEffectCounterNotOver() && isEnable){
                     isEnable = false;
-                    setSpriteToDisabled();
+                    //setSpriteToDisabled();
                 }
             }
         }

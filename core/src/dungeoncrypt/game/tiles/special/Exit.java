@@ -1,18 +1,23 @@
 package dungeoncrypt.game.tiles.special;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import dungeoncrypt.game.entities.Entity;
-import dungeoncrypt.game.entities.Player;
+import dungeoncrypt.game.room.RoomManager;
 
 import static dungeoncrypt.game.data.Data.*;
 
 
 public final class Exit extends SpecialTile {
 
+    private final RoomManager roomManager;
     private boolean isOpen = false;
 
     //Ici isEnable est définit comme vrai lorsque la porte est fermée.
-    public Exit(String specialType) {
+    public Exit(String specialType, RoomManager roomManager) {
         super(EXIT_TYPE,specialType,true,"sprites/tiles/special/closedExit.png");
+        this.roomManager = roomManager;
     }
 
     @Override
@@ -60,9 +65,11 @@ public final class Exit extends SpecialTile {
     @Override
     protected void useEffect(Entity entity) {
         if(entity.getType().equals(PLAYER_TYPE) && isOpen){
-            //Cast vers joueur
-            Player player = (Player) entity;
-            player.setInitialPosition();
+            Gdx.app.postRunnable(new Runnable() {
+                @Override
+                public void run () { roomManager.createNextRoom();
+                }
+            });
         }
     }
 

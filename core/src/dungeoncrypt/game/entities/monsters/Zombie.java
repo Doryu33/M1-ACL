@@ -24,7 +24,7 @@ public final class Zombie extends Monster {
     private boolean movingDown;
 
     public Zombie(int x, int y) {
-        super(x, y,ZOMBIE_INITIAL_HP,ZOMBIE_TYPE,"sprites/entities/monsters/zombie.gif");
+        super(x, y,ZOMBIE_INITIAL_HP,ZOMBIE_TYPE, ZOMBIE_SCORE,"sprites/entities/monsters/zombie.gif");
         singletonPlayerPos = SingletonGetPosPlayer.instance;
     }
 

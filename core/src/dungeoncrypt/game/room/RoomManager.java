@@ -4,9 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import dungeoncrypt.game.tiles.special.Exit;
 import dungeoncrypt.game.tools.SaveManager;
 
-import static dungeoncrypt.game.data.Data.AUTO_SAVE_NAME;
 import static dungeoncrypt.game.data.Data.DEBUG_SAVE_NAME;
 
 /**
@@ -14,7 +14,7 @@ import static dungeoncrypt.game.data.Data.DEBUG_SAVE_NAME;
  */
 public final class RoomManager {
 
-    private final RoomGenerator roomGenerator = new RoomGenerator();
+    private final RoomGenerator roomGenerator;
     private final Room actualRoom;
     private World world;
     private final Stage stage;
@@ -29,6 +29,7 @@ public final class RoomManager {
         this.world = world;
         this.stage = stage;
         this.saveManager = new SaveManager();
+        this.roomGenerator = new RoomGenerator(this);
         actualRoom = new Room(world, stage, roomGenerator.generateSimpleRoom());
         createNextRoom();
     }
@@ -43,6 +44,7 @@ public final class RoomManager {
         this.saveManager = save;
         this.world = world;
         this.stage = stage;
+        this.roomGenerator = new RoomGenerator(this);
         actualRoom = new Room(world, stage, roomGenerator.generateSimpleRoom());
         loadRoom(this.saveManager);
     }
@@ -65,7 +67,7 @@ public final class RoomManager {
         this.actualRoom.setSpecialTileList(this.roomGenerator.getSpecialTileList());
         this.actualRoom.setInitialPlayerPosition();
         this.stage.clear();
-        createBodys();
+        createBodies();
     }
 
     /**
@@ -80,7 +82,7 @@ public final class RoomManager {
         this.actualRoom.setPlayerHP(save.PlayerHealth);
         this.actualRoom.setPlayerScore(save.PlayerScore);
         this.stage.clear();
-        createBodys();
+        createBodies();
     }
 
     /**
@@ -112,25 +114,24 @@ public final class RoomManager {
     /**
      * Afficher la salle actuelle
      */
-    public void createBodys(){
+    public void createBodies(){
         this.actualRoom.clearBodies();
         this.actualRoom.createBodyTiles();
         this.actualRoom.createBodyPlayer();
         this.actualRoom.createBodyMonsters();
     }
 
-    /**
-     * Verifie si le joueur utilise la sortie
-     */
-    public void checkNextRoomIsRequested() {
-        if (this.actualRoom.isPlayerOnExit()) {
-            this.createNextRoom();
-        }
-
-    }
-
     public Room getActualRoom() {
         return actualRoom;
+    }
+
+    public void checkRoomIsEmpty() {
+        if (actualRoom.isEmpty()){
+            Exit exit = actualRoom.getExit();
+            if(exit != null){
+                exit.setOpen();
+            }
+        }
     }
 }
 

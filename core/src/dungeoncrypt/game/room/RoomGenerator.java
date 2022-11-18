@@ -31,6 +31,7 @@ public final class RoomGenerator {
     private final Random randomNumber;
     //Liste de toutes les tuile spéciales de la salle
     private final ArrayList<SpecialTile> specialTileList;
+    private final RoomManager roomManager;
     //Salle aléatoire générée
     private Tile[][] tilesRandomRoom;
     //Liste de tous les patterns
@@ -38,7 +39,8 @@ public final class RoomGenerator {
     //Nombre de pattern au total
     private int numberOfPattern;
 
-    public RoomGenerator(){
+    public RoomGenerator(RoomManager roomManager){
+        this.roomManager = roomManager;
         monsters = new ArrayList<>();
         specialTileList = new ArrayList<>();
         randomNumber = new Random();
@@ -57,7 +59,7 @@ public final class RoomGenerator {
             for (int x = 0; x < ROOM_SIZE; x++) {
                 //Lorsque l'on est en haut au centre
                 if(x == EXIT_POS_X && y == EXIT_POS_Y){
-                    Exit exit = new Exit(EXIT_SPECIAL_TYPE_NEW_ROOM);
+                    Exit exit = new Exit(EXIT_SPECIAL_TYPE_NEW_ROOM,roomManager);
                     tiles[y][x] = exit;
                     specialTileList.add(exit);
                 }
@@ -90,7 +92,7 @@ public final class RoomGenerator {
                         tiles[y][x] = new Wall();
                         break;
                     case EXIT_TILE:
-                        Exit exit = new Exit(EXIT_SPECIAL_TYPE_NEW_ROOM);
+                        Exit exit = new Exit(EXIT_SPECIAL_TYPE_NEW_ROOM,roomManager);
                         tiles[y][x] = exit;
                         this.specialTileList.add(exit);
                         break;

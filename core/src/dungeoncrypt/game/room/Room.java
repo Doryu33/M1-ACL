@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.Array;
 import dungeoncrypt.game.entities.monsters.Monster;
 import dungeoncrypt.game.entities.Player;
 import dungeoncrypt.game.tiles.Tile;
+import dungeoncrypt.game.tiles.special.Exit;
 import dungeoncrypt.game.tiles.special.SpecialTile;
 import dungeoncrypt.game.tools.SingletonGetPosPlayer;
 
@@ -155,6 +156,13 @@ public final class Room {
         return res;
     }
 
+    public Exit getExit(){
+        if(specialTileList.get(0).getType().equals(EXIT_TYPE)){
+            return (Exit) specialTileList.get(0);
+        }
+        return null;
+    }
+
     /**
      * Définit l'environnement de la salle (murs, sols, sortie et pièges)
      * @param generatedRoom environnement de la salle à définir
@@ -198,20 +206,7 @@ public final class Room {
             monsters.remove(monster);
             System.out.println("MONSTRE MORT");
             monster.setVisible(false);
-            String type = monster.getSpecialType();
-            switch (type){
-                case ZOMBIE_TYPE:
-                    player.addScore(ZOMBIE_SCORE);
-                    break;
-                case SKELETON_TYPE:
-                    player.addScore(SKELETON_SCORE);
-                    break;
-                case GHOST_TYPE:
-                    player.addScore(GHOST_SCORE);
-                    break;
-                default:
-                    break;
-            }
+            player.addScore(monster.getScore());
         }
     }
 
@@ -294,7 +289,6 @@ public final class Room {
         this.stage.addActor(player.getWeapon());
     }
 
-
     /**
      * Getter des PV du joueur.
      * @return les PV du joueur.
@@ -325,7 +319,6 @@ public final class Room {
 
     public float getPlayerPosX(){
         return player.getBody().getPosition().x;
-
     }
 
     public float getPlayerPosY(){
@@ -336,11 +329,13 @@ public final class Room {
      * Détruit tous les body du monde. Les tuiles, le joueur et les monstres sont détruites.
      */
     public void clearBodies(){
-        Array<Body> list = new Array<>();
-        world.getBodies(list);
-        int nb = world.getBodyCount();
-        for (int i = 0; i < nb; i++) {
-            world.destroyBody(list.get(i));
+        if(!world.isLocked()){
+            Array<Body> list = new Array<>();
+            world.getBodies(list);
+            int nb = world.getBodyCount();
+            for (int i = 0; i < nb; i++) {
+                world.destroyBody(list.get(i));
+            }
         }
     }
 
@@ -366,5 +361,12 @@ public final class Room {
         }
     }
 
+    /**
+     * Savoir si la salle est vide, càd s'il n'y a plus de monstre en vie
+     * @return vrai si plus aucun monstre vivant
+     */
+    public boolean isEmpty() {
+        return monsters.size() == 0;
+    }
 }
 

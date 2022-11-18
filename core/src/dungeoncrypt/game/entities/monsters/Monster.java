@@ -12,9 +12,11 @@ public abstract class Monster extends Entity {
 
     protected int horizontalForce;
     protected int verticalForce;
+    private int score;
 
-    public Monster(int x, int y, int healthPoint, String specialType, String spritePath) {
+    public Monster(int x, int y, int healthPoint, String specialType, int score, String spritePath) {
         super(MONSTER_TYPE,specialType,healthPoint,spritePath);
+        this.score = score;
         setX(x);
         setY(y);
         this.horizontalForce = 0;
@@ -26,4 +28,8 @@ public abstract class Monster extends Entity {
      * @param actualRoom salle actuelle
      */
     public abstract void updatePosition(Room actualRoom);
+
+    public int getScore(){
+        return score;
+    }
 }

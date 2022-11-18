@@ -5,6 +5,7 @@ import com.badlogic.gdx.physics.box2d.*;
 import dungeoncrypt.game.entities.Entity;
 import dungeoncrypt.game.entities.monsters.Monster;
 import dungeoncrypt.game.entities.Player;
+import dungeoncrypt.game.tiles.special.Exit;
 import dungeoncrypt.game.tiles.special.SpecialTile;
 import dungeoncrypt.game.views.GameScreen;
 import dungeoncrypt.game.weapons.Weapon;
@@ -36,12 +37,6 @@ public class BodyContactListenner implements ContactListener {
             if(objA instanceof SpecialTile && objB instanceof Player){
                 if(DEBUG_MODE){
                     System.out.println(fixtureA.getBody().getUserData()+" has hit1 "+ fixtureB.getBody().getUserData());
-                }
-                tileEffectPlayer(fixtureB,fixtureA);
-            }
-            if(objB instanceof Player && objA instanceof SpecialTile){
-                if(DEBUG_MODE){
-                    System.out.println(fixtureA.getBody().getUserData()+" has hit2 "+ fixtureB.getBody().getUserData());
                 }
                 tileEffectPlayer(fixtureB,fixtureA);
             }
@@ -119,32 +114,27 @@ public class BodyContactListenner implements ContactListener {
     private void tileEffectMonster(Fixture monsterFixture, Fixture tileFixture) {
         final Entity monster = ((Entity) monsterFixture.getBody().getUserData());
         ((SpecialTile) tileFixture.getBody().getUserData()).applyEffectOn(monster);
-        if(monster.getHealthPoint() <= 0){
-            parent.getRoomManager().getActualRoom().killMonster((Monster) monster);
-            Gdx.app.postRunnable(new Runnable() {
-                @Override
-                public void run () {
-                    parent.getworld().destroyBody(monster.getBody());
-                }
-            });
-        }
+        killMonster((Monster) monster);
     }
 
     private void weaponDamageMonster(Fixture weaponFixture, Fixture monsterFixture){
         final Entity monster = ((Entity) monsterFixture.getBody().getUserData());
         Weapon weapon = (Weapon) weaponFixture.getBody().getUserData();
         weapon.setDamageTo(monster);
+        killMonster((Monster) monster);
+        System.out.println("MONSTRE touché par WEAPON. PV restant: "+((Entity) monsterFixture.getBody().getUserData()).getHealthPoint());
+    }
 
+    private void killMonster(final Monster monster){
         if(monster.getHealthPoint() <= 0){
-            parent.getRoomManager().getActualRoom().killMonster((Monster) monster);
+            parent.getRoomManager().getActualRoom().killMonster(monster);
             Gdx.app.postRunnable(new Runnable() {
                 @Override
                 public void run () {
                     parent.getworld().destroyBody(monster.getBody());
                 }
             });
+            parent.getRoomManager().checkRoomIsEmpty();
         }
-        System.out.println("MONSTRE touché par WEAPON. PV restant: "+((Entity) monsterFixture.getBody().getUserData()).getHealthPoint());
-
     }
 }

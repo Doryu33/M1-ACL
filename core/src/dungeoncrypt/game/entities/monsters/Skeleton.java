@@ -14,7 +14,7 @@ public final class Skeleton extends Monster {
     protected float period = 4f;    //Temps en seconde
 
     public Skeleton(int x, int y) {
-        super(x, y, SKELETON_INITIAL_HP, SKELETON_TYPE, "sprites/entities/monsters/skeleton.gif");
+        super(x, y, SKELETON_INITIAL_HP, SKELETON_TYPE, SKELETON_SCORE,"sprites/entities/monsters/skeleton.gif");
     }
 
     /**
