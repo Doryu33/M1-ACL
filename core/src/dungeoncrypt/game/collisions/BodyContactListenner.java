@@ -59,15 +59,18 @@ public class BodyContactListenner implements ContactListener {
                     monstreDamagePlayer(fixtureB, fixtureA);
                 } else if(objB instanceof Weapon) {
                     weaponDamageMonster(fixtureB,fixtureA);
-                    System.out.println("Monster hit weapon");
-
+                    if(DEBUG_MODE) {
+                        System.out.println("Monster hit weapon");
+                    }
                 }
             } else if (objB instanceof Monster){
                 if(objA instanceof Player){
                     monstreDamagePlayer(fixtureA,fixtureB);
                 } else if (objA instanceof Weapon){
                     weaponDamageMonster(fixtureA, fixtureB);
-                    System.out.println("Monster hit weapon");
+                    if(DEBUG_MODE) {
+                        System.out.println("Monster hit weapon");
+                    }
                 }
             } else {
                 if(DEBUG_MODE){

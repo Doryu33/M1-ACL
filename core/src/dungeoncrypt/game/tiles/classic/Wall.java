@@ -29,8 +29,7 @@ public final class Wall extends Tile {
     public FixtureDef createShape(){
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(RENDER_SCALE/2f,RENDER_SCALE/2f);
-
-        FixtureDef fixturePolygon = new FixtureDef();
+        fixturePolygon = new FixtureDef();
         fixturePolygon.isSensor = false;
         fixturePolygon.shape = shape;
         return fixturePolygon;
