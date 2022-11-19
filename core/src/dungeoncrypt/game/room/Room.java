@@ -204,7 +204,7 @@ public final class Room {
     public void killMonster(Monster monster){
         if (monsters.contains(monster)){
             monsters.remove(monster);
-            System.out.println("MONSTRE MORT");
+            //System.out.println("MONSTRE MORT");
             monster.setVisible(false);
             player.addScore(monster.getScore());
         }

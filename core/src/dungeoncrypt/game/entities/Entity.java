@@ -165,6 +165,53 @@ public abstract class Entity extends Actor {
         this.knockbackHorizontal = knockbackHorizontal;
     }
 
+    public void applyKnockBackToPlayer(float monsterX, float monsterY){
+
+        float playerPosX = (getBody().getPosition().x-(RENDER_SCALE/2f))/RENDER_SCALE;
+        float playerPosY = ROOM_SIZE-1 - (getBody().getPosition().y-(RENDER_SCALE/2f))/RENDER_SCALE;
+
+        float monsterPosX = (monsterX-(RENDER_SCALE/2f))/RENDER_SCALE;
+        float monsterPosY = ROOM_SIZE-1 - (monsterY-(RENDER_SCALE/2f))/RENDER_SCALE;
+
+        int verticalForce = 0;
+        int horizontalForce = 0;
+
+        float differenceY = Math.abs(playerPosY-monsterPosY);
+        float differenceX = Math.abs(playerPosX-monsterPosX);
+
+        if(monsterPosY > playerPosY && differenceY >= 0.5f) {
+            verticalForce = verticalForce - 3;
+        }else if (monsterPosY < playerPosY && differenceY >= 0.5f) {
+            verticalForce = verticalForce + 3;
+        }
+
+        if (monsterPosX > playerPosX && differenceX >= 0.5f) {
+            horizontalForce = horizontalForce + 3;
+        } else if (monsterPosX < playerPosX && differenceX >= 0.5f){
+            horizontalForce = horizontalForce - 3;
+        }
+        setknockbackDirection(verticalForce,horizontalForce);
+    }
+
+    public void applyKnockBackToMonster(int knockbackDirection){
+        int verticalForce = 0;
+        int horizontalForce = 0;
+
+        if (knockbackDirection == 2) {
+            verticalForce = verticalForce + 2;
+        }
+        if (knockbackDirection == 1) {
+            verticalForce = verticalForce - 2;
+        }
+        if (knockbackDirection == 3) {
+            horizontalForce = horizontalForce + 2;
+        }
+        if (knockbackDirection == 4) {
+            horizontalForce = horizontalForce - 2;
+        }
+        setknockbackDirection(verticalForce,horizontalForce);
+    }
+
     /**
      * Applique un effet de knockback quand une entitée subit des dégâts
      */

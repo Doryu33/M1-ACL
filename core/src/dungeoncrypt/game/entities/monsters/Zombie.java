@@ -43,38 +43,42 @@ public final class Zombie extends Monster {
             getPath();
         }
 
-        if(pathOfPoints != null && pathOfPoints.size() > 0){
-            posXTarget = pathOfPoints.get(0).x;
-            posYTarget = pathOfPoints.get(0).y;
-        }
-
-        fixPosition();
-
         if (getKnockbackVertical() != 0 || getKnockbackHorizontal() != 0){
             knockbackMove();
         }else{
-            getBody().setLinearVelocity(horizontalForce*MOVE_SPEED_MONSTER,verticalForce*MOVE_SPEED_MONSTER);
-        }
+            if(pathOfPoints != null && pathOfPoints.size() > 0){
+                posXTarget = pathOfPoints.get(0).x;
+                posYTarget = pathOfPoints.get(0).y;
+            }
 
-        if(integerPartXMonster > posXTarget){
-            //Gauche
-            horizontalForce = horizontalForce - 1;
-            movingLeft = true;
-        }else if(integerPartXMonster < posXTarget){
-            //Droite
-            horizontalForce = horizontalForce + 1;
-            movingLeft = false;
+            if(pathOfPoints != null && pathOfPoints.size() <= 15) {
+                fixPosition();
+
+                if(integerPartXMonster > posXTarget){
+                    //Gauche
+                    horizontalForce = horizontalForce - 1;
+                    movingLeft = true;
+                }else if(integerPartXMonster < posXTarget){
+                    //Droite
+                    horizontalForce = horizontalForce + 1;
+                    movingLeft = false;
+                }
+                if(integerPartYMonster > posYTarget){
+                    //Haut
+                    verticalForce = verticalForce + 1;
+                    movingDown = false;
+                }else if(integerPartYMonster < posYTarget) {
+                    //Bas
+                    verticalForce = verticalForce - 1;
+                    movingDown = true;
+                }
+            }
+            if (getKnockbackVertical() != 0 || getKnockbackHorizontal() != 0){
+                knockbackMove();
+            }else{
+                getBody().setLinearVelocity(horizontalForce*MOVE_SPEED_MONSTER,verticalForce*MOVE_SPEED_MONSTER);
+            }
         }
-        if(integerPartYMonster > posYTarget){
-            //Haut
-            verticalForce = verticalForce + 1;
-            movingDown = false;
-        }else if(integerPartYMonster < posYTarget) {
-            //Bas
-            verticalForce = verticalForce - 1;
-            movingDown = true;
-        }
-        getBody().setLinearVelocity(horizontalForce*40,verticalForce*40);
         this.sprite.setPosition(getBody().getPosition().x-(RENDER_SCALE),getBody().getPosition().y-(RENDER_SCALE));
     }
 

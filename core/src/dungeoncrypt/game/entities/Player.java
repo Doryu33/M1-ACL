@@ -190,7 +190,6 @@ public final class Player extends Entity {
         return weapon;
     }
 
-
     protected String getPathDamageSound() {
         return "sounds/Player_Damage.mp3";
     }
