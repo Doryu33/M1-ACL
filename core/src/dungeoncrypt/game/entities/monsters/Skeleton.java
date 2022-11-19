@@ -52,4 +52,6 @@ public final class Skeleton extends Monster {
     protected String getPathDamageSound() {
         return "sounds/Skeleton_Damage.mp3";
     }
+
+
 }

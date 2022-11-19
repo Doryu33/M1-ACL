@@ -32,7 +32,7 @@ public final class Trap extends SpecialTile {
      */
     @Override
     protected void useEffect(Entity entity) {
-        System.out.println(entity.getType()+" a subit des degat de "+this.getType());
+        //System.out.println(entity.getType()+" a subit des degat de "+this.getType());
         if(!entity.getSpecialType().equals(GHOST_TYPE)){
             entity.subtractHealthPoint(HP_TRAP);
         }

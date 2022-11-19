@@ -123,7 +123,7 @@ public class Data {
     public final static int MOVE_SPEED = 100;
 
     //Constantes pour la vitesse des monstres
-    public final static int MOVE_SPEED_MONSTER = 50;
+    public final static int MOVE_SPEED_MONSTER = 40;
 
     //Coordonnées de la barre de vie
     public final static int HEALTH_BAR_X = 0;
