@@ -1,5 +1,7 @@
 package dungeoncrypt.game.entities.monsters;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import dungeoncrypt.game.entities.Entity;
 import dungeoncrypt.game.room.Room;
 
@@ -13,6 +15,7 @@ public abstract class Monster extends Entity {
     protected int horizontalForce;
     protected int verticalForce;
     private final String specialType;
+
 
     public Monster(int x, int y, int healthPoint, String specialType, String spritePath) {
         super(MONSTER_TYPE,healthPoint,spritePath);
@@ -32,4 +35,6 @@ public abstract class Monster extends Entity {
     public String getSpecialType() {
         return specialType;
     }
+
+
 }

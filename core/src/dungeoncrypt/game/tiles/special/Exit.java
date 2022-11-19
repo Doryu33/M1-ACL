@@ -1,5 +1,6 @@
 package dungeoncrypt.game.tiles.special;
 
+import dungeoncrypt.game.data.SoundManager;
 import dungeoncrypt.game.entities.Entity;
 import dungeoncrypt.game.entities.Player;
 
@@ -69,5 +70,7 @@ public final class Exit extends SpecialTile {
     @Override
     protected void setSpriteToDisabled() {
         setTextureToSprite("sprites/tiles/special/openedExit.png");
+        SoundManager soundManager = SoundManager.getInstance();
+        soundManager.playDoorOpenSound();
     }
 }

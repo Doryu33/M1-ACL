@@ -12,6 +12,9 @@ public class AppPreferences {
     private static final String SOUND_VOL = "sound";
     private static final String NAME = "Name";
 
+    private SoundManager soundManager = SoundManager.getInstance();
+
+
     public Preferences getPrefs() {
         return Gdx.app.getPreferences(NAME);
     }
@@ -23,6 +26,7 @@ public class AppPreferences {
     public void setSoundEffectsEnabled(boolean soundEffectsEnabled) {
         getPrefs().putBoolean(SOUND_ENABLED, soundEffectsEnabled);
         getPrefs().flush();
+        soundManager.setSoundEnabled(isSoundEffectsEnabled());
     }
 
     public boolean isMusicEnabled() {
@@ -32,6 +36,7 @@ public class AppPreferences {
     public void setMusicEnabled(boolean musicEnabled) {
         getPrefs().putBoolean(MUSIC_ENABLED, musicEnabled);
         getPrefs().flush();
+        soundManager.setMusicEnabled(isMusicEnabled());
     }
 
     public float getMusicVolume() {
@@ -41,6 +46,7 @@ public class AppPreferences {
     public void setMusicVolume(float volume) {
         getPrefs().putFloat(MUSIC_VOLUME, volume);
         getPrefs().flush();
+        soundManager.setMusicVolume(getMusicVolume());
     }
 
     public float getSoundVolume() {
@@ -50,5 +56,6 @@ public class AppPreferences {
     public void setSoundVolume(float volume) {
         getPrefs().putFloat(SOUND_VOL, volume);
         getPrefs().flush();
+        soundManager.setSoundVolume(getSoundVolume());
     }
 }

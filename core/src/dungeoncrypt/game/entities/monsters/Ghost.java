@@ -32,7 +32,16 @@ public final class Ghost extends Monster{
         } else if (playerPosX <= monsterPosX){
             horizontalForce = horizontalForce - 1;
         }
-        getBody().setLinearVelocity(horizontalForce*50,verticalForce*50);
+
+        if (getKnockbackVertical() != 0 || getKnockbackHorizontal() != 0){
+            knockbackMove();
+        }else{
+            getBody().setLinearVelocity(horizontalForce*MOVE_SPEED_MONSTER,verticalForce*MOVE_SPEED_MONSTER);
+        }
         this.sprite.setPosition(getBody().getPosition().x-(RENDER_SCALE),getBody().getPosition().y-(RENDER_SCALE));
+    }
+
+    protected String getPathDamageSound() {
+        return "sounds/Ghost_Damage.mp3";
     }
 }

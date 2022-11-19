@@ -13,7 +13,17 @@ public final class Zombie extends Monster {
     @Override
     //Créer le pathfinding
     public void updatePosition(Room actualRoom) {
+        if (getKnockbackVertical() != 0 || getKnockbackHorizontal() != 0){
+            knockbackMove();
+        }else{
+            getBody().setLinearVelocity(horizontalForce*MOVE_SPEED_MONSTER,verticalForce*MOVE_SPEED_MONSTER);
+        }
         this.sprite.setPosition(getBody().getPosition().x-(RENDER_SCALE),getBody().getPosition().y-(RENDER_SCALE));
+    }
+
+    @Override
+    protected String getPathDamageSound() {
+        return "sounds/Zombie_Damage.mp3";
     }
 }
 

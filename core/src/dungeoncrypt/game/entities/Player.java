@@ -3,6 +3,7 @@ package dungeoncrypt.game.entities;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
@@ -102,9 +103,12 @@ public final class Player extends Entity {
             }
 
         }
+        if (getKnockbackVertical() != 0 || getKnockbackHorizontal() != 0){
+            knockbackMove();
+        }else {
+            getBody().setLinearVelocity(horizontalForce * MOVE_SPEED, verticalForce * MOVE_SPEED);
+        }
 
-
-        getBody().setLinearVelocity(horizontalForce*MOVE_SPEED,verticalForce*MOVE_SPEED);
         if (weapon.getBody() != null) {
             weapon.getBody().setLinearVelocity(horizontalForce * MOVE_SPEED, verticalForce * MOVE_SPEED);
         }
@@ -163,6 +167,7 @@ public final class Player extends Entity {
 
         weapon.setBody(body);
         weapon.getBody().setUserData(weapon);
+        weapon.setDirection(direction);
         FixtureDef shape = weapon.createShape();
         body.createFixture(shape);
         shape.shape.dispose();
@@ -183,5 +188,10 @@ public final class Player extends Entity {
 
     public Weapon getWeapon() {
         return weapon;
+    }
+
+
+    protected String getPathDamageSound() {
+        return "sounds/Player_Damage.mp3";
     }
 }

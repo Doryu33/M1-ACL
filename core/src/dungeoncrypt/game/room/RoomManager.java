@@ -8,6 +8,7 @@ import dungeoncrypt.game.tools.SaveManager;
 
 import static dungeoncrypt.game.data.Data.AUTO_SAVE_NAME;
 import static dungeoncrypt.game.data.Data.DEBUG_SAVE_NAME;
+import dungeoncrypt.game.data.SoundManager;
 
 /**
  * Gère les différents comportement et données de la salle où le joueur est présent
