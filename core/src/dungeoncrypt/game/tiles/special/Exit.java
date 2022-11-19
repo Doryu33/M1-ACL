@@ -31,12 +31,27 @@ public final class Exit extends SpecialTile {
         return true;
     }
 
+    @Override
+    /**
+     * Crée la FixtureDef d'une tuile
+     * @return FixtureDef
+     */
+    public FixtureDef createShape(){
+        PolygonShape shape = new PolygonShape();
+        shape.setAsBox(RENDER_SCALE/2f,RENDER_SCALE/2f);
+        fixturePolygon = new FixtureDef();
+        fixturePolygon.isSensor = false;
+        fixturePolygon.shape = shape;
+        return fixturePolygon;
+    }
+
     /**
      * Définir la sortie comme open --> Si le joueur touche la sortie il passe au niveau suivant
      * Effectuement également le changement de sprite
      */
     public void setOpen(){
         isOpen = true;
+        fixturePolygon.isSensor = isOpen;
         setSpriteToDisabled();
     }
 

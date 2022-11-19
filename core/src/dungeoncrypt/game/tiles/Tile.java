@@ -15,7 +15,7 @@ public abstract class Tile extends Actor {
 
     private final String type;
     private final Sprite sprite;
-
+    protected FixtureDef fixturePolygon = null;
     public Tile(String type,String spritePath){
         this.type = type;
         this.sprite = new Sprite(new Texture(Gdx.files.internal(spritePath)));
@@ -64,7 +64,7 @@ public abstract class Tile extends Actor {
     public FixtureDef createShape(){
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(RENDER_SCALE/2f,RENDER_SCALE/2f);
-        FixtureDef fixturePolygon = new FixtureDef();
+        fixturePolygon = new FixtureDef();
         fixturePolygon.isSensor = true;
         fixturePolygon.shape = shape;
         return fixturePolygon;

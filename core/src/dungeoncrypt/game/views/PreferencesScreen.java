@@ -88,8 +88,8 @@ public class PreferencesScreen implements Screen {
         /* Remplissage des labels */
         titleLab = new Label("Options", skin);
         volumeMusicLab = new Label("Volume de la Musique", skin);
-        volumeSoundLabel = new Label("Musique", skin);
-        musicOnOffLab = new Label("Volume des effets sonnores", skin);
+        volumeSoundLabel = new Label("Volume des effets sonnores", skin);
+        musicOnOffLab = new Label("Musique", skin);
         soundOnOffLab = new Label("Effets sonnores", skin);
         /* Creation du stage */
         stage = new Stage(new ScreenViewport());;
