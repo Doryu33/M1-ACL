@@ -34,6 +34,7 @@ public final class HealingTile extends SpecialTile {
     @Override
     protected void useEffect(Entity entity) {
         entity.addHealthPoint(HP_HEALING_TILE);
+        setSpriteToDisabled();
     }
 
     @Override
