@@ -60,7 +60,7 @@ public class GameScreen implements Screen {
 		/**
 		 * Stage
 		 */
-		this.stage = new Stage();
+		this.stage = new Stage(viewport,batch);
 
 		/**
 		 * Debug mode
@@ -92,12 +92,11 @@ public class GameScreen implements Screen {
 		Gdx.gl.glClearColor(0f,0f,0f,1f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-
-
 		if(DEBUG_MODE){
 			b2dr.render(world, camera.combined);
 		}else{
 			stage.act(Gdx.graphics.getDeltaTime());
+			stage.getViewport().apply();
 			stage.draw();
 		}
 

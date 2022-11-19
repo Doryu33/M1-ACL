@@ -28,8 +28,8 @@ public class SoundManager {
         AppPreferences app = new AppPreferences();
         this.musicVolume = app.getMusicVolume();
         this.soundVolume = app.getSoundVolume();
-        this.soundEnabled =  true;
-        this.musicEnabled = true;
+        this.soundEnabled =  app.isSoundEffectsEnabled();
+        this.musicEnabled = app.isMusicEnabled();
     }
 
     /**
