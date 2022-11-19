@@ -1,5 +1,7 @@
 package dungeoncrypt.game.entities.monsters;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import dungeoncrypt.game.entities.Entity;
 import dungeoncrypt.game.room.Room;
 

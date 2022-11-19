@@ -24,11 +24,13 @@ public abstract class Weapon extends Actor {
     private int damage;
     private boolean isVisible = false;
 
+    private int direction;
+
     public Weapon(String type,int damage,String spritePath){
         this.type = type;
         this.sprite = new Sprite(new Texture(Gdx.files.internal(spritePath)));
         this.damage = damage;
-
+        this.direction = 0;
     }
 
     public float getX() {
@@ -105,7 +107,13 @@ public abstract class Weapon extends Actor {
         isVisible = visible;
     }
 
+    public int getDirection() {
+        return direction;
+    }
 
+    public void setDirection(int direction) {
+        this.direction = direction;
+    }
 
     @Override
     public void act(float delta){

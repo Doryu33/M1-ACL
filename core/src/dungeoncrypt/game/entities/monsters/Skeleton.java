@@ -40,7 +40,16 @@ public final class Skeleton extends Monster {
                 horizontalForce = horizontalForce + 1;
             }
         }
-        getBody().setLinearVelocity(horizontalForce*50,verticalForce*50);
+        if (getKnockbackVertical() != 0 || getKnockbackHorizontal() != 0){
+            knockbackMove();
+        }else{
+            getBody().setLinearVelocity(horizontalForce*MOVE_SPEED_MONSTER,verticalForce*MOVE_SPEED_MONSTER);
+        }
         this.sprite.setPosition(getBody().getPosition().x-(RENDER_SCALE),getBody().getPosition().y-(RENDER_SCALE));
+    }
+
+    @Override
+    protected String getPathDamageSound() {
+        return "sounds/Skeleton_Damage.mp3";
     }
 }

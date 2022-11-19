@@ -11,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.*;
 import dungeoncrypt.game.collisions.BodyContactListenner;
+import dungeoncrypt.game.data.SoundManager;
 import dungeoncrypt.game.room.RoomManager;
 import dungeoncrypt.game.tools.Police;
 import dungeoncrypt.game.tools.SaveManager;
@@ -40,6 +41,8 @@ public class GameScreen implements Screen {
 	@Override
 	public void show () {
 		Gdx.input.setInputProcessor(stage);
+		SoundManager sm = SoundManager.getInstance();
+		sm.playMusicInGame();
 		float width = Gdx.graphics.getWidth();
 		float height = Gdx.graphics.getHeight();
 		camera.position.set(RENDER_SCALE*12,RENDER_SCALE*12,0);

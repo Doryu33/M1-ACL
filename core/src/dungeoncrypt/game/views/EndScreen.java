@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import dungeoncrypt.game.data.SoundManager;
 
 import static dungeoncrypt.game.data.Data.*;
 
@@ -66,6 +67,8 @@ public class EndScreen implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 parent.changeScreen(APPLICATION);
+                SoundManager soundManager = SoundManager.getInstance();
+                soundManager.stopMusicEndGame();
             }
         });
     }
@@ -73,6 +76,10 @@ public class EndScreen implements Screen {
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
+        /* Changement du son */
+        SoundManager soundManager = SoundManager.getInstance();
+        soundManager.stopMusicInGame();
+        soundManager.playMusicEndGame();
     }
 
     @Override

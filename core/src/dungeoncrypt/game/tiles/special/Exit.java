@@ -3,6 +3,7 @@ package dungeoncrypt.game.tiles.special;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import dungeoncrypt.game.data.SoundManager;
 import dungeoncrypt.game.entities.Entity;
 import dungeoncrypt.game.room.RoomManager;
 
@@ -76,6 +77,8 @@ public final class Exit extends SpecialTile {
     @Override
     protected void setSpriteToDisabled() {
         setTextureToSprite("sprites/tiles/special/openedExit.png");
+        SoundManager soundManager = SoundManager.getInstance();
+        soundManager.playDoorOpenSound();
     }
 
     public char getCharTile(){

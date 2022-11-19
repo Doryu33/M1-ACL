@@ -122,6 +122,9 @@ public class Data {
     //Constantes pour la vitesse du joueur
     public final static int MOVE_SPEED = 100;
 
+    //Constantes pour la vitesse des monstres
+    public final static int MOVE_SPEED_MONSTER = 50;
+
     //Coordonnées de la barre de vie
     public final static int HEALTH_BAR_X = 0;
     public final static int HEALTH_BAR_Y = 435;
@@ -135,6 +138,9 @@ public class Data {
     public final static String AUTO_SAVE_NAME ="DungeonCrypt-AutoSave";
     public final static String SAVE_NAME ="DungeonCrypt-Save";
     public final static String DEBUG_SAVE_NAME ="DungeonCrypt-DebugSave";
+
+    //Durée de l'effet de knockback
+    public final static int MAX_TIMER_KNOCKBACK = 20;
 
 }
 

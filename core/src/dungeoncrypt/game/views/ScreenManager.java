@@ -1,6 +1,7 @@
 package dungeoncrypt.game.views;
 
 import com.badlogic.gdx.Game;
+import dungeoncrypt.game.data.SoundManager;
 import dungeoncrypt.game.tools.SaveManager;
 
 import java.io.File;

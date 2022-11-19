@@ -50,6 +50,12 @@ public final class Zombie extends Monster {
 
         fixPosition();
 
+        if (getKnockbackVertical() != 0 || getKnockbackHorizontal() != 0){
+            knockbackMove();
+        }else{
+            getBody().setLinearVelocity(horizontalForce*MOVE_SPEED_MONSTER,verticalForce*MOVE_SPEED_MONSTER);
+        }
+
         if(integerPartXMonster > posXTarget){
             //Gauche
             horizontalForce = horizontalForce - 1;
@@ -110,6 +116,11 @@ public final class Zombie extends Monster {
 
         Point targetPoint = new Point(integerPartXPlayer, integerPartYPlayer);
         pathOfPoints = PathFinding.findPath(startPoint, targetPoint, false);
+    }
+
+    @Override
+    protected String getPathDamageSound() {
+        return "sounds/Zombie_Damage.mp3";
     }
 }
 

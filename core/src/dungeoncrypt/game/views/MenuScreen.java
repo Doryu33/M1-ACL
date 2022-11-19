@@ -13,6 +13,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import dungeoncrypt.game.data.SoundManager;
+
 import static dungeoncrypt.game.data.Data.*;
 
 public class MenuScreen implements Screen {
@@ -23,6 +25,10 @@ public class MenuScreen implements Screen {
     public MenuScreen(ScreenManager screenManager){
         /* Definition du parent */
         parent = screenManager;
+
+        /*Music du menu principal*/
+        SoundManager soundManager = SoundManager.getInstance();
+        soundManager.playMusicMainMenu();
 
         /* Creation du stage */
         stage = new Stage(new ScreenViewport());
@@ -75,6 +81,8 @@ public class MenuScreen implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 parent.changeScreen(APPLICATION);
+                SoundManager soundManager = SoundManager.getInstance();
+                soundManager.stopMusicMainMenu();
             }
         });
 
@@ -83,6 +91,8 @@ public class MenuScreen implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 parent.changeScreen(CONTINUE_LOAD_APPLICATION);
+                SoundManager soundManager = SoundManager.getInstance();
+                soundManager.stopMusicMainMenu();
             }
         });
 
@@ -91,6 +101,8 @@ public class MenuScreen implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 parent.changeScreen(LOAD_APPLICATION);
+                SoundManager soundManager = SoundManager.getInstance();
+                soundManager.stopMusicMainMenu();
             }
         });
 
