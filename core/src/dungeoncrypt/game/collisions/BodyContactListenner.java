@@ -153,11 +153,7 @@ public class BodyContactListenner implements ContactListener {
         final Monster monster = ((Monster) monsterFixture.getBody().getUserData());
         Weapon weapon = (Weapon) weaponFixture.getBody().getUserData();
         weapon.setDamageTo(monster);
-        killMonster((Monster) monster);
-        System.out.println("MONSTRE touché par WEAPON. PV restant: "+((Entity) monsterFixture.getBody().getUserData()).getHealthPoint());
-    }
 
-    private void killMonster(final Monster monster){
         int knockbackDirection = weapon.getDirection();
 
         int verticalForce = 0;
@@ -176,6 +172,13 @@ public class BodyContactListenner implements ContactListener {
             horizontalForce = horizontalForce - 1;
         }
         monster.setknockbackDirection(verticalForce,horizontalForce);
+
+        killMonster((Monster) monster);
+        System.out.println("MONSTRE touché par WEAPON. PV restant: "+((Entity) monsterFixture.getBody().getUserData()).getHealthPoint());
+    }
+
+    private void killMonster(final Monster monster){
+
 
         if(monster.getHealthPoint() <= 0){
             parent.getRoomManager().getActualRoom().killMonster(monster);
