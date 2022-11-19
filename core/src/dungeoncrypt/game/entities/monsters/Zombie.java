@@ -68,7 +68,7 @@ public final class Zombie extends Monster {
             verticalForce = verticalForce - 1;
             movingDown = true;
         }
-        getBody().setLinearVelocity(horizontalForce*50,verticalForce*50);
+        getBody().setLinearVelocity(horizontalForce*40,verticalForce*40);
         this.sprite.setPosition(getBody().getPosition().x-(RENDER_SCALE),getBody().getPosition().y-(RENDER_SCALE));
     }
 
