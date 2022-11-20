@@ -7,7 +7,7 @@ import static dungeoncrypt.game.data.Data.*;
 public final class Ghost extends Monster{
 
     public Ghost(int x, int y) {
-        super(x, y, GHOST_INITIAL_HP, GHOST_TYPE, GHOST_SCORE,"sprites/entities/monsters/ghost.gif");
+        super(x, y, GHOST_INITIAL_HP, GHOST_TYPE, GHOST_SCORE,"sprites/entities/monsters/ghost.gif","sounds/Ghost_Damage.mp3");
     }
 
     @Override
@@ -37,15 +37,16 @@ public final class Ghost extends Monster{
                 horizontalForce = horizontalForce - 1;
             }
         }
-        if (getKnockbackVertical() != 0 || getKnockbackHorizontal() != 0){
-            knockbackMove();
+        if (getKnockBackVertical() != 0 || getKnockBackHorizontal() != 0){
+            knockBackMove();
         }else{
-            getBody().setLinearVelocity(horizontalForce*MOVE_SPEED_MONSTER,verticalForce*MOVE_SPEED_MONSTER);
+            getBody().setLinearVelocity(horizontalForce*getMovingSpeed(),verticalForce*getMovingSpeed());
         }
         this.sprite.setPosition(getBody().getPosition().x-(RENDER_SCALE),getBody().getPosition().y-(RENDER_SCALE));
     }
 
-    protected String getPathDamageSound() {
-        return "sounds/Ghost_Damage.mp3";
+    @Override
+    protected int getMovingSpeed() {
+        return MOVE_SPEED_GHOST;
     }
 }

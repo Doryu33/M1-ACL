@@ -82,7 +82,7 @@ NSEW
 XXX.XXX
 X.....X
 X.X.X.X
-..XMX..
+..XZX..
 X.X.X.X
 X.....X
 XXX.XXX
@@ -148,7 +148,7 @@ SWN
 XXX.XXX
 X.....X
 X.X.X.X
-...MXTX
+...SXTX
 X.X.X.X
 X.....X
 XXX.XXX
@@ -170,7 +170,7 @@ SWN
 XXX.XXX
 X.....X
 X.T.X.X
-..TMXMX
+..TMXSX
 X.T.X.X
 X.....X
 XXX.XXX
@@ -256,7 +256,7 @@ s
 2 f
 EW
 XXXXXXX
-X.XMX.X
+X.XZX.X
 X.X.X.X
 .......
 X.X.X.X
@@ -324,7 +324,7 @@ NS
 XXX.XXX
 X.....X
 X.XXX.X
-X..M..X
+X..Z..X
 X.XXX.X
 X.....X
 XXX.XXX
@@ -445,7 +445,7 @@ SE
 XXXXXXX
 X...XXX
 X.X...X
-X.XMX..
+X.XZX..
 X.XXX.X
 X...X.X
 XXX.XXX
@@ -476,7 +476,7 @@ s
 1 f
 SW
 XXXXXXX
-X...M.X
+X...S.X
 XXX...X
 ..X...X
 X.XXX.X
@@ -542,7 +542,7 @@ s
 1 f
 S
 XXXXXXX
-XXXMXXX
+XXXSXXX
 XXX.XXX
 X.....X
 X.XXX.X
@@ -554,8 +554,8 @@ s
 S
 XXXXXXX
 X.....X
-X.....X
 X..M..X
+X.....X
 X.XXX.X
 X.....X
 XXX.XXX
@@ -564,7 +564,7 @@ s
 1 f
 S
 XXXXXXX
-X..M..X
+X..S..X
 X.XXX.X
 X.....X
 X.X.X.X
@@ -575,7 +575,7 @@ s
 2 f
 S
 XXXXXXX
-X..M..X
+X..Z..X
 X.XXX.X
 X.....X
 X.T.T.X
@@ -586,11 +586,11 @@ s
 3 f
 S
 XXXXXXX
-X..M..X
+X..G..X
 X.XXX.X
 X.....X
 X.X.X.X
-XMX.XMX
+XSX.XZX
 XXX.XXX
 e
 s
@@ -610,7 +610,7 @@ S
 XXXXXXX
 X...TTX
 X.X.XXX
-XMX...X
+XZX...X
 X.XXX.X
 XHX...X
 XXX.XXX

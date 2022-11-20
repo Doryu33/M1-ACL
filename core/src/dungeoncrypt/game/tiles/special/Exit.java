@@ -9,7 +9,6 @@ import dungeoncrypt.game.room.RoomManager;
 
 import static dungeoncrypt.game.data.Data.*;
 
-
 public final class Exit extends SpecialTile {
 
     private final RoomManager roomManager;
@@ -31,11 +30,11 @@ public final class Exit extends SpecialTile {
         return true;
     }
 
-    @Override
     /**
-     * Crée la FixtureDef d'une tuile
+     * Créer la FixtureDef d'une tuile
      * @return FixtureDef
      */
+    @Override
     public FixtureDef createShape(){
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(RENDER_SCALE/2f,RENDER_SCALE/2f);
@@ -51,7 +50,7 @@ public final class Exit extends SpecialTile {
      */
     public void setOpen(){
         isOpen = true;
-        fixturePolygon.isSensor = isOpen;
+        fixturePolygon.isSensor = true;
         setSpriteToDisabled();
     }
 
@@ -94,9 +93,5 @@ public final class Exit extends SpecialTile {
         setTextureToSprite("sprites/tiles/special/openedExit.png");
         SoundManager soundManager = SoundManager.getInstance();
         soundManager.playDoorOpenSound();
-    }
-
-    public char getCharTile(){
-        return EXIT_TILE;
     }
 }

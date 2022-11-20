@@ -1,6 +1,6 @@
 package dungeoncrypt.game.room;
 
-import dungeoncrypt.game.AStarAlgorithm.Grid;
+import dungeoncrypt.game.aStarAlgorithm.Grid;
 import dungeoncrypt.game.entities.monsters.Ghost;
 import dungeoncrypt.game.entities.monsters.Monster;
 import dungeoncrypt.game.entities.monsters.Skeleton;
@@ -154,11 +154,7 @@ public final class RoomGenerator {
         boolean[][] arrayWalkable = new boolean[ROOM_SIZE][ROOM_SIZE];
         for (int y = 0; y < ROOM_SIZE; y++) {
             for (int x = 0; x < ROOM_SIZE; x++) {
-                if(tilesRandomRoom[y][x].getCharTile() == ' ' || tilesRandomRoom[y][x].getCharTile() == 'T' || tilesRandomRoom[y][x].getCharTile() == 'H'){
-                    arrayWalkable[y][x] = true;
-                }else{
-                    arrayWalkable[y][x] = false;
-                }
+                arrayWalkable[y][x] = tilesRandomRoom[y][x].isWalkable();
             }
         }
         Grid instance = Grid.instance;
@@ -708,7 +704,8 @@ public final class RoomGenerator {
             }
 
             //Initialise chaque case
-            if(line.charAt(0) == '.' || line.charAt(0) == 'X' || line.charAt(0) == 'M' || line.charAt(0) == 'T' || line.charAt(0) == 'H'){
+            if(line.charAt(0) == '.' || line.charAt(0) == 'X' || line.charAt(0) == 'M' || line.charAt(0) == 'Z' || line.charAt(0) == 'G'
+                     || line.charAt(0) == 'T' || line.charAt(0) == 'H'){
                 x = 0;
                 for (int i = 0; i < line.length(); i++) {
                     pattern[y][x] = line.charAt(i);

@@ -3,7 +3,6 @@ package dungeoncrypt.game.room;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import dungeoncrypt.game.entities.monsters.Monster;
@@ -11,7 +10,6 @@ import dungeoncrypt.game.entities.Player;
 import dungeoncrypt.game.tiles.Tile;
 import dungeoncrypt.game.tiles.special.Exit;
 import dungeoncrypt.game.tiles.special.SpecialTile;
-import dungeoncrypt.game.tools.SingletonGetPosPlayer;
 
 import java.util.ArrayList;
 
@@ -29,7 +27,6 @@ public final class Room {
     private final World world;
     private final Stage stage;
 
-
     /**
      * Constructeur générant le joueur et la liste (vide) des monstres
      * @param tiles salle de base
@@ -41,8 +38,6 @@ public final class Room {
         this.monsters = new ArrayList<>();
         this.specialTileList = new ArrayList<>();
         this.stage = stage;
-        SingletonGetPosPlayer s = SingletonGetPosPlayer.instance;
-        s.setPlayer(player);
     }
 
     /**
@@ -199,7 +194,7 @@ public final class Room {
 
     /**
      * Permet de tuer un monstre. Le retire de la salle et supprime son affichage + ses collisions
-     * @param monster
+     * @param monster à tuer
      */
     public void killMonster(Monster monster){
         if (monsters.contains(monster)){

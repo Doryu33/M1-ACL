@@ -120,10 +120,12 @@ public class Data {
     public final static boolean DEBUG_MODE = false;
 
     //Constantes pour la vitesse du joueur
-    public final static int MOVE_SPEED = 100;
+    public final static int MOVE_SPEED_PLAYER = 100;
 
     //Constantes pour la vitesse des monstres
-    public final static int MOVE_SPEED_MONSTER = 40;
+    public final static int MOVE_SPEED_ZOMBIE = 40;
+    public final static int MOVE_SPEED_GHOST = 50;
+    public final static int MOVE_SPEED_SKELETON = 40;
 
     //Coordonnées de la barre de vie
     public final static int HEALTH_BAR_X = 0;

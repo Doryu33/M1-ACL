@@ -79,7 +79,4 @@ public abstract class Tile extends Actor {
     public void draw(Batch batch, float parentAlpha){
         sprite.draw(batch);
     }
-
-    public abstract char getCharTile();
-
 }

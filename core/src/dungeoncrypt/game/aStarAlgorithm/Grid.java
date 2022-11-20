@@ -1,4 +1,4 @@
-package dungeoncrypt.game.AStarAlgorithm;
+package dungeoncrypt.game.aStarAlgorithm;
 
 import java.util.ArrayList;
 import java.util.List;

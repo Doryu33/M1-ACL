@@ -34,9 +34,4 @@ public final class Wall extends Tile {
         fixturePolygon.shape = shape;
         return fixturePolygon;
     }
-
-    public char getCharTile(){
-        return WALL_TILE;
-    }
-
 }

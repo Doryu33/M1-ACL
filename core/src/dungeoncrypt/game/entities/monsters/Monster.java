@@ -14,10 +14,10 @@ public abstract class Monster extends Entity {
 
     protected int horizontalForce;
     protected int verticalForce;
-    private int score;
+    private final int score;
 
-    public Monster(int x, int y, int healthPoint, String specialType, int score, String spritePath) {
-        super(MONSTER_TYPE,specialType,healthPoint,spritePath);
+    public Monster(int x, int y, int healthPoint, String specialType, int score, String spritePath, String damageSoundPath) {
+        super(MONSTER_TYPE,specialType,healthPoint,spritePath, damageSoundPath);
         this.score = score;
         setX(x);
         setY(y);

@@ -1,4 +1,4 @@
-package dungeoncrypt.game.AStarAlgorithm;
+package dungeoncrypt.game.aStarAlgorithm;
 
 /**
  * A 2D point on the grid

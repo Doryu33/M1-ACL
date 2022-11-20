@@ -14,7 +14,7 @@ public final class Skeleton extends Monster {
     protected float period = 4f;    //Temps en seconde
 
     public Skeleton(int x, int y) {
-        super(x, y, SKELETON_INITIAL_HP, SKELETON_TYPE, SKELETON_SCORE,"sprites/entities/monsters/skeleton.gif");
+        super(x, y, SKELETON_INITIAL_HP, SKELETON_TYPE, SKELETON_SCORE,"sprites/entities/monsters/skeleton.gif","sounds/Skeleton_Damage.mp3");
     }
 
     /**
@@ -40,17 +40,17 @@ public final class Skeleton extends Monster {
                 horizontalForce = horizontalForce + 1;
             }
         }
-        if (getKnockbackVertical() != 0 || getKnockbackHorizontal() != 0){
-            knockbackMove();
+        if (getKnockBackVertical() != 0 || getKnockBackHorizontal() != 0){
+            knockBackMove();
         }else{
-            getBody().setLinearVelocity(horizontalForce*MOVE_SPEED_MONSTER,verticalForce*MOVE_SPEED_MONSTER);
+            getBody().setLinearVelocity(horizontalForce*getMovingSpeed(),verticalForce*getMovingSpeed());
         }
         this.sprite.setPosition(getBody().getPosition().x-(RENDER_SCALE),getBody().getPosition().y-(RENDER_SCALE));
     }
 
     @Override
-    protected String getPathDamageSound() {
-        return "sounds/Skeleton_Damage.mp3";
+    protected int getMovingSpeed() {
+        return MOVE_SPEED_SKELETON;
     }
 
 

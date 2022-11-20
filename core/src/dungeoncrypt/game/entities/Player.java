@@ -2,12 +2,9 @@ package dungeoncrypt.game.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import dungeoncrypt.game.room.Room;
 import dungeoncrypt.game.weapons.Sword;
@@ -27,7 +24,7 @@ public final class Player extends Entity {
     private float period = 2f;
     private boolean isWeaponActive = false;
     public Player(){
-        super(PLAYER_TYPE,PLAYER_TYPE,PLAYER_INITIAL_HP,"sprites/entities/player/isaac.png");
+        super(PLAYER_TYPE,PLAYER_TYPE,PLAYER_INITIAL_HP,"sprites/entities/player/isaac.png", "sounds/Player_Damage.mp3");
         setInitialPosition();
         this.score = 0;
         this.weapon = new Sword();
@@ -46,21 +43,20 @@ public final class Player extends Entity {
 
     /**
      * Met à jour la postion du joueur en fonction des touches entrées
-     * @param actualRoom
+     * @param actualRoom salle actuelle
      */
     public void inputUpdate(Room actualRoom) {
         int verticalForce = 0;
         int horizontalForce = 0;
-
+        Body body = getBody();
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && !isWeaponActive) {
             weapon.setVisible(true);
             isWeaponActive = true;
             if (weapon.getBody() != null) {
-                clearBodyWeapon(getBody().getWorld());
-
+                clearBodyWeapon(body.getWorld());
             }
-            createBodyWeapon(getBody().getWorld(), getStage());
+            createBodyWeapon(body.getWorld(), getStage());
 
         }else {
             if (Gdx.input.isKeyPressed(Input.Keys.S)) {
@@ -96,38 +92,38 @@ public final class Player extends Entity {
             if(timeSeconds > period ){
                 timeSeconds -= period;
                 if (weapon.getBody() != null){
-                    clearBodyWeapon(getBody().getWorld());
+                    clearBodyWeapon(body.getWorld());
                 }
                 isWeaponActive =false;
                 weapon.setVisible(false);
             }
-
         }
-        if (getKnockbackVertical() != 0 || getKnockbackHorizontal() != 0){
-            knockbackMove();
+        if (getKnockBackVertical() != 0 || getKnockBackHorizontal() != 0){
+            knockBackMove();
         }else {
-            getBody().setLinearVelocity(horizontalForce * MOVE_SPEED, verticalForce * MOVE_SPEED);
+            body.setLinearVelocity(horizontalForce * getMovingSpeed(), verticalForce * getMovingSpeed());
         }
 
         if (weapon.getBody() != null) {
-            weapon.getBody().setLinearVelocity(horizontalForce * MOVE_SPEED, verticalForce * MOVE_SPEED);
+            weapon.getBody().setLinearVelocity(horizontalForce * getMovingSpeed(), verticalForce * getMovingSpeed());
         }
-        this.sprite.setPosition(getBody().getPosition().x-(RENDER_SCALE), getBody().getPosition().y-(RENDER_SCALE));
+        this.sprite.setPosition(body.getPosition().x-(RENDER_SCALE), body.getPosition().y-(RENDER_SCALE));
 
         switch (direction){
             case 1:
-                this.weapon.getSprite().setPosition(getBody().getPosition().x-(RENDER_SCALE),getBody().getPosition().y-(RENDER_SCALE)+RENDER_SCALE);
+                this.weapon.getSprite().setPosition(body.getPosition().x-(RENDER_SCALE),body.getPosition().y-(RENDER_SCALE)+RENDER_SCALE);
                 break;
             case 2:
-                this.weapon.getSprite().setPosition(getBody().getPosition().x-(RENDER_SCALE),getBody().getPosition().y-(RENDER_SCALE)-RENDER_SCALE);
+                this.weapon.getSprite().setPosition(body.getPosition().x-(RENDER_SCALE),body.getPosition().y-(RENDER_SCALE)-RENDER_SCALE);
                 break;
             case 3:
-                this.weapon.getSprite().setPosition(getBody().getPosition().x-(RENDER_SCALE)-RENDER_SCALE,getBody().getPosition().y-(RENDER_SCALE));
+                this.weapon.getSprite().setPosition(body.getPosition().x-(RENDER_SCALE)-RENDER_SCALE,body.getPosition().y-(RENDER_SCALE));
                 break;
             default:
-                this.weapon.getSprite().setPosition(getBody().getPosition().x-(RENDER_SCALE)+RENDER_SCALE,getBody().getPosition().y-(RENDER_SCALE));
+                this.weapon.getSprite().setPosition(body.getPosition().x-(RENDER_SCALE)+RENDER_SCALE,body.getPosition().y-(RENDER_SCALE));
                 break;
         }
+
     }
 
     public void addScore(int point){
@@ -173,24 +169,26 @@ public final class Player extends Entity {
         shape.shape.dispose();
         stage.addActor(weapon);
     }
-     public void clearBodyWeapon(World world){
-       world.destroyBody(weapon.getBody());
-       weapon.setBody(null);
-     }
 
-     private void clearBodyAndResetWeapon(){
-         if (weapon.getBody() != null){
-             clearBodyWeapon(getBody().getWorld());
-             isWeaponActive =false;
-             weapon.setVisible(false);
-         }
-     }
+    public void clearBodyWeapon(World world){
+        world.destroyBody(weapon.getBody());
+        weapon.setBody(null);
+    }
+
+    private void clearBodyAndResetWeapon(){
+        if (weapon.getBody() != null){
+         clearBodyWeapon(getBody().getWorld());
+         isWeaponActive =false;
+         weapon.setVisible(false);
+        }
+    }
 
     public Weapon getWeapon() {
         return weapon;
     }
 
-    protected String getPathDamageSound() {
-        return "sounds/Player_Damage.mp3";
+    @Override
+    protected int getMovingSpeed() {
+        return MOVE_SPEED_PLAYER;
     }
 }

@@ -19,8 +19,4 @@ public final class Floor extends Tile {
     public boolean hasSpecialEffect() {
         return false;
     }
-
-    public char getCharTile(){
-        return FLOOR_TILE;
-    }
 }

@@ -42,8 +42,4 @@ public final class Trap extends SpecialTile {
     protected void setSpriteToDisabled() {
 
     }
-
-    public char getCharTile(){
-        return TRAP_TILE;
-    }
 }

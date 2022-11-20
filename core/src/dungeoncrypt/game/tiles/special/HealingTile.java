@@ -41,8 +41,4 @@ public final class HealingTile extends SpecialTile {
     protected void setSpriteToDisabled() {
         setTextureToSprite("sprites/tiles/special/healingTileDisabled.png");
     }
-
-    public char getCharTile(){
-        return HEALING_TILE;
-    }
 }

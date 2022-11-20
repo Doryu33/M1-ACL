@@ -1,10 +1,9 @@
 package dungeoncrypt.game.entities.monsters;
 
 import com.badlogic.gdx.Gdx;
-import dungeoncrypt.game.AStarAlgorithm.PathFinding;
-import dungeoncrypt.game.AStarAlgorithm.Point;
+import dungeoncrypt.game.aStarAlgorithm.PathFinding;
+import dungeoncrypt.game.aStarAlgorithm.Point;
 import dungeoncrypt.game.room.Room;
-import dungeoncrypt.game.tools.SingletonGetPosPlayer;
 
 import java.util.List;
 
@@ -12,7 +11,6 @@ import static dungeoncrypt.game.data.Data.*;
 
 public final class Zombie extends Monster {
 
-    private final SingletonGetPosPlayer singletonPlayerPos;
     protected float timeSeconds = 0f;
     protected float period = 0.1f;    //Temps en seconde
     private List<Point> pathOfPoints;
@@ -24,8 +22,7 @@ public final class Zombie extends Monster {
     private boolean movingDown;
 
     public Zombie(int x, int y) {
-        super(x, y,ZOMBIE_INITIAL_HP,ZOMBIE_TYPE, ZOMBIE_SCORE,"sprites/entities/monsters/zombie.gif");
-        singletonPlayerPos = SingletonGetPosPlayer.instance;
+        super(x, y,ZOMBIE_INITIAL_HP,ZOMBIE_TYPE, ZOMBIE_SCORE,"sprites/entities/monsters/zombie.gif","sounds/Zombie_Damage.mp3");
     }
 
     /**
@@ -40,11 +37,11 @@ public final class Zombie extends Monster {
 
         if(timeSeconds > period){
             timeSeconds -= period;
-            getPath();
+            getPath(actualRoom.getPlayerPosX(),actualRoom.getPlayerPosY());
         }
 
-        if (getKnockbackVertical() != 0 || getKnockbackHorizontal() != 0){
-            knockbackMove();
+        if (getKnockBackVertical() != 0 || getKnockBackHorizontal() != 0){
+            knockBackMove();
         }else{
             if(pathOfPoints != null && pathOfPoints.size() > 0){
                 posXTarget = pathOfPoints.get(0).x;
@@ -73,10 +70,10 @@ public final class Zombie extends Monster {
                     movingDown = true;
                 }
             }
-            if (getKnockbackVertical() != 0 || getKnockbackHorizontal() != 0){
-                knockbackMove();
+            if (getKnockBackVertical() != 0 || getKnockBackHorizontal() != 0){
+                knockBackMove();
             }else{
-                getBody().setLinearVelocity(horizontalForce*MOVE_SPEED_MONSTER,verticalForce*MOVE_SPEED_MONSTER);
+                getBody().setLinearVelocity(horizontalForce*getMovingSpeed(),verticalForce*getMovingSpeed());
             }
         }
         this.sprite.setPosition(getBody().getPosition().x-(RENDER_SCALE),getBody().getPosition().y-(RENDER_SCALE));
@@ -106,13 +103,15 @@ public final class Zombie extends Monster {
 
     /**
      * Récupérer le chemin pour atteindre le joueur via l'algo de pathfinding A*
+     * @param playerX position en X du joueur
+     * @param playerY position en Y du joueur
      */
-    private void getPath(){
+    private void getPath(float playerX, float playerY){
         fixPosition();
         Point startPoint = new Point(integerPartXMonster, integerPartYMonster);
 
-        float playerPosX = singletonPlayerPos.getX()-(RENDER_SCALE/2f);
-        float playerPosY = singletonPlayerPos.getY()-(RENDER_SCALE/2f);
+        float playerPosX = playerX-(RENDER_SCALE/2f);
+        float playerPosY = playerY-(RENDER_SCALE/2f);
 
         int integerPartXPlayer = (int) playerPosX/RENDER_SCALE;
         int integerPartYPlayer = (int) playerPosY/RENDER_SCALE;
@@ -123,12 +122,7 @@ public final class Zombie extends Monster {
     }
 
     @Override
-    protected String getPathDamageSound() {
-        return "sounds/Zombie_Damage.mp3";
+    protected int getMovingSpeed() {
+        return MOVE_SPEED_ZOMBIE;
     }
 }
-
-//https://stackabuse.com/graphs-in-java-a-star-algorithm/
-
-//https://isaaccomputerscience.org/concepts/dsa_search_a_star?examBoard=all&stage=all
-//https://brilliant.org/wiki/a-star-search/

@@ -8,7 +8,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import dungeoncrypt.game.data.SoundManager;
-import dungeoncrypt.game.entities.monsters.Monster;
 
 import static dungeoncrypt.game.data.Data.*;
 
@@ -21,6 +20,7 @@ public abstract class Entity extends Actor {
     private float y;
     private final String type;
     private final String specialType;
+    private final String damageSoundPath;
     private Body body;
     protected Sprite sprite;
     //Entier du nombre de point de vie
@@ -28,19 +28,20 @@ public abstract class Entity extends Actor {
     private int timerKnockback;
 
     //Forces du knockback
-    private int knockbackVertical;
-    private int knockbackHorizontal;
+    private int knockBackVertical;
+    private int knockBackHorizontal;
 
-    private SoundManager soundManager;
+    private final SoundManager soundManager;
 
-    public Entity(String type, String specialType, int healthPoint,String spritePath){
+    public Entity(String type, String specialType, int healthPoint, String spritePath, String damageSoundPath){
         this.type = type;
         this.specialType = specialType;
         this.sprite = new Sprite(new Texture(Gdx.files.internal(spritePath)));
         this.healthPoint = healthPoint;
+        this.damageSoundPath = damageSoundPath;
         this.timerKnockback = 0;
-        this.knockbackVertical = 0;
-        this.knockbackHorizontal = 0;
+        this.knockBackVertical = 0;
+        this.knockBackHorizontal = 0;
         this.soundManager = SoundManager.getInstance();
     }
 
@@ -90,10 +91,8 @@ public abstract class Entity extends Actor {
      */
     public void subtractHealthPoint(int healthPoint){
         this.healthPoint -= healthPoint;
-        soundManager.playDamageEntitySound(getPathDamageSound());
+        soundManager.playDamageEntitySound(damageSoundPath);
     }
-
-     protected abstract String getPathDamageSound();
 
     public void setBody(Body body) {
         this.body = body;
@@ -147,22 +146,22 @@ public abstract class Entity extends Actor {
         return specialType;
     }
 
-    public int getKnockbackHorizontal() {
-        return knockbackHorizontal;
+    public int getKnockBackHorizontal() {
+        return knockBackHorizontal;
     }
 
-    public int getKnockbackVertical() {
-        return knockbackVertical;
+    public int getKnockBackVertical() {
+        return knockBackVertical;
     }
 
     /**
      * Redéfinit les différentes forces du knockback
-     * @param knockbackVertical Force vertical du knockback
-     * @param knockbackHorizontal Force horizontal du knockback
+     * @param knockBackVertical Force vertical du knockback
+     * @param knockBackHorizontal Force horizontal du knockback
      */
-    public void setknockbackDirection(int knockbackVertical,int knockbackHorizontal){
-        this.knockbackVertical = knockbackVertical;
-        this.knockbackHorizontal = knockbackHorizontal;
+    public void setKnockBackDirection(int knockBackVertical, int knockBackHorizontal){
+        this.knockBackVertical = knockBackVertical;
+        this.knockBackHorizontal = knockBackHorizontal;
     }
 
     public void applyKnockBackToPlayer(float monsterX, float monsterY){
@@ -190,40 +189,40 @@ public abstract class Entity extends Actor {
         } else if (monsterPosX < playerPosX && differenceX >= 0.5f){
             horizontalForce = horizontalForce - 3;
         }
-        setknockbackDirection(verticalForce,horizontalForce);
+        setKnockBackDirection(verticalForce,horizontalForce);
     }
 
-    public void applyKnockBackToMonster(int knockbackDirection){
+    public void applyKnockBackToMonster(int knockBackDirection){
         int verticalForce = 0;
         int horizontalForce = 0;
 
-        if (knockbackDirection == 2) {
+        if (knockBackDirection == 2) {
             verticalForce = verticalForce + 2;
         }
-        if (knockbackDirection == 1) {
+        if (knockBackDirection == 1) {
             verticalForce = verticalForce - 2;
         }
-        if (knockbackDirection == 3) {
+        if (knockBackDirection == 3) {
             horizontalForce = horizontalForce + 2;
         }
-        if (knockbackDirection == 4) {
+        if (knockBackDirection == 4) {
             horizontalForce = horizontalForce - 2;
         }
-        setknockbackDirection(verticalForce,horizontalForce);
+        setKnockBackDirection(verticalForce,horizontalForce);
     }
 
     /**
      * Applique un effet de knockback quand une entitée subit des dégâts
      */
-    protected void knockbackMove(){
+    protected void knockBackMove(){
         int verticalForce = 0;
         int horizontalForce = 0;
-        if(knockbackVertical != 0 || knockbackHorizontal != 0){
-            getBody().setLinearVelocity(knockbackHorizontal*MOVE_SPEED_MONSTER*(-1f),knockbackVertical*MOVE_SPEED_MONSTER*(-1f));
+        if(knockBackVertical != 0 || knockBackHorizontal != 0){
+            getBody().setLinearVelocity(knockBackHorizontal*getMovingSpeed()*(-1f),knockBackVertical*getMovingSpeed()*(-1f));
             if (timerKnockback == MAX_TIMER_KNOCKBACK){
-                getBody().setLinearVelocity(horizontalForce*MOVE_SPEED_MONSTER*(-1f),verticalForce*MOVE_SPEED_MONSTER*(-1f));
-                this.knockbackVertical = 0;
-                this.knockbackHorizontal = 0;
+                getBody().setLinearVelocity(horizontalForce*getMovingSpeed()*(-1f),verticalForce*getMovingSpeed()*(-1f));
+                this.knockBackVertical = 0;
+                this.knockBackHorizontal = 0;
                 timerKnockback = 0;
             }else{
                 timerKnockback++;
@@ -231,4 +230,6 @@ public abstract class Entity extends Actor {
             this.sprite.setPosition(getBody().getPosition().x-(RENDER_SCALE),getBody().getPosition().y-(RENDER_SCALE));
         }
     }
+
+    protected abstract int getMovingSpeed();
 }

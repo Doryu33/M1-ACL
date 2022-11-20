@@ -17,7 +17,7 @@ public final class RoomManager {
 
     private final RoomGenerator roomGenerator;
     private final Room actualRoom;
-    private World world;
+    private final World world;
     private final Stage stage;
     private final SaveManager saveManager;
 
@@ -55,7 +55,14 @@ public final class RoomManager {
      * Une nouvelle salle simple est générée
      */
     public void createNewLevel(){
-        actualRoom.setEnvironment(roomGenerator.generateSimpleRoom());
+        this.actualRoom.clearRoom();
+        this.actualRoom.setEnvironment(this.roomGenerator.generateSimpleRoom());
+        this.actualRoom.setMonsters(this.roomGenerator.getGeneratedMonsters());
+        this.actualRoom.setSpecialTileList(this.roomGenerator.getSpecialTileList());
+        this.actualRoom.setInitialPlayerPosition();
+        this.stage.clear();
+        createBodies();
+        checkRoomIsEmpty();
     }
 
     /**
@@ -69,11 +76,12 @@ public final class RoomManager {
         this.actualRoom.setInitialPlayerPosition();
         this.stage.clear();
         createBodies();
+        checkRoomIsEmpty();
     }
 
     /**
      * Permet de créer une salle depuis une sauvegarde afin de restaurer l'état de la partie.
-     * @param save
+     * @param save à charger
      */
     public void loadRoom(SaveManager save){
         this.actualRoom.clearRoom();
@@ -84,6 +92,7 @@ public final class RoomManager {
         this.actualRoom.setPlayerScore(save.PlayerScore);
         this.stage.clear();
         createBodies();
+        checkRoomIsEmpty();
     }
 
     /**
