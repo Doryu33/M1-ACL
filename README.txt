@@ -21,9 +21,10 @@ Z pour monter
 S pour descendre
 Q pour aller à gauche
 D pour aller à droite
+Espace pour frapper
 
 Pour debug/test:
 N pour générer une nouvelle salle
 O/P augmenter/diminuer le score
 J pour sauvegarder la partie (fichier DebugSave.txt)
-K pour charger la partie ((fichier DebugSave.txt)
+K pour charger la partie (fichier DebugSave.txt)
