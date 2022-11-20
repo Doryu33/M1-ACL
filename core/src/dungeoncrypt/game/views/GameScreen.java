@@ -46,7 +46,7 @@ public class GameScreen implements Screen {
 		float width = Gdx.graphics.getWidth();
 		float height = Gdx.graphics.getHeight();
 		camera.position.set(RENDER_SCALE*12,RENDER_SCALE*12,0);
-		this.viewport = new FitViewport(width,height,camera);
+		this.viewport = new FitViewport(width-RENDER_SCALE,height-RENDER_SCALE,camera);
 		viewport.apply();
 
 		/**
