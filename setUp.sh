@@ -13,7 +13,8 @@ echo -e "${BOLD}Creation de l'archive...${NORMAL}"
 ./gradlew desktop:dist
 if [ -f "$FILE" ]; then 
     echo -e "\n${BOLD}${GREEN}Archive crée avec succès.${NORMAL}"
-    mv desktop/build/libs/DungeonCrypt-1.0.jar ../M1-ACL
+    mv desktop/build/libs/DungeonCrypt-1.0.jar ../
+    cd ../
     echo -e "\nUtilisez \"${BOLD}java -jar DungeonCrypt-1.0.jar\"${NORMAL} pour lancer l'application.${NC}"
 else 
     echo -e "\n${RED}Erreur lors de la création de l'archive."

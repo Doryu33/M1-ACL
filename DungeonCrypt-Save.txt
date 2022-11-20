@@ -1,0 +1,28 @@
+35
+193
+384.0
+405.99942
+XXXXXXXXXXXEXXXXXXXXXXX
+X       XXX XXX       X
+X       XXX   X       X
+X       XXXXX X       X
+X       X     X       X
+X       X XXXXX       X
+X       X   XXX       X
+X       XXX XXX       X
+XXXXXXXXXXX XXXXXXXXXXX
+XX   XXXX     XX     XX
+XX X   XX     XX     XX
+XX XXX               XX
+XX XXX XX     XX     XX
+XX   X XX     XX     XX
+XXXX XXXXXX XXXXXX XXXX
+XXXX XXX       XXX XXXX
+XX     X       X     XX
+XX     X       X     XX
+XX     X       X     XX
+XX     X       X     XX
+XX     X       X     XX
+XXXXXXXX       XXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXX
+XXX
