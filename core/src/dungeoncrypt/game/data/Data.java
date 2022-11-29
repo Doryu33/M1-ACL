@@ -144,5 +144,11 @@ public class Data {
     //Durée de l'effet de knockback
     public final static int MAX_TIMER_KNOCKBACK = 20;
 
+    //Durée du délai de l'épée
+    public final static float WEAPON_DELAY = 2f;
+
+    //Point de bouclier max
+    public final static int MAX_SHIELD = 20;
+
 }
 

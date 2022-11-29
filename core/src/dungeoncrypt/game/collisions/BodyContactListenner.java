@@ -96,7 +96,7 @@ public class BodyContactListenner implements ContactListener {
      * @param monsterFixture Fixture du monstre
      */
     private void monstreDamagePlayer(Fixture fplayer, Fixture monsterFixture){
-        ((Player) fplayer.getBody().getUserData()).subtractHealthPoint(5);
+        ((Player) fplayer.getBody().getUserData()).takeDamage(5);
         Body m = (Body) monsterFixture.getBody();
         ((Player) fplayer.getBody().getUserData()).applyKnockBackToPlayer(m.getPosition().x,m.getPosition().y);
         //System.out.println("Joueur touché par MONSTRE. PV restant: "+((Player) fplayer.getBody().getUserData()).getHealthPoint());

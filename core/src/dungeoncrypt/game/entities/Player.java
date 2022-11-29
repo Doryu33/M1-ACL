@@ -23,6 +23,11 @@ public final class Player extends Entity {
     private float timeSeconds = 0;
     private float period = 2f;
     private boolean isWeaponActive = false;
+    protected float timeSecondsWeaponDelay = 0f;
+    //Entier du nombre de point de bouclier
+    private int shieldPoint;
+
+    private int weaponDelayTime;
     public Player(){
         super(PLAYER_TYPE,PLAYER_TYPE,PLAYER_INITIAL_HP,"sprites/entities/player/isaac.png", "sounds/Player_Damage.mp3");
         setInitialPosition();
@@ -30,6 +35,8 @@ public final class Player extends Entity {
         this.weapon = new Sword();
         weapon.createBodyDef(weapon.getX(), weapon.getY());
         weapon.createShape();
+        this.weaponDelayTime = 0;
+        this.shieldPoint = MAX_SHIELD;
     }
 
     /**
@@ -49,8 +56,9 @@ public final class Player extends Entity {
         int verticalForce = 0;
         int horizontalForce = 0;
         Body body = getBody();
-
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && !isWeaponActive) {
+        this.timeSecondsWeaponDelay += Gdx.graphics.getDeltaTime();
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && !isWeaponActive &&  timeSecondsWeaponDelay > WEAPON_DELAY) {
+            this.timeSecondsWeaponDelay = 0f;
             weapon.setVisible(true);
             isWeaponActive = true;
             if (weapon.getBody() != null) {
@@ -98,6 +106,13 @@ public final class Player extends Entity {
                 weapon.setVisible(false);
             }
         }
+
+        if (weaponDelayTime == WEAPON_DELAY){
+            weaponDelayTime = 0;
+        }else if(weaponDelayTime != 0){
+            weaponDelayTime++;
+        }
+
         if (getKnockBackVertical() != 0 || getKnockBackHorizontal() != 0){
             knockBackMove();
         }else {
@@ -190,5 +205,34 @@ public final class Player extends Entity {
     @Override
     protected int getMovingSpeed() {
         return MOVE_SPEED_PLAYER;
+    }
+
+    /**
+     * Ajouter des points de bouclier
+     * @param shieldPoint le nombre à ajouter
+     */
+    public void addShieldPoint(int shieldPoint){
+        if (this.shieldPoint + shieldPoint <= MAX_SHIELD ){
+            this.shieldPoint = MAX_SHIELD;
+        }else {
+            this.shieldPoint += shieldPoint;
+        }
+    }
+
+    public void takeDamage(int damage){
+        if(shieldPoint > 0){
+            shieldPoint = shieldPoint - damage;
+            if (shieldPoint < 0){
+                damage = shieldPoint * (-1);
+                subtractHealthPoint(damage);
+                shieldPoint = 0;
+            }
+        }else{
+            subtractHealthPoint(damage);
+        }
+    }
+
+    public int getShieldPoint(){
+        return shieldPoint;
     }
 }
