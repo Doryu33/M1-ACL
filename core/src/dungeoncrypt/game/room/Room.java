@@ -363,5 +363,9 @@ public final class Room {
     public boolean isEmpty() {
         return monsters.size() == 0;
     }
+
+    public int getPlayerShield(){
+        return player.getShieldPoint();
+    }
 }
 

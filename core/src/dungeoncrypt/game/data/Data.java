@@ -131,6 +131,13 @@ public class Data {
     public final static int HEALTH_BAR_X = 0;
     public final static int HEALTH_BAR_Y = 435;
 
+    //Coordonnées de la barre de bouclier
+    public final static int SHIELD_BAR_X = 30;
+    public final static int SHIELD_BAR_Y = 685;
+    //Taille de la barre de bouclier
+    public final static int SHIELD_BAR_WIDTH = 216;
+    public final static int SHIELD_BAR_HEIGHT = 20;
+
     //Coordonnées de l'affichage du score
     public final static int SCORE_X = 550;
     public final static int SCORE_Y = 735;

@@ -102,6 +102,7 @@ public class GameScreen implements Screen {
 
 		int score = roomManager.getActualRoom().getPlayerScore();
 		int live = roomManager.getActualRoom().getPlayerHP();
+		int shield = roomManager.getActualRoom().getPlayerShield();
 
 		batch.begin();
 		police.draw(batch, "Score : "+score, SCORE_X,SCORE_Y);
@@ -139,10 +140,42 @@ public class GameScreen implements Screen {
 			batch.draw(new Texture("images/deadbar.png"),HEALTH_BAR_X,HEALTH_BAR_Y,400,350);
 			parent.changeScreen(ENDGAME);
 		}
+
+		if(shield == MAX_SHIELD) {
+			batch.draw(new Texture("images/ShieldBar.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
+		}
+		if(shield < MAX_SHIELD && shield >= MAX_SHIELD*0.9) {
+			batch.draw(new Texture("images/ShieldBar90.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
+		}
+		if(shield < MAX_SHIELD*0.9 && shield >= MAX_SHIELD*0.8) {
+			batch.draw(new Texture("images/ShieldBar80.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
+		}
+		if(shield < MAX_SHIELD*0.8 && shield >= MAX_SHIELD*0.7) {
+			batch.draw(new Texture("images/ShieldBar70.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
+		}
+		if(shield < MAX_SHIELD*0.7 && shield >= MAX_SHIELD*0.6) {
+			batch.draw(new Texture("images/ShieldBar60.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
+		}
+		if(shield < MAX_SHIELD*0.6 && shield >= MAX_SHIELD*0.5) {
+			batch.draw(new Texture("images/ShieldBar50.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
+		}
+		if(shield < MAX_SHIELD*0.5 && shield >= MAX_SHIELD*0.4) {
+			batch.draw(new Texture("images/ShieldBar40.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
+		}
+		if(shield < MAX_SHIELD*0.4 && shield >= MAX_SHIELD*0.3) {
+			batch.draw(new Texture("images/ShieldBar30.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
+		}
+		if(shield < MAX_SHIELD*0.3 && shield >= MAX_SHIELD*0.2) {
+			batch.draw(new Texture("images/ShieldBar20.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
+		}
+		if(shield < MAX_SHIELD*0.2 && shield >= MAX_SHIELD*0.1) {
+			batch.draw(new Texture("images/ShieldBar10.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
+		}
+		if(shield == 0) {
+			batch.draw(new Texture("images/ShieldBar0.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
+		}
+
 		batch.end();
-
-
-
 	}
 
 	public void resize(int width, int height){
