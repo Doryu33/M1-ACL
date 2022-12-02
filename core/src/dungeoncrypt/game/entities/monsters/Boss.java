@@ -29,6 +29,8 @@ public class Boss extends Monster {
             int borneInf = RENDER_SCALE+RENDER_SCALE_BOSS;
             randomPosX = borneInf + random.nextInt(borneSup - borneInf);
             randomPosY = borneInf + random.nextInt(borneSup - borneInf);
+            System.out.println("randomPosX = " + randomPosX);
+            System.out.println("randomPosY = " + randomPosY);
         }
 
         float bossPosX = getBody().getPosition().x-(RENDER_SCALE_BOSS);
@@ -37,9 +39,9 @@ public class Boss extends Monster {
         this.verticalForce = 0;
         this.horizontalForce = 0;
         if (bossPosY > randomPosY) {
-            verticalForce = verticalForce + 1;
-        } else if (bossPosY < randomPosY) {
             verticalForce = verticalForce - 1;
+        } else if (bossPosY < randomPosY) {
+            verticalForce = verticalForce + 1;
         }
         if (bossPosX > randomPosX) {
             horizontalForce = horizontalForce - 1;
@@ -52,6 +54,7 @@ public class Boss extends Monster {
 //        }else{
 //            getBody().setLinearVelocity(horizontalForce*getMovingSpeed(),verticalForce*getMovingSpeed());
 //        }
+        getBody().setLinearVelocity(horizontalForce*getMovingSpeed(),verticalForce*getMovingSpeed());
         this.sprite.setPosition(getBody().getPosition().x-(RENDER_SCALE),getBody().getPosition().y-(RENDER_SCALE));
     }
 
