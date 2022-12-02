@@ -11,8 +11,8 @@ import static dungeoncrypt.game.data.Data.*;
 
 public final class Zombie extends Monster {
 
-    protected float timeSeconds = 0f;
-    protected float period = 0.1f;    //Temps en seconde
+    private float timeSeconds = 0f;
+    private final float period = 0.1f;    //Temps en seconde
     private List<Point> pathOfPoints;
     private int integerPartXMonster;
     private int integerPartYMonster;

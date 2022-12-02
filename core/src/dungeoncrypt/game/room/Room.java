@@ -5,6 +5,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
+import dungeoncrypt.game.entities.monsters.Boss;
 import dungeoncrypt.game.entities.monsters.Monster;
 import dungeoncrypt.game.entities.Player;
 import dungeoncrypt.game.tiles.Tile;
@@ -285,6 +286,34 @@ public final class Room {
     }
 
     /**
+     * Crée les Bodies des monstres
+     */
+    public void createBodyMonsters(){
+        Body body;
+        FixtureDef shape;
+        for (Monster monster : monsters){
+            if(monster.getSpecialType().equals(BOSS_TYPE)){
+                body = this.world.createBody(monster.createBodyDefBoss());
+            }else{
+                body = this.world.createBody(monster.createBodyDef());
+            }
+            monster.setBody(body);
+            monster.getBody().setUserData(monster);
+            if (monster.getSpecialType().equals(GHOST_TYPE)){
+                shape = monster.createShape(true);
+            }else if(monster.getSpecialType().equals(BOSS_TYPE)){
+                shape = monster.createShapeBoss();
+            } else{
+                shape = monster.createShape(false);
+            }
+
+            body.createFixture(shape);
+            shape.shape.dispose();
+            this.stage.addActor(monster);
+        }
+    }
+
+    /**
      * Getter des PV du joueur.
      * @return les PV du joueur.
      */
@@ -331,28 +360,6 @@ public final class Room {
             for (int i = 0; i < nb; i++) {
                 world.destroyBody(list.get(i));
             }
-        }
-    }
-
-    /**
-     * Crée les Bodys des monstres
-     */
-    public void createBodyMonsters(){
-        Body body;
-        FixtureDef shape;
-        for (Monster monster : monsters){
-            body = this.world.createBody(monster.createBodyDef());
-            monster.setBody(body);
-            monster.getBody().setUserData(monster);
-            if (monster.getSpecialType().equals(GHOST_TYPE)){
-                shape = monster.createShape(true);
-            }else{
-                shape = monster.createShape(false);
-            }
-
-            body.createFixture(shape);
-            shape.shape.dispose();
-            this.stage.addActor(monster);
         }
     }
 

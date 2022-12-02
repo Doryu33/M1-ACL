@@ -10,11 +10,13 @@ import static dungeoncrypt.game.data.Data.RENDER_SCALE;
 
 public final class Skeleton extends Monster {
 
-    protected float timeSeconds = 0f;
-    protected float period = 4f;    //Temps en seconde
+    private final Random random;
+    private float timeSeconds = 0f;
+    private final float period = 4f;    //Temps en seconde
 
     public Skeleton(int x, int y) {
         super(x, y, SKELETON_INITIAL_HP, SKELETON_TYPE, SKELETON_SCORE,"sprites/entities/monsters/skeleton.gif","sounds/Skeleton_Damage.mp3");
+        random = new Random();
     }
 
     /**
@@ -26,7 +28,6 @@ public final class Skeleton extends Monster {
         timeSeconds += Gdx.graphics.getDeltaTime();
         if(timeSeconds > period){
             timeSeconds -= period;
-            Random random = new Random();
             int randomDirection = random.nextInt(4);
             this.verticalForce = 0;
             this.horizontalForce = 0;

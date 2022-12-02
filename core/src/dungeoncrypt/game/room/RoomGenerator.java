@@ -1,10 +1,7 @@
 package dungeoncrypt.game.room;
 
 import dungeoncrypt.game.aStarAlgorithm.Grid;
-import dungeoncrypt.game.entities.monsters.Ghost;
-import dungeoncrypt.game.entities.monsters.Monster;
-import dungeoncrypt.game.entities.monsters.Skeleton;
-import dungeoncrypt.game.entities.monsters.Zombie;
+import dungeoncrypt.game.entities.monsters.*;
 import dungeoncrypt.game.tiles.classic.Floor;
 import dungeoncrypt.game.tiles.Tile;
 import dungeoncrypt.game.tiles.classic.Wall;
@@ -161,6 +158,14 @@ public final class RoomGenerator {
         instance.setGrid(arrayWalkable);
 
         return tilesRandomRoom;
+    }
+
+    public Tile[][] generateBossRoom() {
+        monsters.clear();
+        specialTileList.clear();
+        Tile[][] room = generateSimpleRoom();
+        monsters.add(new Boss(ROOM_SIZE/2,6));
+        return room;
     }
 
     /*

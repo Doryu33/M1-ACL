@@ -19,10 +19,11 @@ public final class Player extends Entity {
 
     private int score;
     private int direction;
-    private Weapon weapon;
+    private final Weapon weapon;
     private float timeSeconds = 0;
-    private float period = 2f;
+    private final float period = 2f;
     private boolean isWeaponActive = false;
+
     public Player(){
         super(PLAYER_TYPE,PLAYER_TYPE,PLAYER_INITIAL_HP,"sprites/entities/player/isaac.png", "sounds/Player_Damage.mp3");
         setInitialPosition();
