@@ -50,8 +50,7 @@ public class ProjectileBoss extends Actor {
     }
 
     public void move(int horizontalForce, int verticalForce){
-        System.out.println("move");
-        body.setLinearVelocity(0,-100);
+        body.setLinearVelocity(horizontalForce*MOVE_SPEED_BOSS_PROJECTILE,verticalForce*MOVE_SPEED_BOSS_PROJECTILE);
         this.sprite.setPosition(body.getPosition().x,body.getPosition().y);
     }
 

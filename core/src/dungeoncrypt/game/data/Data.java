@@ -130,6 +130,8 @@ public class Data {
     public final static int MOVE_SPEED_SKELETON = 40;
     public final static int MOVE_SPEED_BOSS = 100;
 
+    public final static int MOVE_SPEED_BOSS_PROJECTILE = 200;
+
     //Coordonnées de la barre de vie
     public final static int HEALTH_BAR_X = 20;
     public final static int EMPTY_HEALTH_BAR_Y = PIXEL_ROOM_SIZE-25;

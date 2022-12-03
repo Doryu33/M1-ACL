@@ -19,15 +19,12 @@ public class Boss extends Monster {
     private int randomPosX;
     private boolean isMovingOrd = false;
     private boolean isMovingAbs = false;
-    private ProjectileBoss pb;
 
     public Boss(int x, int y) {
         super(x, y, BOSS_INITIAL_HP, DAMAGE_POINT_BOSS, BOSS_TYPE, BOSS_SCORE, "sprites/entities/monsters/Boss2.png", "sounds/Ghost_Damage.mp3");
         random = new Random();
-        pb = new ProjectileBoss();
     }
 
-    //TODO Position du sprite à refaire
     @Override
     public void updatePosition(Room actualRoom) {
         timeSeconds += Gdx.graphics.getDeltaTime();
@@ -67,27 +64,29 @@ public class Boss extends Monster {
         if(!isMovingAbs && !isMovingOrd){
             shoot();
         }
-        if(pb.getBody() != null)
-            pb.setPos(getBody().getPosition().x-(RENDER_SCALE),getBody().getPosition().y-(RENDER_SCALE));
+//        if(pb.getBody() != null)
+//            pb.setPos(getBody().getPosition().x-(RENDER_SCALE),getBody().getPosition().y-(RENDER_SCALE));
 
         //getBody().setLinearVelocity(horizontalForce*getMovingSpeed(),verticalForce*getMovingSpeed());
         this.sprite.setPosition(getBody().getPosition().x-(RENDER_SCALE_BOSS/2f)-((2*RENDER_SCALE)/2f),getBody().getPosition().y-(RENDER_SCALE_BOSS/2f)-RENDER_SCALE/2f);
     }
 
     private void shoot() {
+        shootHorizontalAndVertical();
+        shootDiagonally();
+    }
+
+    private ProjectileBoss createProjectile(){
         Body body;
+        ProjectileBoss pb = new ProjectileBoss();
         body = getBody().getWorld().createBody(pb.createBodyDef(getBody().getPosition().x/RENDER_SCALE, (PIXEL_ROOM_SIZE - getBody().getPosition().y)/RENDER_SCALE));
         pb.setBody(body);
         pb.setUserData(pb);
-        pb.move();
         FixtureDef shape = pb.createShape();
         body.createFixture(shape);
         shape.shape.dispose();
         getStage().addActor(pb);
-    }
-
-    private ProjectileBoss createProjectile(){
-        return null;
+        return pb;
     }
 
     private void shootHorizontalAndVertical(){
@@ -110,6 +109,11 @@ public class Boss extends Monster {
         projectiles[1].move(1,1); //Droite Haut
         projectiles[2].move(-1,-1); //Gauche Bas
         projectiles[3].move(1,-1); //Droite Bas
+    }
+
+    //TODO détruire les projectiles lorsqu'ils sont hors de l'écran
+    private void destroyProjectiles(){
+
     }
 
     @Override
