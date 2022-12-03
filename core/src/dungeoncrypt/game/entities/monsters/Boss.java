@@ -1,6 +1,8 @@
 package dungeoncrypt.game.entities.monsters;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
 import dungeoncrypt.game.room.Room;
 
 import java.util.Random;
@@ -11,51 +13,76 @@ public class Boss extends Monster {
 
     private final Random random;
     private float timeSeconds = 0f;
-    private final float period = 4f;    //Temps en seconde
+    private final float period = 6f;    //Temps en seconde
     private int randomPosY;
     private int randomPosX;
+    private boolean isMovingOrd = false;
+    private boolean isMovingAbs = false;
+    private ProjectileBoss pb;
+    private Body body;
 
     public Boss(int x, int y) {
-        super(x, y, BOSS_INITIAL_HP, BOSS_TYPE, BOSS_SCORE, "sprites/entities/monsters/boss.png", "sounds/Ghost_Damage.mp3");
+        super(x, y, BOSS_INITIAL_HP, DAMAGE_POINT_BOSS, BOSS_TYPE, BOSS_SCORE, "sprites/entities/monsters/Boss2.png", "sounds/Ghost_Damage.mp3");
         random = new Random();
     }
 
+    //TODO Position du sprite à refaire
     @Override
     public void updatePosition(Room actualRoom) {
         timeSeconds += Gdx.graphics.getDeltaTime();
         if(timeSeconds > period){
             timeSeconds -= period;
             int borneSup = PIXEL_ROOM_SIZE-RENDER_SCALE-RENDER_SCALE_BOSS;
-            int borneInf = RENDER_SCALE+RENDER_SCALE_BOSS;
-            randomPosX = borneInf + random.nextInt(borneSup - borneInf);
-            randomPosY = borneInf + random.nextInt(borneSup - borneInf);
-            System.out.println("randomPosX = " + randomPosX);
-            System.out.println("randomPosY = " + randomPosY);
+            randomPosX = random.nextInt(borneSup);
+            randomPosY = random.nextInt(borneSup);
+            shoot();
         }
 
-        float bossPosX = getBody().getPosition().x-(RENDER_SCALE_BOSS);
-        float bossPosY = getBody().getPosition().y-(RENDER_SCALE_BOSS);
+        int bossPosX = (int) getBody().getPosition().x-(RENDER_SCALE_BOSS);
+        int bossPosY = (int) getBody().getPosition().y-(RENDER_SCALE_BOSS);
 
         this.verticalForce = 0;
         this.horizontalForce = 0;
         if (bossPosY > randomPosY) {
             verticalForce = verticalForce - 1;
+            isMovingOrd = true;
         } else if (bossPosY < randomPosY) {
             verticalForce = verticalForce + 1;
-        }
-        if (bossPosX > randomPosX) {
-            horizontalForce = horizontalForce - 1;
-        } else if (bossPosX < randomPosX) {
-            horizontalForce = horizontalForce + 1;
+            isMovingOrd = true;
+        }else{
+            isMovingOrd = false;
         }
 
-//        if (getKnockBackVertical() != 0 || getKnockBackHorizontal() != 0){
-//            knockBackMove();
-//        }else{
-//            getBody().setLinearVelocity(horizontalForce*getMovingSpeed(),verticalForce*getMovingSpeed());
-//        }
+        if (bossPosX > randomPosX) {
+            horizontalForce = horizontalForce - 1;
+            isMovingAbs = true;
+        } else if (bossPosX < randomPosX) {
+            horizontalForce = horizontalForce + 1;
+            isMovingAbs = true;
+        }else{
+            isMovingAbs = false;
+        }
+
+        if(!isMovingAbs && !isMovingOrd){
+            shoot();
+        }
+        if(body != null)
+            pb.setPos(getBody().getPosition().x-(RENDER_SCALE),getBody().getPosition().y-(RENDER_SCALE));
+
         getBody().setLinearVelocity(horizontalForce*getMovingSpeed(),verticalForce*getMovingSpeed());
-        this.sprite.setPosition(getBody().getPosition().x-(RENDER_SCALE),getBody().getPosition().y-(RENDER_SCALE));
+        this.sprite.setPosition(getBody().getPosition().x-(RENDER_SCALE_BOSS/2f)-RENDER_SCALE,getBody().getPosition().y-(RENDER_SCALE_BOSS/2f)+RENDER_SCALE/2f);
+    }
+
+    private void shoot() {
+        pb = new ProjectileBoss();
+        body = getBody().getWorld().createBody(pb.createBodyDef(getBody().getPosition().x,ROOM_SIZE*RENDER_SCALE - getBody().getPosition().y));
+        FixtureDef shape = pb.createShape();
+        body.createFixture(shape);
+        shape.shape.dispose();
+        pb.setBody(body);
+        pb.setUserData(pb);
+        pb.move();
+        getStage().addActor(pb);
     }
 
     @Override

@@ -16,7 +16,7 @@ public class Data {
     //Echelle
     public static final int RENDER_SCALE = 32;
     public static final int RENDER_SCALE_ENTITY = RENDER_SCALE*3/4;
-    public static final int RENDER_SCALE_BOSS = RENDER_SCALE*5;
+    public static final int RENDER_SCALE_BOSS = RENDER_SCALE*10;
 
     //Taille total de la salle
     public static final int PIXEL_ROOM_SIZE = RENDER_SCALE*ROOM_SIZE;
@@ -84,6 +84,12 @@ public class Data {
     public static final int GHOST_SCORE = 5;
     public static final int BOSS_SCORE = 100;
 
+    //Constantes numériques pour les points de dégats des monstres
+    public static final int DAMAGE_POINT_SKELETON = 10;
+    public static final int DAMAGE_POINT_ZOMBIE = 5;
+    public static final int DAMAGE_POINT_GHOST = 3;
+    public static final int DAMAGE_POINT_BOSS = 20;
+
     //Constantes numériques pour les tuiles spéciales
     //Nombre de point de vie que donne la tuile HealingTile
     public static final int HP_HEALING_TILE = 10;
@@ -122,7 +128,7 @@ public class Data {
     public final static int MOVE_SPEED_ZOMBIE = 40;
     public final static int MOVE_SPEED_GHOST = 50;
     public final static int MOVE_SPEED_SKELETON = 40;
-    public final static int MOVE_SPEED_BOSS = 20;
+    public final static int MOVE_SPEED_BOSS = 100;
 
     //Coordonnées de la barre de vie
     public final static int HEALTH_BAR_X = 0;

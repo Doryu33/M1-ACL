@@ -22,7 +22,7 @@ public final class Zombie extends Monster {
     private boolean movingDown;
 
     public Zombie(int x, int y) {
-        super(x, y,ZOMBIE_INITIAL_HP,ZOMBIE_TYPE, ZOMBIE_SCORE,"sprites/entities/monsters/zombie.gif","sounds/Zombie_Damage.mp3");
+        super(x, y,ZOMBIE_INITIAL_HP, DAMAGE_POINT_ZOMBIE, ZOMBIE_TYPE, ZOMBIE_SCORE,"sprites/entities/monsters/zombie.gif","sounds/Zombie_Damage.mp3");
     }
 
     /**

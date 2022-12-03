@@ -15,7 +15,7 @@ public final class Skeleton extends Monster {
     private final float period = 4f;    //Temps en seconde
 
     public Skeleton(int x, int y) {
-        super(x, y, SKELETON_INITIAL_HP, SKELETON_TYPE, SKELETON_SCORE,"sprites/entities/monsters/skeleton.gif","sounds/Skeleton_Damage.mp3");
+        super(x, y, SKELETON_INITIAL_HP, DAMAGE_POINT_SKELETON, SKELETON_TYPE, SKELETON_SCORE,"sprites/entities/monsters/skeleton.gif","sounds/Skeleton_Damage.mp3");
         random = new Random();
     }
 

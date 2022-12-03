@@ -1,7 +1,5 @@
 package dungeoncrypt.game.entities.monsters;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import dungeoncrypt.game.entities.Entity;
 import dungeoncrypt.game.room.Room;
 
@@ -14,10 +12,12 @@ public abstract class Monster extends Entity {
 
     protected int horizontalForce;
     protected int verticalForce;
+    private final int damagePoint;
     private final int score;
 
-    public Monster(int x, int y, int healthPoint, String specialType, int score, String spritePath, String damageSoundPath) {
+    public Monster(int x, int y, int healthPoint, int damagePoint, String specialType, int score, String spritePath, String damageSoundPath) {
         super(MONSTER_TYPE,specialType,healthPoint,spritePath, damageSoundPath);
+        this.damagePoint = damagePoint;
         this.score = score;
         setX(x);
         setY(y);
@@ -33,5 +33,9 @@ public abstract class Monster extends Entity {
 
     public int getScore(){
         return score;
+    }
+
+    public int getDamagePoint() {
+        return damagePoint;
     }
 }

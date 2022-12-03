@@ -140,7 +140,7 @@ public abstract class Entity extends Actor {
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(this.getX()*RENDER_SCALE+RENDER_SCALE,(ROOM_SIZE-this.getY())*RENDER_SCALE);
         bodyDef.fixedRotation = true;
-        this.sprite.setBounds(getX()*(RENDER_SCALE-RENDER_SCALE_BOSS),getY()*RENDER_SCALE,RENDER_SCALE_BOSS,RENDER_SCALE_BOSS);
+        this.sprite.setBounds(this.getX()*RENDER_SCALE,getY()*RENDER_SCALE,RENDER_SCALE_BOSS+RENDER_SCALE,RENDER_SCALE_BOSS);
         return bodyDef;
     }
 
@@ -151,7 +151,7 @@ public abstract class Entity extends Actor {
     public FixtureDef createShapeBoss(){
         CircleShape shape = new CircleShape();
         shape.setPosition(new Vector2(0, 0));
-        shape.setRadius(RENDER_SCALE_BOSS/2f);
+        shape.setRadius((RENDER_SCALE_BOSS*3/4f)/2f);
 
         FixtureDef fixtureCircle = new FixtureDef();
         fixtureCircle.isSensor = false;
