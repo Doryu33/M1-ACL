@@ -102,48 +102,31 @@ public class GameScreen implements Screen {
 		}
 
 		int score = roomManager.getActualRoom().getPlayerScore();
-		int live = roomManager.getActualRoom().getPlayerHP();
+		int playerHP = roomManager.getActualRoom().getPlayerHP();
 
 		batch.begin();
 		police.draw(batch, "Score : "+score, SCORE_X,SCORE_Y);
-		if(live == 50) {
-			batch.draw(new Texture("images/greenbar.png"),HEALTH_BAR_X,HEALTH_BAR_Y,400,350);
+
+		int maxSizeHPBar = 400;
+		float ratio = playerHP / (float) PLAYER_INITIAL_HP;
+		float widthOfBar = maxSizeHPBar * ratio;
+
+		batch.draw(new Texture("images/healthPoint/LogoHP.png"),5,HEALTH_BAR_Y,8,350);
+		batch.draw(new Texture("images/healthPoint/EmptyBar.png"),HEALTH_BAR_X,HEALTH_BAR_Y,maxSizeHPBar,350);
+
+		if(ratio >= 0.5f){
+			batch.draw(new Texture("images/healthPoint/GreenBar.png"),HEALTH_BAR_X,HEALTH_BAR_Y,widthOfBar,350);
+		}else if(ratio >= 0.3f){
+			batch.draw(new Texture("images/healthPoint/OrangeBar.png"),HEALTH_BAR_X,HEALTH_BAR_Y,widthOfBar,350);
+		}else{
+			batch.draw(new Texture("images/healthPoint/RedBar.png"),HEALTH_BAR_X,HEALTH_BAR_Y,widthOfBar,350);
 		}
-		if(live == 45) {
-			batch.draw(new Texture("images/greenbar90.png"),HEALTH_BAR_X,HEALTH_BAR_Y,400,350);
-		}
-		if(live == 40) {
-			batch.draw(new Texture("images/greenbar80.png"),HEALTH_BAR_X,HEALTH_BAR_Y,400,350);
-		}
-		if(live == 35) {
-			batch.draw(new Texture("images/greenbar70.png"),HEALTH_BAR_X,HEALTH_BAR_Y,400,350);
-		}
-		if(live == 30) {
-			batch.draw(new Texture("images/greenbar60.png"),HEALTH_BAR_X,HEALTH_BAR_Y,400,350);
-		}
-		if(live == 25) {
-			batch.draw(new Texture("images/orangebar50.png"),HEALTH_BAR_X,HEALTH_BAR_Y,400,350);
-		}
-		if(live == 20) {
-			batch.draw(new Texture("images/orangebar40.png"),HEALTH_BAR_X,HEALTH_BAR_Y,400,350);
-		}
-		if(live == 15) {
-			batch.draw(new Texture("images/orangebar30.png"),HEALTH_BAR_X,HEALTH_BAR_Y,400,350);
-		}
-		if(live == 10) {
-			batch.draw(new Texture("images/redbar20.png"),HEALTH_BAR_X,HEALTH_BAR_Y,400,350);
-		}
-		if(live == 5) {
-			batch.draw(new Texture("images/redbar10.png"),HEALTH_BAR_X,HEALTH_BAR_Y,400,350);
-		}
-		if(live <= 0) {
-			batch.draw(new Texture("images/deadbar.png"),HEALTH_BAR_X,HEALTH_BAR_Y,400,350);
+
+		if(playerHP <= 0){
 			parent.changeScreen(ENDGAME);
 		}
+
 		batch.end();
-
-
-
 	}
 
 	public void resize(int width, int height){

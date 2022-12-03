@@ -11,8 +11,8 @@ import static dungeoncrypt.game.data.Data.*;
 
 public final class Zombie extends Monster {
 
-    protected float timeSeconds = 0f;
-    protected float period = 0.1f;    //Temps en seconde
+    private float timeSeconds = 0f;
+    private final float period = 0.1f;    //Temps en seconde
     private List<Point> pathOfPoints;
     private int integerPartXMonster;
     private int integerPartYMonster;
@@ -22,7 +22,7 @@ public final class Zombie extends Monster {
     private boolean movingDown;
 
     public Zombie(int x, int y) {
-        super(x, y,ZOMBIE_INITIAL_HP,ZOMBIE_TYPE, ZOMBIE_SCORE,"sprites/entities/monsters/zombie.gif","sounds/Zombie_Damage.mp3");
+        super(x, y,ZOMBIE_INITIAL_HP, DAMAGE_POINT_ZOMBIE, ZOMBIE_TYPE, ZOMBIE_SCORE,"sprites/entities/monsters/zombie.gif","sounds/Zombie_Damage.mp3");
     }
 
     /**

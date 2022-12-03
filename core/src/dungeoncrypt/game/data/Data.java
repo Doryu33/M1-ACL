@@ -2,6 +2,9 @@ package dungeoncrypt.game.data;
 
 public class Data {
 
+    //Constantes pour afficher le mode debug ou non
+    public final static boolean DEBUG_MODE = false;
+
     //Taille en longueur et en largeur d'un pattern, celui-ci doit être impaire pour pouvoir centrer des éléments.
     public static final int PATTERN_SIZE = 7;
 
@@ -9,6 +12,14 @@ public class Data {
     //La salle est répartit en 9 sous-zones qui doivent avoir comme taille un nombre impair.
     //Ici 3 fois la taille d'un pattern plus 2 (les murs qui entourent la salle)
     public static final int ROOM_SIZE = (PATTERN_SIZE*3)+2;
+
+    //Echelle
+    public static final int RENDER_SCALE = 32;
+    public static final int RENDER_SCALE_ENTITY = RENDER_SCALE*3/4;
+    public static final int RENDER_SCALE_BOSS = RENDER_SCALE*10;
+
+    //Taille total de la salle
+    public static final int PIXEL_ROOM_SIZE = RENDER_SCALE*ROOM_SIZE;
 
     //Position en X et en Y de la sortie.
     public static final int EXIT_POS_X = ROOM_SIZE/2;
@@ -44,6 +55,7 @@ public class Data {
     public static final String SKELETON_TYPE = "Skeleton";
     public static final String ZOMBIE_TYPE = "Zombie";
     public static final String GHOST_TYPE = "Ghost";
+    public static final String BOSS_TYPE = "Boss";
 
     //Caractère pour définir l'affichage de chaque élément
     public static final char FLOOR_TILE = ' ';
@@ -64,12 +76,19 @@ public class Data {
     public static final int SKELETON_INITIAL_HP = 20;
     public static final int ZOMBIE_INITIAL_HP = 15;
     public static final int GHOST_INITIAL_HP = 5;
+    public static final int BOSS_INITIAL_HP = 50;
 
     //Constantes numériques pour les points des monstres
     public static final int SKELETON_SCORE = 10;
     public static final int ZOMBIE_SCORE = 20;
     public static final int GHOST_SCORE = 5;
+    public static final int BOSS_SCORE = 100;
 
+    //Constantes numériques pour les points de dégats des monstres
+    public static final int DAMAGE_POINT_SKELETON = 10;
+    public static final int DAMAGE_POINT_ZOMBIE = 5;
+    public static final int DAMAGE_POINT_GHOST = 3;
+    public static final int DAMAGE_POINT_BOSS = 20;
 
     //Constantes numériques pour les tuiles spéciales
     //Nombre de point de vie que donne la tuile HealingTile
@@ -87,20 +106,6 @@ public class Data {
     public static final int MAX_USE_TRAP = -1;
     public static final int MAX_USE_EXIT = -1;
 
-    //String pour définir la direction du déplacement du joueur
-    public static final String PLAYER_TOP_KEY = "Z";
-    public static final String PLAYER_TOP_KEY_MIN = "z";
-    public static final String PLAYER_BOTTOM_KEY = "S";
-    public static final String PLAYER_BOTTOM_KEY_MIN = "s";
-    public static final String PLAYER_LEFT_KEY = "Q";
-    public static final String PLAYER_LEFT_KEY_MIN = "q";
-    public static final String PLAYER_RIGHT_KEY = "D";
-    public static final String PLAYER_RIGHT_KEY_MIN = "d";
-
-    //Echelle
-    public static final int RENDER_SCALE = 32;
-    public static final int RENDER_SCALE_ENTITY = RENDER_SCALE*3/4;
-
     //Constantes pour les changements screens
     public final static int MENU = 0;
     public final static int PREFERENCES = 1;
@@ -116,9 +121,6 @@ public class Data {
     public final static int BUTTON_MINWIDTH = 150;
     public final static int BUTTON_MAXWIDTH = 350;
 
-    //Constantes pour afficher le mode debug ou non
-    public final static boolean DEBUG_MODE = false;
-
     //Constantes pour la vitesse du joueur
     public final static int MOVE_SPEED_PLAYER = 100;
 
@@ -126,6 +128,7 @@ public class Data {
     public final static int MOVE_SPEED_ZOMBIE = 40;
     public final static int MOVE_SPEED_GHOST = 50;
     public final static int MOVE_SPEED_SKELETON = 40;
+    public final static int MOVE_SPEED_BOSS = 100;
 
     //Coordonnées de la barre de vie
     public final static int HEALTH_BAR_X = 0;

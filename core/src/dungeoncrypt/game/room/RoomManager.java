@@ -20,6 +20,7 @@ public final class RoomManager {
     private final World world;
     private final Stage stage;
     private final SaveManager saveManager;
+    private int counterForBoss = 0;
 
     /**
      * Constructeur par défaut. Instancie une nouvelle partie.
@@ -70,13 +71,20 @@ public final class RoomManager {
      */
     public void createNextRoom() {
         this.actualRoom.clearRoom();
-        this.actualRoom.setEnvironment(this.roomGenerator.generateRandomRoom());
+        if(counterForBoss == 1){
+            this.actualRoom.setEnvironment(this.roomGenerator.generateBossRoom());
+            counterForBoss = 0;
+        }else{
+            this.actualRoom.setEnvironment(this.roomGenerator.generateRandomRoom());
+            counterForBoss++;
+        }
         this.actualRoom.setMonsters(this.roomGenerator.getGeneratedMonsters());
         this.actualRoom.setSpecialTileList(this.roomGenerator.getSpecialTileList());
         this.actualRoom.setInitialPlayerPosition();
         this.stage.clear();
         createBodies();
         checkRoomIsEmpty();
+        System.out.println("counterForBoss = " + counterForBoss);
     }
 
     /**
