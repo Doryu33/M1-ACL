@@ -119,7 +119,7 @@ public class GameScreen implements Screen {
 		table.row().pad(PADDING_TOP, PADDING_LEFT, PADDING_DOWN, PADDING_RIGHT);
 		table.add(exit).fillX().uniformX().growX().minWidth(BUTTON_MINWIDTH).maxWidth(BUTTON_MAXWIDTH);
 
-		/* Bouton quitter */
+		/* Bouton retour menu */
 		exit.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
