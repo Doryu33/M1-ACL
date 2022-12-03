@@ -131,8 +131,13 @@ public class Data {
     public final static int MOVE_SPEED_BOSS = 100;
 
     //Coordonnées de la barre de vie
-    public final static int HEALTH_BAR_X = 0;
-    public final static int HEALTH_BAR_Y = 435;
+    public final static int HEALTH_BAR_X = 20;
+    public final static int EMPTY_HEALTH_BAR_Y = PIXEL_ROOM_SIZE-25;
+    public final static int HEALTH_BAR_Y = EMPTY_HEALTH_BAR_Y+4;
+    public final static int MAX_SIZE_HEALTH_BAR = 250;
+    public final static int EMPTY_HEALTH_BAR_HEIGHT = 20;
+    public final static int HEALTH_BAR_HEIGHT = EMPTY_HEALTH_BAR_HEIGHT-4;
+    public final static int LOGO_HEALTH_BAR_WIDTH = 16;
 
     //Coordonnées de l'affichage du score
     public final static int SCORE_X = 550;

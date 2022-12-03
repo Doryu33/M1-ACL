@@ -21,6 +21,8 @@ import java.io.File;
 import static dungeoncrypt.game.data.Data.*;
 
 public class GameScreen implements Screen {
+	private final Texture logoHPTexture;
+	private final Texture emptyHPBarTexture;
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
 	private World world;
@@ -41,6 +43,9 @@ public class GameScreen implements Screen {
 		 */
 		camera = new OrthographicCamera();
 		viewport = new FitViewport(ROOM_SIZE*RENDER_SCALE,ROOM_SIZE*RENDER_SCALE,camera);
+
+		logoHPTexture = new Texture("images/healthPoint/LogoHP.png");
+		emptyHPBarTexture = new Texture("images/healthPoint/EmptyBar.png");
 	}
 
 	@Override
@@ -105,22 +110,22 @@ public class GameScreen implements Screen {
 		int playerHP = roomManager.getActualRoom().getPlayerHP();
 
 		batch.begin();
-		police.draw(batch, "Score : "+score, SCORE_X,SCORE_Y);
+		police.drawScore(batch, "Score : "+score, SCORE_X,SCORE_Y);
 
-		int maxSizeHPBar = 400;
 		float ratio = playerHP / (float) PLAYER_INITIAL_HP;
-		float widthOfBar = maxSizeHPBar * ratio;
+		float widthOfBar = MAX_SIZE_HEALTH_BAR * ratio;
 
-		batch.draw(new Texture("images/healthPoint/LogoHP.png"),5,HEALTH_BAR_Y,8,350);
-		batch.draw(new Texture("images/healthPoint/EmptyBar.png"),HEALTH_BAR_X,HEALTH_BAR_Y,maxSizeHPBar,350);
+		batch.draw(logoHPTexture, HEALTH_BAR_X-LOGO_HEALTH_BAR_WIDTH,EMPTY_HEALTH_BAR_Y,LOGO_HEALTH_BAR_WIDTH,EMPTY_HEALTH_BAR_HEIGHT);
+		batch.draw(emptyHPBarTexture,HEALTH_BAR_X,EMPTY_HEALTH_BAR_Y,MAX_SIZE_HEALTH_BAR,EMPTY_HEALTH_BAR_HEIGHT);
 
 		if(ratio >= 0.5f){
-			batch.draw(new Texture("images/healthPoint/GreenBar.png"),HEALTH_BAR_X,HEALTH_BAR_Y,widthOfBar,350);
+			batch.draw(new Texture("images/healthPoint/GreenBar.png"),HEALTH_BAR_X,HEALTH_BAR_Y,widthOfBar,HEALTH_BAR_HEIGHT);
 		}else if(ratio >= 0.3f){
-			batch.draw(new Texture("images/healthPoint/OrangeBar.png"),HEALTH_BAR_X,HEALTH_BAR_Y,widthOfBar,350);
+			batch.draw(new Texture("images/healthPoint/OrangeBar.png"),HEALTH_BAR_X,HEALTH_BAR_Y,widthOfBar,HEALTH_BAR_HEIGHT);
 		}else{
-			batch.draw(new Texture("images/healthPoint/RedBar.png"),HEALTH_BAR_X,HEALTH_BAR_Y,widthOfBar,350);
+			batch.draw(new Texture("images/healthPoint/RedBar.png"),HEALTH_BAR_X,HEALTH_BAR_Y,widthOfBar,HEALTH_BAR_HEIGHT);
 		}
+		police.drawHP(batch, String.valueOf(playerHP), MAX_SIZE_HEALTH_BAR/2f,SCORE_Y-6);
 
 		if(playerHP <= 0){
 			parent.changeScreen(ENDGAME);
