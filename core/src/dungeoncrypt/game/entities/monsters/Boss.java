@@ -67,15 +67,15 @@ public class Boss extends Monster {
         if(!isMovingAbs && !isMovingOrd){
             //shoot();
         }
-
         moveProjectiles();
-//        if(pb.getBody() != null)
-//            pb.setPos(getBody().getPosition().x-(RENDER_SCALE),getBody().getPosition().y-(RENDER_SCALE));
 
         getBody().setLinearVelocity(horizontalForce*getMovingSpeed(),verticalForce*getMovingSpeed());
         this.sprite.setPosition(getBody().getPosition().x-(RENDER_SCALE_BOSS/2f)-((2*RENDER_SCALE)/2f),getBody().getPosition().y-(RENDER_SCALE_BOSS/2f)-RENDER_SCALE/2f);
     }
 
+    /**
+     * Déplacer tous les projectiles encore visible, détruire sinon
+     */
     private void moveProjectiles() {
         ProjectileBoss projectile;
         ArrayList<ProjectileBoss> projectilesToDelete = new ArrayList<>();
@@ -95,11 +95,22 @@ public class Boss extends Monster {
         projectilesToDelete.clear();
     }
 
+    /**
+     * Tirer les projectiles. Vérifie les points de vie, si < 50%, tire en diagonale en plus
+     */
     private void shoot() {
         shootHorizontalAndVertical();
-        shootDiagonally();
+        if(getHealthPoint() / (float) BOSS_INITIAL_HP < 0.5f){
+            shootDiagonally();
+        }
     }
 
+    /**
+     * Créer un projectile
+     * @param horizontalForce du projectile
+     * @param verticalForce du projectile
+     * @return le projectile créé
+     */
     private ProjectileBoss createProjectile(int horizontalForce, int verticalForce){
         Body body;
         ProjectileBoss pb = new ProjectileBoss(horizontalForce,verticalForce);
@@ -113,6 +124,9 @@ public class Boss extends Monster {
         return pb;
     }
 
+    /**
+     * Tire 4 projectile en horizontal et vertical
+     */
     private void shootHorizontalAndVertical(){
         ProjectileBoss[] p = new ProjectileBoss[4];
         p[0] = createProjectile(-1,0); //Gauche
@@ -126,6 +140,9 @@ public class Boss extends Monster {
         projectiles.addAll(Arrays.asList(p));
     }
 
+    /**
+     * Tire 4 projectiles en diagonal
+     */
     private void shootDiagonally(){
         ProjectileBoss[] p = new ProjectileBoss[4];
         p[0] = createProjectile(-1,1); //Gauche Haut
@@ -137,11 +154,6 @@ public class Boss extends Monster {
         p[3] = createProjectile(1,-1); //Droite Bas
         p[3].move();
         projectiles.addAll(Arrays.asList(p));
-    }
-
-    //TODO détruire les projectiles lorsqu'ils sont hors de l'écran
-    private void destroyProjectiles(Body body){
-
     }
 
     @Override
