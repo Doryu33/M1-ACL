@@ -51,7 +51,7 @@ public class ProjectileBoss extends Actor {
 
     public void move(int horizontalForce, int verticalForce){
         System.out.println("move");
-        body.setLinearVelocity(10,10);
+        body.setLinearVelocity(0,-100);
         this.sprite.setPosition(body.getPosition().x,body.getPosition().y);
     }
 
@@ -77,4 +77,9 @@ public class ProjectileBoss extends Actor {
     public void setPos(float v, float v1) {
         this.sprite.setPosition(v,v1);
     }
+
+    public Body getBody() {
+        return body;
+    }
+
 }

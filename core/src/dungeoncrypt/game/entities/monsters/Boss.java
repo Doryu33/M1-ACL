@@ -3,6 +3,7 @@ package dungeoncrypt.game.entities.monsters;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.World;
 import dungeoncrypt.game.room.Room;
 
 import java.util.Random;
@@ -19,11 +20,11 @@ public class Boss extends Monster {
     private boolean isMovingOrd = false;
     private boolean isMovingAbs = false;
     private ProjectileBoss pb;
-    private Body body;
 
     public Boss(int x, int y) {
         super(x, y, BOSS_INITIAL_HP, DAMAGE_POINT_BOSS, BOSS_TYPE, BOSS_SCORE, "sprites/entities/monsters/Boss2.png", "sounds/Ghost_Damage.mp3");
         random = new Random();
+        pb = new ProjectileBoss();
     }
 
     //TODO Position du sprite à refaire
@@ -66,7 +67,7 @@ public class Boss extends Monster {
         if(!isMovingAbs && !isMovingOrd){
             shoot();
         }
-        if(body != null)
+        if(pb.getBody() != null)
             pb.setPos(getBody().getPosition().x-(RENDER_SCALE),getBody().getPosition().y-(RENDER_SCALE));
 
         //getBody().setLinearVelocity(horizontalForce*getMovingSpeed(),verticalForce*getMovingSpeed());
@@ -74,14 +75,14 @@ public class Boss extends Monster {
     }
 
     private void shoot() {
-        pb = new ProjectileBoss();
-        body = getBody().getWorld().createBody(pb.createBodyDef(getBody().getPosition().x,ROOM_SIZE*RENDER_SCALE - getBody().getPosition().y));
+        Body body;
+        body = getBody().getWorld().createBody(pb.createBodyDef(getBody().getPosition().x/RENDER_SCALE, (PIXEL_ROOM_SIZE - getBody().getPosition().y)/RENDER_SCALE));
+        pb.setBody(body);
+        pb.setUserData(pb);
+        pb.move();
         FixtureDef shape = pb.createShape();
         body.createFixture(shape);
         shape.shape.dispose();
-        pb.setBody(body);
-        pb.setUserData(pb);
-        pb.move(1,1);
         getStage().addActor(pb);
     }
 
