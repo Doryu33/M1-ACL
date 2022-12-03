@@ -6,6 +6,8 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import dungeoncrypt.game.room.Room;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 import static dungeoncrypt.game.data.Data.*;
@@ -19,6 +21,7 @@ public class Boss extends Monster {
     private int randomPosX;
     private boolean isMovingOrd = false;
     private boolean isMovingAbs = false;
+    private final ArrayList<ProjectileBoss> projectiles = new ArrayList<>(32);
 
     public Boss(int x, int y) {
         super(x, y, BOSS_INITIAL_HP, DAMAGE_POINT_BOSS, BOSS_TYPE, BOSS_SCORE, "sprites/entities/monsters/Boss2.png", "sounds/Ghost_Damage.mp3");
@@ -62,13 +65,34 @@ public class Boss extends Monster {
         }
 
         if(!isMovingAbs && !isMovingOrd){
-            shoot();
+            //shoot();
         }
+
+        moveProjectiles();
 //        if(pb.getBody() != null)
 //            pb.setPos(getBody().getPosition().x-(RENDER_SCALE),getBody().getPosition().y-(RENDER_SCALE));
 
-        //getBody().setLinearVelocity(horizontalForce*getMovingSpeed(),verticalForce*getMovingSpeed());
+        getBody().setLinearVelocity(horizontalForce*getMovingSpeed(),verticalForce*getMovingSpeed());
         this.sprite.setPosition(getBody().getPosition().x-(RENDER_SCALE_BOSS/2f)-((2*RENDER_SCALE)/2f),getBody().getPosition().y-(RENDER_SCALE_BOSS/2f)-RENDER_SCALE/2f);
+    }
+
+    private void moveProjectiles() {
+        ProjectileBoss projectile;
+        ArrayList<ProjectileBoss> projectilesToDelete = new ArrayList<>();
+
+        for (ProjectileBoss p : projectiles) {
+            projectile = p.checkIfOffLimit();
+            if(projectile != null){
+                //Détruit les bodies des projectiles en dehors de l'écran
+                getBody().getWorld().destroyBody(projectile.getBody());
+                projectilesToDelete.add(projectile);
+            }else{
+                p.updateSpritePosition();
+            }
+        }
+        //Supprime les projectiles
+        projectiles.removeAll(projectilesToDelete);
+        projectilesToDelete.clear();
     }
 
     private void shoot() {
@@ -76,9 +100,9 @@ public class Boss extends Monster {
         shootDiagonally();
     }
 
-    private ProjectileBoss createProjectile(){
+    private ProjectileBoss createProjectile(int horizontalForce, int verticalForce){
         Body body;
-        ProjectileBoss pb = new ProjectileBoss();
+        ProjectileBoss pb = new ProjectileBoss(horizontalForce,verticalForce);
         body = getBody().getWorld().createBody(pb.createBodyDef(getBody().getPosition().x/RENDER_SCALE, (PIXEL_ROOM_SIZE - getBody().getPosition().y)/RENDER_SCALE));
         pb.setBody(body);
         pb.setUserData(pb);
@@ -90,29 +114,33 @@ public class Boss extends Monster {
     }
 
     private void shootHorizontalAndVertical(){
-        ProjectileBoss[] projectiles = new ProjectileBoss[4];
-        for (int i = 0; i < 4; i++) {
-            projectiles[i] = createProjectile();
-        }
-        projectiles[0].move(-1,0); //Gauche
-        projectiles[1].move(1,0); //Droite
-        projectiles[2].move(0,1); //Haut
-        projectiles[3].move(0,-1); //Bas
+        ProjectileBoss[] p = new ProjectileBoss[4];
+        p[0] = createProjectile(-1,0); //Gauche
+        p[0].move();
+        p[1] = createProjectile(1,0); //Droite
+        p[1].move();
+        p[2] = createProjectile(0,1); //Haut
+        p[2].move();
+        p[3] = createProjectile(0,-1); //Bas
+        p[3].move();
+        projectiles.addAll(Arrays.asList(p));
     }
 
     private void shootDiagonally(){
-        ProjectileBoss[] projectiles = new ProjectileBoss[4];
-        for (int i = 0; i < 4; i++) {
-            projectiles[i] = createProjectile();
-        }
-        projectiles[0].move(-1,1); //Gauche Haut
-        projectiles[1].move(1,1); //Droite Haut
-        projectiles[2].move(-1,-1); //Gauche Bas
-        projectiles[3].move(1,-1); //Droite Bas
+        ProjectileBoss[] p = new ProjectileBoss[4];
+        p[0] = createProjectile(-1,1); //Gauche Haut
+        p[0].move();
+        p[1] = createProjectile(1,1); //Droite Haut
+        p[1].move();
+        p[2] = createProjectile(-1,-1); //Gauche Bas
+        p[2].move();
+        p[3] = createProjectile(1,-1); //Droite Bas
+        p[3].move();
+        projectiles.addAll(Arrays.asList(p));
     }
 
     //TODO détruire les projectiles lorsqu'ils sont hors de l'écran
-    private void destroyProjectiles(){
+    private void destroyProjectiles(Body body){
 
     }
 
