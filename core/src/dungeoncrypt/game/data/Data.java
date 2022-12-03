@@ -15,6 +15,7 @@ public class Data {
 
     //Echelle
     public static final int RENDER_SCALE = 32;
+    public static final int RENDER_SCALE_SPRITE = RENDER_SCALE/2;
     public static final int RENDER_SCALE_ENTITY = RENDER_SCALE*3/4;
     public static final int RENDER_SCALE_BOSS = RENDER_SCALE*10;
 

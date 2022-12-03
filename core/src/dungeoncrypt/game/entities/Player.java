@@ -108,20 +108,20 @@ public final class Player extends Entity {
         if (weapon.getBody() != null) {
             weapon.getBody().setLinearVelocity(horizontalForce * getMovingSpeed(), verticalForce * getMovingSpeed());
         }
-        this.sprite.setPosition(body.getPosition().x-(RENDER_SCALE), body.getPosition().y-(RENDER_SCALE));
+        this.sprite.setPosition(body.getPosition().x-RENDER_SCALE_SPRITE, body.getPosition().y-RENDER_SCALE_SPRITE);
 
         switch (direction){
             case 1:
-                this.weapon.getSprite().setPosition(body.getPosition().x-(RENDER_SCALE),body.getPosition().y-(RENDER_SCALE)+RENDER_SCALE);
+                this.weapon.getSprite().setPosition(body.getPosition().x-(RENDER_SCALE_SPRITE),body.getPosition().y-(RENDER_SCALE_SPRITE)+RENDER_SCALE);
                 break;
             case 2:
-                this.weapon.getSprite().setPosition(body.getPosition().x-(RENDER_SCALE),body.getPosition().y-(RENDER_SCALE)-RENDER_SCALE);
+                this.weapon.getSprite().setPosition(body.getPosition().x-(RENDER_SCALE_SPRITE),body.getPosition().y-(RENDER_SCALE_SPRITE)-RENDER_SCALE);
                 break;
             case 3:
-                this.weapon.getSprite().setPosition(body.getPosition().x-(RENDER_SCALE)-RENDER_SCALE,body.getPosition().y-(RENDER_SCALE));
+                this.weapon.getSprite().setPosition(body.getPosition().x-(RENDER_SCALE_SPRITE)-RENDER_SCALE,body.getPosition().y-(RENDER_SCALE_SPRITE));
                 break;
             default:
-                this.weapon.getSprite().setPosition(body.getPosition().x-(RENDER_SCALE)+RENDER_SCALE,body.getPosition().y-(RENDER_SCALE));
+                this.weapon.getSprite().setPosition(body.getPosition().x-(RENDER_SCALE_SPRITE)+RENDER_SCALE,body.getPosition().y-(RENDER_SCALE_SPRITE));
                 break;
         }
 

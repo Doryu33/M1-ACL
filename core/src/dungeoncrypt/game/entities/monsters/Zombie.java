@@ -76,7 +76,7 @@ public final class Zombie extends Monster {
                 getBody().setLinearVelocity(horizontalForce*getMovingSpeed(),verticalForce*getMovingSpeed());
             }
         }
-        this.sprite.setPosition(getBody().getPosition().x-(RENDER_SCALE),getBody().getPosition().y-(RENDER_SCALE));
+        this.sprite.setPosition(getBody().getPosition().x-(RENDER_SCALE_SPRITE),getBody().getPosition().y-(RENDER_SCALE_SPRITE));
     }
 
     /**

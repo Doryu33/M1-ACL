@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 import static dungeoncrypt.game.data.Data.RENDER_SCALE;
+import static dungeoncrypt.game.data.Data.RENDER_SCALE_SPRITE;
 
 public abstract class Tile extends Actor {
 
@@ -50,7 +51,7 @@ public abstract class Tile extends Actor {
     public BodyDef createBodyDef(int x,int y,boolean isActive){
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.StaticBody;
-        bodyDef.position.set(x,y);
+        bodyDef.position.set(x-RENDER_SCALE_SPRITE,y-RENDER_SCALE_SPRITE);
         bodyDef.fixedRotation = true;
         bodyDef.active = isActive;
         this.sprite.setBounds(x-(RENDER_SCALE),y-RENDER_SCALE,RENDER_SCALE,RENDER_SCALE);
