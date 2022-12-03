@@ -69,8 +69,8 @@ public class Boss extends Monster {
         if(body != null)
             pb.setPos(getBody().getPosition().x-(RENDER_SCALE),getBody().getPosition().y-(RENDER_SCALE));
 
-        getBody().setLinearVelocity(horizontalForce*getMovingSpeed(),verticalForce*getMovingSpeed());
-        this.sprite.setPosition(getBody().getPosition().x-(RENDER_SCALE_BOSS/2f)-RENDER_SCALE,getBody().getPosition().y-(RENDER_SCALE_BOSS/2f)+RENDER_SCALE/2f);
+        //getBody().setLinearVelocity(horizontalForce*getMovingSpeed(),verticalForce*getMovingSpeed());
+        this.sprite.setPosition(getBody().getPosition().x,getBody().getPosition().y);
     }
 
     private void shoot() {
