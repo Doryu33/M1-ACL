@@ -81,8 +81,34 @@ public class Boss extends Monster {
         shape.shape.dispose();
         pb.setBody(body);
         pb.setUserData(pb);
-        pb.move();
+        pb.move(1,1);
         getStage().addActor(pb);
+    }
+
+    private ProjectileBoss createProjectile(){
+        return null;
+    }
+
+    private void shootHorizontalAndVertical(){
+        ProjectileBoss[] projectiles = new ProjectileBoss[4];
+        for (int i = 0; i < 4; i++) {
+            projectiles[i] = createProjectile();
+        }
+        projectiles[0].move(-1,0); //Gauche
+        projectiles[1].move(1,0); //Droite
+        projectiles[2].move(0,1); //Haut
+        projectiles[3].move(0,-1); //Bas
+    }
+
+    private void shootDiagonally(){
+        ProjectileBoss[] projectiles = new ProjectileBoss[4];
+        for (int i = 0; i < 4; i++) {
+            projectiles[i] = createProjectile();
+        }
+        projectiles[0].move(-1,1); //Gauche Haut
+        projectiles[1].move(1,1); //Droite Haut
+        projectiles[2].move(-1,-1); //Gauche Bas
+        projectiles[3].move(1,-1); //Droite Bas
     }
 
     @Override

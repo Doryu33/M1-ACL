@@ -49,7 +49,7 @@ public class ProjectileBoss extends Actor {
         return fixtureCircle;
     }
 
-    public void move(){
+    public void move(int horizontalForce, int verticalForce){
         System.out.println("move");
         body.setLinearVelocity(10,10);
         this.sprite.setPosition(body.getPosition().x,body.getPosition().y);
