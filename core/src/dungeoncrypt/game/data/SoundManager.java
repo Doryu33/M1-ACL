@@ -30,70 +30,100 @@ public class SoundManager {
         this.soundVolume = app.getSoundVolume();
         this.soundEnabled =  app.isSoundEffectsEnabled();
         this.musicEnabled = app.isMusicEnabled();
-    }
 
+        musicMainMenu = Gdx.audio.newMusic(Gdx.files.internal("musics/DeadSilence_Theme.mp3"));
+        musicInGame = Gdx.audio.newMusic(Gdx.files.internal("musics/Halloween_Theme.mp3"));
+        musicEndGame = Gdx.audio.newMusic(Gdx.files.internal("musics/Saw_Theme.mp3"));
+    }
     /**
      * Joue la musique en jeu
      */
     public void playMusicInGame(){
-        musicInGame = Gdx.audio.newMusic(Gdx.files.internal("musics/Halloween_Theme.mp3"));
-        musicInGame.setVolume(musicVolume);
-        musicInGame.setLooping(true);
-        playMusic(musicInGame);
+        stopAllMusic();
+        if(!musicInGame.isPlaying()){
+
+            musicInGame.setVolume(musicVolume);
+            musicInGame.setLooping(true);
+            playMusic(musicInGame);
+        }
     }
+
 
     /**
      * Arrête la musique en jeu
      */
     public void stopMusicInGame(){
-        musicInGame.dispose();
+        if(musicInGame!=null){
+            musicInGame.dispose();
+        }
     }
 
     /**
      * Joue la musique de fin de jeu
      */
     public void playMusicEndGame(){
-        musicEndGame = Gdx.audio.newMusic(Gdx.files.internal("musics/Saw_Theme.mp3"));
-        musicEndGame.setVolume(musicVolume);
-        musicEndGame.setLooping(true);
-        playMusic(musicEndGame);
+        stopAllMusic();
+        if(!musicEndGame.isPlaying()) {
+            musicEndGame.setVolume(musicVolume);
+            musicEndGame.setLooping(true);
+            playMusic(musicEndGame);
+        }
     }
+
 
     /**
      * Arrête la musique de fin de jeu
      */
     public void stopMusicEndGame(){
-        musicEndGame.stop();
+        if(musicEndGame!=null){
+            musicEndGame.stop();
+        }
+
     }
 
     /**
      * Joue la musique du menu principal
      */
     public void playMusicMainMenu(){
-        musicMainMenu = Gdx.audio.newMusic(Gdx.files.internal("musics/DeadSilence_Theme.mp3"));
-        musicMainMenu.setVolume(musicVolume);
-        musicMainMenu.setLooping(true);
-        playMusic(musicMainMenu);
+        stopAllMusic();
+        if(!musicMainMenu.isPlaying()){
+            musicMainMenu.setVolume(musicVolume);
+            musicMainMenu.setLooping(true);
+            playMusic(musicMainMenu);
+        }
     }
 
     /**
      * Arrête la musique du menu principal
      */
     public void stopMusicMainMenu(){
-        musicMainMenu.stop();
+        if(musicMainMenu!=null){
+            musicMainMenu.stop();
+        }
     }
 
+    /**
+     * Arrete toutes les musiques
+     */
+    public void stopAllMusic(){
+        stopMusicInGame();
+        stopMusicEndGame();
+        stopMusicMainMenu();
+    }
 
     /**
-     * Joue le son d'une entité qui subit des dégâts
-     * @param pathSound Chemin correspondant au dégât du type d'une entité
+     * Joue un son
+     * @param pathSound Chemin correspondant
      */
-    public void playDamageEntitySound(String pathSound){
+    public void playSound(String pathSound){
         Music sound;
         sound = Gdx.audio.newMusic(Gdx.files.internal(pathSound));
         sound.setVolume(soundVolume);
         playSound(sound);
     }
+
+
+
 
     /**
      * Joue le son de l'ouverture de la porte

@@ -1,6 +1,7 @@
 package dungeoncrypt.game.views;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -8,7 +9,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.*;
 import dungeoncrypt.game.collisions.BodyContactListenner;
 import dungeoncrypt.game.data.SoundManager;
@@ -29,15 +36,17 @@ public class GameScreen implements Screen {
 	private Box2DDebugRenderer b2dr;
 	private RoomManager roomManager;
 	private Stage stage;
+	private Stage pauseStage;
 	private Viewport viewport;
 	private Police police;
 	private ScreenManager parent;
+	private boolean gameIsPaused;
+	private TextButton saveGame;
 
 	public GameScreen(ScreenManager screenManager){
 		parent = screenManager;
 		batch = new SpriteBatch();
 		police = Police.getInstance();
-
 		/**
 		 * Camera et Viewport
 		 */
@@ -46,13 +55,13 @@ public class GameScreen implements Screen {
 
 		logoHPTexture = new Texture("images/healthPoint/LogoHP.png");
 		emptyHPBarTexture = new Texture("images/healthPoint/EmptyBar.png");
+		this.gameIsPaused = false;
 	}
 
 	@Override
 	public void show () {
 		Gdx.input.setInputProcessor(stage);
-		SoundManager sm = SoundManager.getInstance();
-		sm.playMusicInGame();
+		this.parent.getSm().playMusicInGame();
 
 		/**
 		 * Création et gestion du monde monde
@@ -64,6 +73,7 @@ public class GameScreen implements Screen {
 		 * Stage
 		 */
 		this.stage = new Stage(viewport,batch);
+		this.pauseStage = new Stage(viewport,batch);
 
 		/**
 		 * Debug mode
@@ -78,10 +88,63 @@ public class GameScreen implements Screen {
 		 * Sinon on charge la partie si un fichier de sauvegarde existe.
 		 */
 		if(parent.getSaveManager() == null){
+			this.parent.initSaveManager();
 			this.roomManager = new RoomManager(world, stage);
 		} else {
 			this.roomManager = new RoomManager(world,stage, parent.getSaveManager());
 		}
+
+
+		/**
+		 * Pause menu
+		 */
+		/* Creation de la table pour les items du menu */
+		Table table = new Table();
+		table.setFillParent(true);
+		table.setDebug(DEBUG_MODE);
+		pauseStage.addActor(table);
+		/* Chargement du skin du menu */
+		Skin skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
+
+		/* Creation des boutons du menu */
+		TextButton continuGame = new TextButton("Continuer la partie", skin);
+		saveGame = new TextButton("Sauvegarder la partie", skin);
+		TextButton exit = new TextButton("Retour au Menu Principale", skin);
+
+		/* Remplissage de la table pour l'affichage du menu */
+		table.row().pad(PADDING_TOP, PADDING_LEFT, PADDING_DOWN, PADDING_RIGHT);
+		table.add(continuGame).fillX().uniformX().growX().minWidth(BUTTON_MINWIDTH).maxWidth(BUTTON_MAXWIDTH);
+		table.row().pad(PADDING_TOP, PADDING_LEFT, PADDING_DOWN, PADDING_RIGHT);
+		table.add(saveGame).fillX().uniformX().growX().minWidth(BUTTON_MINWIDTH).maxWidth(BUTTON_MAXWIDTH);
+		table.row().pad(PADDING_TOP, PADDING_LEFT, PADDING_DOWN, PADDING_RIGHT);
+		table.add(exit).fillX().uniformX().growX().minWidth(BUTTON_MINWIDTH).maxWidth(BUTTON_MAXWIDTH);
+
+		/* Bouton quitter */
+		exit.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				parent.changeScreen(MENU);
+				gameIsPaused = false;
+			}
+		});
+		/* Bouton continuer une partie */
+		continuGame.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				gameIsPaused = false;
+			}
+		});
+
+		/* Bouton sauvegarder une partie */
+		saveGame.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				if(roomManager.getActualRoom().isEmpty()){
+					parent.getSaveManager().saveProgression("DungeonCrypt-Save",roomManager.getActualRoom());
+					SoundManager.getInstance().playSound("sounds/GameSaved.mp3");
+				}
+			}
+		});
 	}
 
 	/**
@@ -94,7 +157,11 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void render (float delta) {
-		update(Gdx.graphics.getDeltaTime());
+
+		if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
+			gameIsPaused = !gameIsPaused;
+		}
+
 		Gdx.gl.glClearColor(0f,0f,0f,1f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -104,6 +171,12 @@ public class GameScreen implements Screen {
 			stage.act(Gdx.graphics.getDeltaTime());
 			stage.getViewport().apply();
 			stage.draw();
+		}
+
+		if(gameIsPaused){
+			pause();
+		} else {
+			resume();
 		}
 
 		int score = roomManager.getActualRoom().getPlayerScore();
@@ -130,7 +203,6 @@ public class GameScreen implements Screen {
 		if(playerHP <= 0){
 			parent.changeScreen(ENDGAME);
 		}
-
 		batch.end();
 	}
 
@@ -141,11 +213,21 @@ public class GameScreen implements Screen {
 	@Override
 	public void pause() {
 
+
+		if(roomManager.getActualRoom().isEmpty()){
+			this.saveGame.setDisabled(false);
+		} else {
+			this.saveGame.setDisabled(true);
+		}
+		Gdx.input.setInputProcessor(pauseStage);
+		stage.getViewport().apply();
+		pauseStage.draw();
 	}
 
 	@Override
 	public void resume() {
-
+		Gdx.input.setInputProcessor(stage);
+		update(Gdx.graphics.getDeltaTime());
 	}
 
 	@Override
@@ -156,9 +238,11 @@ public class GameScreen implements Screen {
 	public void dispose () {
 		world.dispose();
 		if(DEBUG_MODE){
-			b2dr.dispose();
+
 		}
+		b2dr.dispose();
 		stage.dispose();
+		pauseStage.dispose();
 	}
 
 	public void update(float delta){

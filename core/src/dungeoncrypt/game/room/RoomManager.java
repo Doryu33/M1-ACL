@@ -117,7 +117,7 @@ public final class RoomManager {
     public void updatePositionRoom(){
         this.actualRoom.updateInputPlayer(this.actualRoom);
         this.actualRoom.updatePositionMonster(this.actualRoom);
-        if(Gdx.input.isKeyPressed(Input.Keys.N)){
+        if(Gdx.input.isKeyJustPressed(Input.Keys.N)){
             createNextRoom();
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.J)) {
