@@ -70,7 +70,7 @@ public class Boss extends Monster {
             pb.setPos(getBody().getPosition().x-(RENDER_SCALE),getBody().getPosition().y-(RENDER_SCALE));
 
         //getBody().setLinearVelocity(horizontalForce*getMovingSpeed(),verticalForce*getMovingSpeed());
-        this.sprite.setPosition(getBody().getPosition().x,getBody().getPosition().y);
+        this.sprite.setPosition(getBody().getPosition().x-(RENDER_SCALE_BOSS/2f)-((2*RENDER_SCALE)/2f),getBody().getPosition().y-(RENDER_SCALE_BOSS/2f)-RENDER_SCALE/2f);
     }
 
     private void shoot() {
