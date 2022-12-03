@@ -85,7 +85,7 @@ public class Data {
     //Définir à -1 pour une utilisation illimité
     public static final int MAX_USE_HEALING_TILE = 1;
     public static final int MAX_USE_TRAP = -1;
-    public static final int MAX_USE_EXIT = 1;
+    public static final int MAX_USE_EXIT = -1;
 
     //String pour définir la direction du déplacement du joueur
     public static final String PLAYER_TOP_KEY = "Z";

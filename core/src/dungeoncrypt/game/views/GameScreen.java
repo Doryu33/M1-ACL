@@ -33,9 +33,14 @@ public class GameScreen implements Screen {
 
 	public GameScreen(ScreenManager screenManager){
 		parent = screenManager;
-		camera = new OrthographicCamera();
 		batch = new SpriteBatch();
 		police = Police.getInstance();
+
+		/**
+		 * Camera et Viewport
+		 */
+		camera = new OrthographicCamera();
+		viewport = new FitViewport(ROOM_SIZE*RENDER_SCALE,ROOM_SIZE*RENDER_SCALE,camera);
 	}
 
 	@Override
@@ -43,11 +48,6 @@ public class GameScreen implements Screen {
 		Gdx.input.setInputProcessor(stage);
 		SoundManager sm = SoundManager.getInstance();
 		sm.playMusicInGame();
-		float width = Gdx.graphics.getWidth();
-		float height = Gdx.graphics.getHeight();
-		camera.position.set(RENDER_SCALE*12,RENDER_SCALE*12,0);
-		this.viewport = new FitViewport(width-RENDER_SCALE,height-RENDER_SCALE,camera);
-		viewport.apply();
 
 		/**
 		 * Création et gestion du monde monde
@@ -55,8 +55,6 @@ public class GameScreen implements Screen {
 		this.world = new World(new Vector2(0,0), false);
 		//Creaion de l'écouteur de collision
 		this.world.setContactListener(new BodyContactListenner(this));
-
-
 		/**
 		 * Stage
 		 */
@@ -74,7 +72,6 @@ public class GameScreen implements Screen {
 		 * Si saveManager est null, alors on crée une nouvelle partie.
 		 * Sinon on charge la partie si un fichier de sauvegarde existe.
 		 */
-
 		if(parent.getSaveManager() == null){
 			this.roomManager = new RoomManager(world, stage);
 		} else {
@@ -82,6 +79,10 @@ public class GameScreen implements Screen {
 		}
 	}
 
+	/**
+	 * Getter
+	 * @return roomManager
+	 */
 	public RoomManager getRoomManager() {
 		return roomManager;
 	}
@@ -147,7 +148,6 @@ public class GameScreen implements Screen {
 
 	public void resize(int width, int height){
 		viewport.update(width,height);
-		camera.position.set(RENDER_SCALE*12,RENDER_SCALE*12,0);
 	}
 
 	@Override
