@@ -1,6 +1,8 @@
 package dungeoncrypt.game.entities.monsters;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
@@ -14,61 +16,82 @@ import static dungeoncrypt.game.data.Data.*;
 
 public class Boss extends Monster {
 
+    //Intervalle de tire entre chaque tir
+    private final float periodRange = 0.5f; //Temps en seconde
+    private float timeSecondsRange = 0f;
+
+    //Temps de tire
+    private final float periodShooting = periodRange*10; //Temps en seconde
+    private float timeSecondsShooting = 0f;
+
     private final Random random;
-    private float timeSeconds = 0f;
-    private final float period = 6f;    //Temps en seconde
     private int randomPosY;
     private int randomPosX;
-    private boolean isMovingOrd = false;
-    private boolean isMovingAbs = false;
     private final ArrayList<ProjectileBoss> projectiles = new ArrayList<>(32);
+    private boolean isMoving;
+    private boolean isShooting;
 
     public Boss(int x, int y) {
         super(x, y, BOSS_INITIAL_HP, DAMAGE_POINT_BOSS, BOSS_TYPE, BOSS_SCORE, "sprites/entities/monsters/Boss2.png", "sounds/Ghost_Damage.mp3");
         random = new Random();
+        generateNewRandomPos();
     }
 
+    private void generateNewRandomPos(){
+        int borneSup = PIXEL_ROOM_SIZE-RENDER_SCALE-RENDER_SCALE_BOSS;
+        randomPosX = random.nextInt(borneSup)/RENDER_SCALE;
+        randomPosY = random.nextInt(borneSup)/RENDER_SCALE;
+        isMoving = true;
+    }
+
+    //TODO quand le boss meurt alors qu'il tire --> détruire tous les projectiles restants
+
+    /**
+     * Le boss se déplace toutes les periodMoving secondes.
+     * Puis tire pendant periodShooting secondes avec comme intervalle de tire periodRange
+     * @param actualRoom salle actuelle
+     */
     @Override
     public void updatePosition(Room actualRoom) {
-        timeSeconds += Gdx.graphics.getDeltaTime();
-        if(timeSeconds > period){
-            timeSeconds -= period;
-            int borneSup = PIXEL_ROOM_SIZE-RENDER_SCALE-RENDER_SCALE_BOSS;
-            randomPosX = random.nextInt(borneSup);
-            randomPosY = random.nextInt(borneSup);
-            shoot();
-        }
-
-        int bossPosX = (int) getBody().getPosition().x-(RENDER_SCALE_BOSS);
-        int bossPosY = (int) getBody().getPosition().y-(RENDER_SCALE_BOSS);
-
         this.verticalForce = 0;
         this.horizontalForce = 0;
-        if (bossPosY > randomPosY) {
-            verticalForce = verticalForce - 1;
-            isMovingOrd = true;
-        } else if (bossPosY < randomPosY) {
-            verticalForce = verticalForce + 1;
-            isMovingOrd = true;
-        }else{
-            isMovingOrd = false;
-        }
 
-        if (bossPosX > randomPosX) {
-            horizontalForce = horizontalForce - 1;
-            isMovingAbs = true;
-        } else if (bossPosX < randomPosX) {
-            horizontalForce = horizontalForce + 1;
-            isMovingAbs = true;
-        }else{
-            isMovingAbs = false;
-        }
+        if(isMoving){
+            int bossPosX = (int) (getBody().getPosition().x-(RENDER_SCALE_BOSS/2))/RENDER_SCALE;
+            int bossPosY = (int) (getBody().getPosition().y-(RENDER_SCALE_BOSS/2))/RENDER_SCALE;
 
-        if(!isMovingAbs && !isMovingOrd){
-            //shoot();
+            //Si on arrive presque à destination on arrête de bouger. Sinon on bouge
+            if(Math.abs(bossPosX-randomPosX) < 1 && Math.abs(bossPosY-randomPosY) < 1){
+                isMoving = false;
+                isShooting = true;
+            }else{
+                if (bossPosY > randomPosY) {
+                    verticalForce = verticalForce - 1;
+                } else if (bossPosY < randomPosY) {
+                    verticalForce = verticalForce + 1;
+                }
+
+                if (bossPosX > randomPosX) {
+                    horizontalForce = horizontalForce - 1;
+                } else if (bossPosX < randomPosX) {
+                    horizontalForce = horizontalForce + 1;
+                }
+            }
+        }else if(isShooting){
+            timeSecondsShooting += Gdx.graphics.getDeltaTime();
+            if(timeSecondsShooting > periodShooting) {
+                timeSecondsShooting -= periodShooting;
+                isShooting = false;
+                generateNewRandomPos();
+            }else{
+                timeSecondsRange += Gdx.graphics.getDeltaTime();
+                if(timeSecondsRange > periodRange) {
+                    timeSecondsRange -= periodRange;
+                    shoot();
+                }
+            }
         }
         moveProjectiles();
-
         getBody().setLinearVelocity(horizontalForce*getMovingSpeed(),verticalForce*getMovingSpeed());
         this.sprite.setPosition(getBody().getPosition().x-(RENDER_SCALE_BOSS/2f)-((2*RENDER_SCALE)/2f),getBody().getPosition().y-(RENDER_SCALE_BOSS/2f)-RENDER_SCALE/2f);
     }
@@ -77,22 +100,24 @@ public class Boss extends Monster {
      * Déplacer tous les projectiles encore visible, détruire sinon
      */
     private void moveProjectiles() {
-        ProjectileBoss projectile;
-        ArrayList<ProjectileBoss> projectilesToDelete = new ArrayList<>();
+        if(projectiles.size() > 0){
+            ProjectileBoss projectile;
+            ArrayList<ProjectileBoss> projectilesToDelete = new ArrayList<>();
 
-        for (ProjectileBoss p : projectiles) {
-            projectile = p.checkIfOffLimit();
-            if(projectile != null){
-                //Détruit les bodies des projectiles en dehors de l'écran
-                getBody().getWorld().destroyBody(projectile.getBody());
-                projectilesToDelete.add(projectile);
-            }else{
-                p.updateSpritePosition();
+            for (ProjectileBoss p : projectiles) {
+                projectile = p.checkIfOffLimit();
+                if(projectile != null){
+                    //Détruit les bodies des projectiles en dehors de l'écran
+                    getBody().getWorld().destroyBody(projectile.getBody());
+                    projectilesToDelete.add(projectile);
+                }else{
+                    p.updateSpritePosition();
+                }
             }
+            //Supprime les projectiles
+            projectiles.removeAll(projectilesToDelete);
+            projectilesToDelete.clear();
         }
-        //Supprime les projectiles
-        projectiles.removeAll(projectilesToDelete);
-        projectilesToDelete.clear();
     }
 
     /**
@@ -100,7 +125,7 @@ public class Boss extends Monster {
      */
     private void shoot() {
         shootHorizontalAndVertical();
-        if(getHealthPoint() / (float) BOSS_INITIAL_HP < 0.5f){
+        if(getHealthPoint() / (float) BOSS_INITIAL_HP <= 0.5f){
             shootDiagonally();
         }
     }
@@ -159,5 +184,32 @@ public class Boss extends Monster {
     @Override
     protected int getMovingSpeed() {
         return MOVE_SPEED_BOSS;
+    }
+
+    public float getPosX(){
+        return getBody().getPosition().x;
+    }
+
+    public float getPosY(){
+        return getBody().getPosition().y;
+    }
+
+    public void deleteAllProjectiles() {
+        Gdx.app.postRunnable(new Runnable() {
+            @Override
+            public void run () {
+                ArrayList<ProjectileBoss> projectilesToDelete = new ArrayList<>();
+                World world = getBody().getWorld();
+                for (ProjectileBoss p : projectiles) {
+                    //Détruit les bodies des projectiles en dehors de l'écran
+                    p.setVisible(false);
+                    world.destroyBody(p.getBody());
+                    projectilesToDelete.add(p);
+                }
+                //Supprime les projectiles
+                projectiles.removeAll(projectilesToDelete);
+                projectilesToDelete.clear();
+            }
+        });
     }
 }

@@ -128,7 +128,7 @@ public class Data {
     public final static int MOVE_SPEED_ZOMBIE = 40;
     public final static int MOVE_SPEED_GHOST = 50;
     public final static int MOVE_SPEED_SKELETON = 40;
-    public final static int MOVE_SPEED_BOSS = 100;
+    public final static int MOVE_SPEED_BOSS = 80;
 
     public final static int MOVE_SPEED_BOSS_PROJECTILE = 200;
 

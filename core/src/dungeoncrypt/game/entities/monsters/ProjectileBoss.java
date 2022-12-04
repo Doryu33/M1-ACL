@@ -100,4 +100,9 @@ public class ProjectileBoss extends Actor {
     public Body getBody() {
         return body;
     }
+
+    @Override
+    public void setVisible(boolean visible){
+        isVisible = visible;
+    }
 }

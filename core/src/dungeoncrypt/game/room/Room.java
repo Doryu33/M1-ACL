@@ -199,6 +199,10 @@ public final class Room {
      */
     public void killMonster(Monster monster){
         if (monsters.contains(monster)){
+            if(monster.getSpecialType().equals(BOSS_TYPE)){
+                Boss boss = (Boss) monster;
+                boss.deleteAllProjectiles();
+            }
             monsters.remove(monster);
             //System.out.println("MONSTRE MORT");
             monster.setVisible(false);
@@ -369,6 +373,15 @@ public final class Room {
      */
     public boolean isEmpty() {
         return monsters.size() == 0;
+    }
+
+    public Boss getBoss() {
+        for (Monster m: monsters) {
+            if(m.getSpecialType().equals(BOSS_TYPE)){
+                return (Boss) m;
+            }
+        }
+        return null;
     }
 }
 
