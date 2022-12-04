@@ -65,7 +65,7 @@ public class EndScreen implements Screen {
             }
         });
         /* Bouton nouvelle partie */
-        newGame.addListener(new ChangeListener() {
+        mainMenu.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 parent.changeScreen(MENU);
