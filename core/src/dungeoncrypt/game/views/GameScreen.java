@@ -68,7 +68,7 @@ public class GameScreen implements Screen {
 		 */
 		if(DEBUG_MODE){
 			b2dr = new Box2DDebugRenderer();
-		}
+		}b2dr = new Box2DDebugRenderer();
 
 		/**
 		 * RoomManager
@@ -102,6 +102,7 @@ public class GameScreen implements Screen {
 			stage.act(Gdx.graphics.getDeltaTime());
 			stage.getViewport().apply();
 			stage.draw();
+			b2dr.render(world, camera.combined);
 		}
 
 		int score = roomManager.getActualRoom().getPlayerScore();

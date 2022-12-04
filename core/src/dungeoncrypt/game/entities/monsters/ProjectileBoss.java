@@ -21,7 +21,7 @@ public class ProjectileBoss extends Actor {
         this.horizontalForce = horizontalForce;
         this.verticalForce = verticalForce;
         this.sprite = new Sprite(new Texture(Gdx.files.internal("sprites/entities/monsters/boss/ProjectileBoss.png")));
-        sprite.setRotation(rotation);
+        //sprite.setRotation(rotation);
     }
 
     /**
@@ -42,11 +42,10 @@ public class ProjectileBoss extends Actor {
      * @return la forme
      */
     public FixtureDef createShape(){
-        CircleShape shape = new CircleShape();
-        shape.setPosition(new Vector2(0, 0));
-        shape.setRadius(RENDER_SCALE/2f);
+        PolygonShape polygonShape = new PolygonShape();
+        polygonShape.setAsBox(RENDER_SCALE/2f,RENDER_SCALE);
         FixtureDef fixtureCircle = new FixtureDef();
-        fixtureCircle.shape = shape;
+        fixtureCircle.shape = polygonShape;
         fixtureCircle.isSensor = true;
         return fixtureCircle;
     }
@@ -56,7 +55,7 @@ public class ProjectileBoss extends Actor {
     }
 
     public void updateSpritePosition(){
-        this.sprite.setPosition(body.getPosition().x,body.getPosition().y);
+        this.sprite.setPosition(body.getPosition().x-RENDER_SCALE_SPRITE,body.getPosition().y-RENDER_SCALE);
     }
 
     /**

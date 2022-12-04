@@ -91,7 +91,7 @@ public class Boss extends Monster {
         }
         moveProjectiles();
         getBody().setLinearVelocity(horizontalForce*getMovingSpeed(),verticalForce*getMovingSpeed());
-        this.sprite.setPosition(getBody().getPosition().x-(RENDER_SCALE_BOSS/2f)-((2*RENDER_SCALE)/2f),getBody().getPosition().y-(RENDER_SCALE_BOSS/2f)-RENDER_SCALE/2f);
+        this.sprite.setPosition(getBody().getPosition().x-RENDER_SCALE_BOSS/2f-RENDER_SCALE_SPRITE,getBody().getPosition().y-RENDER_SCALE_BOSS/2f);
     }
 
     /**
@@ -137,7 +137,7 @@ public class Boss extends Monster {
     private ProjectileBoss createProjectile(int horizontalForce, int verticalForce, float rotation){
         Body body;
         ProjectileBoss pb = new ProjectileBoss(horizontalForce,verticalForce, rotation);
-        body = getBody().getWorld().createBody(pb.createBodyDef(getBody().getPosition().x/RENDER_SCALE, (PIXEL_ROOM_SIZE - getBody().getPosition().y)/RENDER_SCALE));
+        body = getBody().getWorld().createBody(pb.createBodyDef((getBody().getPosition().x- RENDER_SCALE)/RENDER_SCALE , (PIXEL_ROOM_SIZE - getBody().getPosition().y)/RENDER_SCALE));
         pb.setBody(body);
         pb.setUserData(pb);
         FixtureDef shape = pb.createShape();
