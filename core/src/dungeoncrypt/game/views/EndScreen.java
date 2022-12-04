@@ -44,6 +44,7 @@ public class EndScreen implements Screen {
 
         /* Creation des boutons du menu */
         TextButton newGame = new TextButton("Nouvelle Partie", skin);
+        TextButton mainMenu = new TextButton("Menu Principale", skin);
         TextButton exit = new TextButton("Quitter", skin);
         /* Remplissage des labels */
         Label titleLab = new Label("Game Over", skin);
@@ -51,6 +52,8 @@ public class EndScreen implements Screen {
         table.add(titleLab).colspan(2);
         table.row().pad(PADDING_TOP, 0, PADDING_DOWN, 0);
         table.add(newGame).fillX().uniformX().growX().minWidth(BUTTON_MINWIDTH).maxWidth(BUTTON_MAXWIDTH);
+        table.row().pad(PADDING_TOP, 0, PADDING_DOWN, 0);
+        table.add(mainMenu).fillX().uniformX().growX().minWidth(BUTTON_MINWIDTH).maxWidth(BUTTON_MAXWIDTH);
         table.row().pad(PADDING_TOP, PADDING_LEFT, PADDING_DOWN, PADDING_RIGHT);
         table.add(exit).fillX().uniformX().growX().minWidth(BUTTON_MINWIDTH).maxWidth(BUTTON_MAXWIDTH);
 
@@ -61,7 +64,15 @@ public class EndScreen implements Screen {
                 Gdx.app.exit();
             }
         });
-
+        /* Bouton nouvelle partie */
+        newGame.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                parent.changeScreen(MENU);
+                SoundManager soundManager = SoundManager.getInstance();
+                soundManager.stopMusicEndGame();
+            }
+        });
         /* Bouton nouvelle partie */
         newGame.addListener(new ChangeListener() {
             @Override
