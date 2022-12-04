@@ -12,6 +12,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static dungeoncrypt.game.data.Data.RENDER_SCALE;
 import static dungeoncrypt.game.data.Data.ROOM_SIZE;
 import static java.nio.file.StandardOpenOption.CREATE;
 
@@ -37,8 +38,22 @@ public class SaveManager {
         this.tilesList = room.getRoomComposition();
         this.PlayerHealth = room.getPlayerHP();
         this.PlayerScore = room.getPlayerScore();
-        this.posX = room.getPlayerPosX();
-        this.posY = room.getPlayerPosY();
+
+        /* Sauvegarde la position exact du joueur */
+        float playerPosX = room.getPlayerPosX()-(RENDER_SCALE/2f);
+        float playerPosY = room.getPlayerPosY()-(RENDER_SCALE/2f);
+        float integerPartXPlayer =  playerPosX/RENDER_SCALE;
+        float integerPartYPlayer =  playerPosY/RENDER_SCALE;
+        integerPartYPlayer = ROOM_SIZE-1 - integerPartYPlayer;
+
+        //Evite le changement de salle automatique lors de l'auto save
+        if(posX <12 && posX>11 && posY<2 && posY>1){
+            this.posY = 2;
+        } else {
+            this.posY = integerPartYPlayer+1;
+        }
+        this.posX = integerPartXPlayer;
+
         //Ouvrir le fichier
         Path chemin = Paths.get(pathToSave+".txt");
         // convertit String en un tableau d'octets

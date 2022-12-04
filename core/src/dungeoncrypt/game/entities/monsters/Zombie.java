@@ -83,8 +83,8 @@ public final class Zombie extends Monster {
      * Fixer les positions du monstre pour matcher avec l'algo de pathfinding
      */
     private void fixPosition(){
-        float monsterPosX = getBody().getPosition().x-(RENDER_SCALE);
-        float monsterPosY = getBody().getPosition().y-(RENDER_SCALE);
+        float monsterPosX = getBody().getPosition().x-(RENDER_SCALE)/2f;
+        float monsterPosY = getBody().getPosition().y-(RENDER_SCALE)/2f;
 
         integerPartXMonster = (int) monsterPosX/RENDER_SCALE;
         integerPartYMonster = (int) monsterPosY/RENDER_SCALE;

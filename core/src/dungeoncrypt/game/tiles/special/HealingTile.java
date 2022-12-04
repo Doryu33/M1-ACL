@@ -1,6 +1,7 @@
 package dungeoncrypt.game.tiles.special;
 
 
+import dungeoncrypt.game.data.SoundManager;
 import dungeoncrypt.game.entities.Entity;
 
 import static dungeoncrypt.game.data.Data.*;
@@ -34,6 +35,7 @@ public final class HealingTile extends SpecialTile {
     @Override
     protected void useEffect(Entity entity) {
         if(!entity.hasFullHealth()){
+            SoundManager.getInstance().playSound("sounds/Heal.mp3");
             entity.addHealthPoint(HP_HEALING_TILE);
             addOneAppliedEffectCounter();
             setSpriteToDisabled();

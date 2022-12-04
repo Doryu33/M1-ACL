@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import dungeoncrypt.game.tiles.special.Exit;
 import dungeoncrypt.game.tools.SaveManager;
 
+import static dungeoncrypt.game.data.Data.AUTO_SAVE_NAME;
 import static dungeoncrypt.game.data.Data.DEBUG_SAVE_NAME;
 import dungeoncrypt.game.data.SoundManager;
 
@@ -67,7 +68,7 @@ public final class RoomManager {
     }
 
     /**
-     * Lorsque le joueur a tué tous les monstres et qu'il touche la tuile Sortie, il entre dans une nouvelle salle
+     * Crée une nouvelle salle
      */
     public void createNextRoom() {
         this.actualRoom.clearRoom();
@@ -87,6 +88,15 @@ public final class RoomManager {
     }
 
     /**
+     * Lorsque le joueur a tué tous les monstres et qu'il touche la tuile Sortie,
+     * une sauvegarde automatique se crée et il entre dans une nouvelle salle
+     */
+    public void goToNextRoom(){
+        saveManager.saveProgression(AUTO_SAVE_NAME,actualRoom);
+        createNextRoom();
+    }
+
+    /**
      * Permet de créer une salle depuis une sauvegarde afin de restaurer l'état de la partie.
      * @param save à charger
      */
@@ -94,9 +104,9 @@ public final class RoomManager {
         this.actualRoom.clearRoom();
         this.actualRoom.setEnvironment(this.roomGenerator.generateLoadedRoom(save.tilesList));
         this.actualRoom.setSpecialTileList(this.roomGenerator.getSpecialTileList());
-        this.actualRoom.setInitialPlayerPosition();
         this.actualRoom.setPlayerHP(save.PlayerHealth);
         this.actualRoom.setPlayerScore(save.PlayerScore);
+        this.actualRoom.setPlayerPosition(save.posX,save.posY);
         this.stage.clear();
         createBodies();
         checkRoomIsEmpty();
@@ -116,7 +126,7 @@ public final class RoomManager {
     public void updatePositionRoom(){
         this.actualRoom.updateInputPlayer(this.actualRoom);
         this.actualRoom.updatePositionMonster(this.actualRoom);
-        if(Gdx.input.isKeyPressed(Input.Keys.N)){
+        if(Gdx.input.isKeyJustPressed(Input.Keys.N)){
             createNextRoom();
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.J)) {

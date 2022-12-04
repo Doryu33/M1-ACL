@@ -28,7 +28,9 @@ com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 		fontColor: black,
 		downFontColor: { a: 1, b: 0.2627451, g: 0.05490196, r: 0.6 },
 		up: button-orange,
-		down: button-orange-down
+		down: button-orange-down,
+		disabledFontColor: black,
+		disabled:button-maroon-down
 	},
 	menu-item: {
 		font: font,

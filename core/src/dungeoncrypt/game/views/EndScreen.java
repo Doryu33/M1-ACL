@@ -77,9 +77,7 @@ public class EndScreen implements Screen {
     public void show() {
         Gdx.input.setInputProcessor(stage);
         /* Changement du son */
-        SoundManager soundManager = SoundManager.getInstance();
-        soundManager.stopMusicInGame();
-        soundManager.playMusicEndGame();
+        this.parent.getSm().playMusicEndGame();
     }
 
     @Override

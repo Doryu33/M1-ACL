@@ -17,19 +17,39 @@ public class ScreenManager extends Game {
     private GameScreen gameScreen;
     private EndScreen endScreen;
     private SaveManager saveManager = null;
+    private SoundManager sm;
 
     @Override
     /**
      * Pendant le chargement du jeu on affiche un temps de chargement
      */
     public void create() {
+         sm = SoundManager.getInstance();
         loadingScreen = new LoadingScreen(this);
         setScreen(loadingScreen);
     }
 
 
+    /**
+     * Getter
+     * @return saveManager
+     */
     public SaveManager getSaveManager() {
         return saveManager;
+    }
+
+    /**
+     * Setter
+     * Si le saveManager n'est pas crée, alors en crée un nouveau. Si il existe, ne fait rien
+     */
+    public void initSaveManager() {
+        if(saveManager == null){
+            this.saveManager = new SaveManager();
+        }
+    }
+
+    public SoundManager getSm() {
+        return sm;
     }
 
     /**
@@ -55,7 +75,7 @@ public class ScreenManager extends Game {
                 this.saveManager = new SaveManager();
                 //Check if save exist
                 File saveFile = new File(SAVE_NAME+".txt");
-                Boolean saveExist = (saveFile.exists() && !saveFile.isDirectory());
+                boolean saveExist = (saveFile.exists() && !saveFile.isDirectory());
                 if(saveExist){
                     this.saveManager.loadProgression(SAVE_NAME);
                     if(gameScreen == null) gameScreen = new GameScreen(this);
@@ -66,7 +86,7 @@ public class ScreenManager extends Game {
                 this.saveManager = new SaveManager();
                 //check if autosave exist
                 File autoSaveFile = new File(AUTO_SAVE_NAME+".txt");
-                Boolean autoSaveExist = (autoSaveFile.exists() && !autoSaveFile.isDirectory());
+                boolean autoSaveExist = (autoSaveFile.exists() && !autoSaveFile.isDirectory());
                 if(autoSaveExist){
                     this.saveManager.loadProgression(AUTO_SAVE_NAME);
                     if(gameScreen == null) gameScreen = new GameScreen(this);

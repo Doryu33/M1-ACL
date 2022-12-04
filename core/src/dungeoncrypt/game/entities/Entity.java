@@ -101,7 +101,7 @@ public abstract class Entity extends Actor {
      */
     public void subtractHealthPoint(int healthPoint){
         this.healthPoint -= healthPoint;
-        soundManager.playDamageEntitySound(damageSoundPath);
+        soundManager.playSound(damageSoundPath);
     }
 
     public void setBody(Body body) {
