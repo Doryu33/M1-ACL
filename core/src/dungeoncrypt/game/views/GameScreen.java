@@ -73,12 +73,7 @@ public class GameScreen implements Screen {
 		this.stage = new Stage(viewport,batch);
 		this.pauseStage = new Stage(viewport,batch);
 
-		/**
-		 * Debug mode
-		 */
-		if(DEBUG_MODE){
-			b2dr = new Box2DDebugRenderer();
-		}b2dr = new Box2DDebugRenderer();
+
 
 		/**
 		 * RoomManager
@@ -143,6 +138,13 @@ public class GameScreen implements Screen {
 				}
 			}
 		});
+
+		/**
+		 * Debug mode
+		 */
+		if(DEBUG_MODE){
+			b2dr = new Box2DDebugRenderer();
+		}
 	}
 
 	/**
@@ -163,14 +165,10 @@ public class GameScreen implements Screen {
 		Gdx.gl.glClearColor(0f,0f,0f,1f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		if(DEBUG_MODE){
-			b2dr.render(world, camera.combined);
-		}else{
-			stage.act(Gdx.graphics.getDeltaTime());
-			stage.getViewport().apply();
-			stage.draw();
-			b2dr.render(world, camera.combined);
-		}
+
+		stage.act(Gdx.graphics.getDeltaTime());
+		stage.getViewport().apply();
+		stage.draw();
 
 		if(gameIsPaused){
 			pause();
@@ -217,6 +215,9 @@ public class GameScreen implements Screen {
 			parent.changeScreen(ENDGAME);
 		}
 		batch.end();
+		if(DEBUG_MODE){
+			b2dr.render(world, camera.combined);
+		}
 	}
 
 	public void resize(int width, int height){
@@ -251,9 +252,8 @@ public class GameScreen implements Screen {
 	public void dispose () {
 		world.dispose();
 		if(DEBUG_MODE){
-
+			b2dr.dispose();
 		}
-		b2dr.dispose();
 		stage.dispose();
 		pauseStage.dispose();
 	}
