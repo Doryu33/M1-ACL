@@ -129,7 +129,11 @@ public class Data {
     public final static int MOVE_SPEED_ZOMBIE = 40;
     public final static int MOVE_SPEED_GHOST = 50;
     public final static int MOVE_SPEED_SKELETON = 40;
-    public final static int MOVE_SPEED_BOSS = 100;
+    public final static int MOVE_SPEED_BOSS = 80;
+
+    //Projectiles du boss
+    public final static int MOVE_SPEED_BOSS_PROJECTILE = 200;
+    public static final int DAMAGE_POINT_PROJECTILE_BOSS = 5;
 
     //Coordonnées de la barre de vie
     public final static int HEALTH_BAR_X = 20;

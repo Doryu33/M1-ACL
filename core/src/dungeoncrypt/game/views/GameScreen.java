@@ -12,11 +12,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.*;
 import dungeoncrypt.game.collisions.BodyContactListenner;
 import dungeoncrypt.game.data.SoundManager;
+import dungeoncrypt.game.entities.monsters.Boss;
 import dungeoncrypt.game.room.RoomManager;
 import dungeoncrypt.game.tools.Police;
-import dungeoncrypt.game.tools.SaveManager;
-
-import java.io.File;
 
 import static dungeoncrypt.game.data.Data.*;
 
@@ -108,9 +106,23 @@ public class GameScreen implements Screen {
 
 		int score = roomManager.getActualRoom().getPlayerScore();
 		int playerHP = roomManager.getActualRoom().getPlayerHP();
+		Boss boss = roomManager.getActualRoom().getBoss();
 
 		batch.begin();
 		police.drawScore(batch, "Score : "+score, SCORE_X,SCORE_Y);
+
+		if(boss != null){
+			int bossHP = boss.getHealthPoint();
+			float posXBoss = boss.getPosX()-RENDER_SCALE_BOSS/2f+RENDER_SCALE;
+			float posYBoss = boss.getPosY()+RENDER_SCALE_BOSS/2f-RENDER_SCALE;
+			float ratioBossHP = bossHP / (float) BOSS_INITIAL_HP;
+			float widthOfBarBoss = MAX_SIZE_HEALTH_BAR * ratioBossHP;
+			if(ratioBossHP > 0.5f){
+				batch.draw(new Texture("images/healthPoint/GreenBar.png"),posXBoss,posYBoss,widthOfBarBoss,HEALTH_BAR_HEIGHT);
+			}else{
+				batch.draw(new Texture("images/healthPoint/RedBar.png"),posXBoss,posYBoss,widthOfBarBoss,HEALTH_BAR_HEIGHT);
+			}
+		}
 
 		float ratio = playerHP / (float) PLAYER_INITIAL_HP;
 		float widthOfBar = MAX_SIZE_HEALTH_BAR * ratio;

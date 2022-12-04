@@ -25,6 +25,7 @@ public abstract class Entity extends Actor {
     protected Sprite sprite;
     //Entier du nombre de point de vie
     private int healthPoint;
+    private final int initialHealthPoint;
     private int timerKnockback;
 
     //Forces du knockback
@@ -38,6 +39,7 @@ public abstract class Entity extends Actor {
         this.specialType = specialType;
         this.sprite = new Sprite(new Texture(Gdx.files.internal(spritePath)));
         this.healthPoint = healthPoint;
+        this.initialHealthPoint = healthPoint;
         this.damageSoundPath = damageSoundPath;
         this.timerKnockback = 0;
         this.knockBackVertical = 0;
@@ -79,10 +81,18 @@ public abstract class Entity extends Actor {
 
     /**
      * Ajouter des points de vie
-     * @param healthPoint le nombre à ajouter
+     * @param hpToAdd le nombre à ajouter
      */
-    public void addHealthPoint(int healthPoint){
-        this.healthPoint += healthPoint;
+    public void addHealthPoint(int hpToAdd){
+        if(specialType.equals(PLAYER_TYPE)){
+            if(healthPoint+hpToAdd > initialHealthPoint){
+                this.healthPoint = initialHealthPoint;
+            }else{
+                this.healthPoint += hpToAdd;
+            }
+        }else{
+            this.healthPoint += hpToAdd;
+        }
     }
 
     /**
@@ -260,4 +270,8 @@ public abstract class Entity extends Actor {
     }
 
     protected abstract int getMovingSpeed();
+
+    public boolean hasFullHealth() {
+        return healthPoint == initialHealthPoint;
+    }
 }

@@ -129,7 +129,6 @@ public final class Player extends Entity {
 
     public void addScore(int point){
         this.score += point;
-        System.out.println("getHealthPoint() = " + getHealthPoint());
     }
 
     public void subtractScore(int point){

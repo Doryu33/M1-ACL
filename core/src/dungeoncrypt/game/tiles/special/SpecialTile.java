@@ -36,18 +36,14 @@ public abstract class SpecialTile extends Tile {
     public void applyEffectOn(Entity entity){
         //Si le compteur n'est pas dépassé ET si l'entité est le joueur OU que les monstres peuvent
         //avoir l'effet, alors appliquer l'effet sur l'entité
-        if(isAppliedEffectCounterNotOver() &&
-                (entity.getType().equals(PLAYER_TYPE) || isMonstersCanBeAffected())){
+        if(isAppliedEffectCounterNotOver() && (entity.getType().equals(PLAYER_TYPE) || isMonstersCanBeAffected())){
             useEffect(entity);
-
-            //S'il y a un nombre limité d'utilisation, alors incrémenter le nombre d'utilisation
+            //S'il y a un nombre limité d'utilisation
             if(hasLimitedUse()){
-                addOneAppliedEffectCounter();
                 //Si le compteur est dépassé et que la tuile est considéré comme active alors
                 //désactiver la tuile et changer le sprite
                 if(!isAppliedEffectCounterNotOver() && isEnable){
                     isEnable = false;
-                    //setSpriteToDisabled();
                 }
             }
         }
@@ -84,6 +80,12 @@ public abstract class SpecialTile extends Tile {
      */
     protected abstract void setSpriteToDisabled();
 
+    /**
+     * Ajouter 1 au nombre de fois que la tuile à effectué son effet
+     */
+    protected void addOneAppliedEffectCounter() {
+        this.appliedEffectCounter += 1;
+    }
 
 
     //Fonctions privées
@@ -95,13 +97,6 @@ public abstract class SpecialTile extends Tile {
      */
     private boolean isAppliedEffectCounterNotOver(){
         return appliedEffectCounter < getMaxUsageEffect() || !hasLimitedUse();
-    }
-
-    /**
-     * Ajouter 1 au nombre de fois que la tuile à effectué son effet
-     */
-    private void addOneAppliedEffectCounter() {
-        this.appliedEffectCounter += 1;
     }
 
     /**

@@ -84,7 +84,6 @@ public final class RoomManager {
         this.stage.clear();
         createBodies();
         checkRoomIsEmpty();
-        System.out.println("counterForBoss = " + counterForBoss);
     }
 
     /**
