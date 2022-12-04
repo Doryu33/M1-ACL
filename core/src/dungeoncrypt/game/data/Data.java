@@ -73,23 +73,11 @@ public class Data {
     //Constantes numériques pour les statistiques du joueur
     public static final int PLAYER_INITIAL_HP = 50;
 
-    //Constantes numériques pour les statistiques des monstres
-    public static final int SKELETON_INITIAL_HP = 20;
-    public static final int ZOMBIE_INITIAL_HP = 15;
-    public static final int GHOST_INITIAL_HP = 5;
-    public static final int BOSS_INITIAL_HP = 50;
-
     //Constantes numériques pour les points des monstres
     public static final int SKELETON_SCORE = 10;
     public static final int ZOMBIE_SCORE = 20;
     public static final int GHOST_SCORE = 5;
     public static final int BOSS_SCORE = 100;
-
-    //Constantes numériques pour les points de dégats des monstres
-    public static final int DAMAGE_POINT_SKELETON = 10;
-    public static final int DAMAGE_POINT_ZOMBIE = 5;
-    public static final int DAMAGE_POINT_GHOST = 3;
-    public static final int DAMAGE_POINT_BOSS = 20;
 
     //Constantes numériques pour les tuiles spéciales
     //Nombre de point de vie que donne la tuile HealingTile
@@ -99,7 +87,7 @@ public class Data {
 
     //Constantes numériques pour les Armes
     //Nombre de point de vie que donne l'arme Sword
-    public static final int HP_SWORD = 5;
+    public static final int HP_SWORD = 50;
 
     //Constantes numériques du nombre maximum d'utilisation de l'effet d'une tuile
     //Définir à -1 pour une utilisation illimité
@@ -125,15 +113,9 @@ public class Data {
     //Constantes pour la vitesse du joueur
     public final static int MOVE_SPEED_PLAYER = 100;
 
-    //Constantes pour la vitesse des monstres
-    public final static int MOVE_SPEED_ZOMBIE = 40;
-    public final static int MOVE_SPEED_GHOST = 50;
-    public final static int MOVE_SPEED_SKELETON = 40;
-    public final static int MOVE_SPEED_BOSS = 80;
-
     //Projectiles du boss
     public final static int MOVE_SPEED_BOSS_PROJECTILE = 200;
-    public static final int DAMAGE_POINT_PROJECTILE_BOSS = 5;
+
 
     //Coordonnées de la barre de vie
     public final static int HEALTH_BAR_X = 20;
@@ -143,6 +125,9 @@ public class Data {
     public final static int EMPTY_HEALTH_BAR_HEIGHT = 20;
     public final static int HEALTH_BAR_HEIGHT = EMPTY_HEALTH_BAR_HEIGHT-4;
     public final static int LOGO_HEALTH_BAR_WIDTH = 16;
+
+    //Nombre de salle avant d'atteindre le boss
+    public final static int NUMBER_ROOM_BEFORE_BOSS = 1;
 
     //Coordonnées de l'affichage du score
     public final static int SCORE_X = 550;
@@ -156,6 +141,5 @@ public class Data {
 
     //Durée de l'effet de knockback
     public final static int MAX_TIMER_KNOCKBACK = 20;
-
 }
 

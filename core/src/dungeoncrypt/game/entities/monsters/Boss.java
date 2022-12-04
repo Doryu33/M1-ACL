@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
+import dungeoncrypt.game.data.DataNonFinal;
 import dungeoncrypt.game.room.Room;
 
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class Boss extends Monster {
     private boolean isShooting;
 
     public Boss(int x, int y) {
-        super(x, y, BOSS_INITIAL_HP, DAMAGE_POINT_BOSS, BOSS_TYPE, BOSS_SCORE, "sprites/entities/monsters/boss/boss.png", "sounds/Ghost_Damage.mp3");
+        super(x, y, DataNonFinal.initialHpBoss(), DataNonFinal.damagePointBoss(), BOSS_TYPE, BOSS_SCORE, "sprites/entities/monsters/boss/boss.png", "sounds/Ghost_Damage.mp3");
         random = new Random();
         generateNewRandomPos();
     }
@@ -123,7 +124,7 @@ public class Boss extends Monster {
      */
     private void shoot() {
         shootHorizontalAndVertical();
-        if(getHealthPoint() / (float) BOSS_INITIAL_HP <= 0.5f){
+        if(getHealthPoint() / (float) DataNonFinal.initialHpBoss() <= 0.5f){
             shootDiagonally();
         }
     }
@@ -181,7 +182,7 @@ public class Boss extends Monster {
 
     @Override
     protected int getMovingSpeed() {
-        return MOVE_SPEED_BOSS;
+        return DataNonFinal.moveSpeedBoss();
     }
 
     public float getPosX(){

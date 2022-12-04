@@ -82,7 +82,8 @@ public final class Exit extends SpecialTile {
         if(entity.getType().equals(PLAYER_TYPE) && isOpen){
             Gdx.app.postRunnable(new Runnable() {
                 @Override
-                public void run () { roomManager.createNextRoom();
+                public void run () {
+                    roomManager.createNextRoom(getSpecialType().equals(EXIT_SPECIAL_TYPE_NEW_LEVEL));
                 }
             });
         }

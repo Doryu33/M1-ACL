@@ -119,7 +119,7 @@ public abstract class Entity extends Actor {
     public BodyDef createBodyDef(){
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set(this.getX()*RENDER_SCALE+RENDER_SCALE_SPRITE,(ROOM_SIZE-this.getY())*RENDER_SCALE+RENDER_SCALE_SPRITE);
+        bodyDef.position.set(this.getX()*RENDER_SCALE+RENDER_SCALE_SPRITE,(ROOM_SIZE-this.getY())*RENDER_SCALE-RENDER_SCALE_SPRITE);
         bodyDef.fixedRotation = true;
         this.sprite.setBounds(getX()*RENDER_SCALE+RENDER_SCALE,getY()*RENDER_SCALE+RENDER_SCALE,RENDER_SCALE,RENDER_SCALE);
         return bodyDef;
