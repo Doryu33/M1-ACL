@@ -17,7 +17,7 @@ import static dungeoncrypt.game.data.Data.*;
 public class Boss extends Monster {
 
     //Intervalle de tire entre chaque tir
-    private final float periodRange = 0.5f; //Temps en seconde
+    private final float periodRange = 0.8f; //Temps en seconde
     private float timeSecondsRange = 0f;
 
     //Temps de tire
@@ -32,7 +32,7 @@ public class Boss extends Monster {
     private boolean isShooting;
 
     public Boss(int x, int y) {
-        super(x, y, BOSS_INITIAL_HP, DAMAGE_POINT_BOSS, BOSS_TYPE, BOSS_SCORE, "sprites/entities/monsters/Boss2.png", "sounds/Ghost_Damage.mp3");
+        super(x, y, BOSS_INITIAL_HP, DAMAGE_POINT_BOSS, BOSS_TYPE, BOSS_SCORE, "sprites/entities/monsters/boss/boss.png", "sounds/Ghost_Damage.mp3");
         random = new Random();
         generateNewRandomPos();
     }
@@ -43,8 +43,6 @@ public class Boss extends Monster {
         randomPosY = random.nextInt(borneSup)/RENDER_SCALE;
         isMoving = true;
     }
-
-    //TODO quand le boss meurt alors qu'il tire --> détruire tous les projectiles restants
 
     /**
      * Le boss se déplace toutes les periodMoving secondes.
@@ -136,9 +134,9 @@ public class Boss extends Monster {
      * @param verticalForce du projectile
      * @return le projectile créé
      */
-    private ProjectileBoss createProjectile(int horizontalForce, int verticalForce){
+    private ProjectileBoss createProjectile(int horizontalForce, int verticalForce, float rotation){
         Body body;
-        ProjectileBoss pb = new ProjectileBoss(horizontalForce,verticalForce);
+        ProjectileBoss pb = new ProjectileBoss(horizontalForce,verticalForce, rotation);
         body = getBody().getWorld().createBody(pb.createBodyDef(getBody().getPosition().x/RENDER_SCALE, (PIXEL_ROOM_SIZE - getBody().getPosition().y)/RENDER_SCALE));
         pb.setBody(body);
         pb.setUserData(pb);
@@ -154,13 +152,13 @@ public class Boss extends Monster {
      */
     private void shootHorizontalAndVertical(){
         ProjectileBoss[] p = new ProjectileBoss[4];
-        p[0] = createProjectile(-1,0); //Gauche
+        p[0] = createProjectile(-1,0,-90); //Gauche
         p[0].move();
-        p[1] = createProjectile(1,0); //Droite
+        p[1] = createProjectile(1,0,90); //Droite
         p[1].move();
-        p[2] = createProjectile(0,1); //Haut
+        p[2] = createProjectile(0,1,180); //Haut
         p[2].move();
-        p[3] = createProjectile(0,-1); //Bas
+        p[3] = createProjectile(0,-1,0); //Bas
         p[3].move();
         projectiles.addAll(Arrays.asList(p));
     }
@@ -170,13 +168,13 @@ public class Boss extends Monster {
      */
     private void shootDiagonally(){
         ProjectileBoss[] p = new ProjectileBoss[4];
-        p[0] = createProjectile(-1,1); //Gauche Haut
+        p[0] = createProjectile(-1,1,225); //Gauche Haut
         p[0].move();
-        p[1] = createProjectile(1,1); //Droite Haut
+        p[1] = createProjectile(1,1,135); //Droite Haut
         p[1].move();
-        p[2] = createProjectile(-1,-1); //Gauche Bas
+        p[2] = createProjectile(-1,-1,-45); //Gauche Bas
         p[2].move();
-        p[3] = createProjectile(1,-1); //Droite Bas
+        p[3] = createProjectile(1,-1,45); //Droite Bas
         p[3].move();
         projectiles.addAll(Arrays.asList(p));
     }

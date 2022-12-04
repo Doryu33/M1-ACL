@@ -2,8 +2,7 @@ package dungeoncrypt.game.entities.monsters;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -16,14 +15,13 @@ public class ProjectileBoss extends Actor {
     private final int horizontalForce;
     private final int verticalForce;
     private Body body;
-    private boolean isOffBoundaries = false;
-    private World world;
     private boolean isVisible = true;
 
-    public ProjectileBoss(int horizontalForce, int verticalForce) {
+    public ProjectileBoss(int horizontalForce, int verticalForce, float rotation) {
         this.horizontalForce = horizontalForce;
         this.verticalForce = verticalForce;
-        this.sprite = new Sprite(new Texture(Gdx.files.internal("sprites/entities/monsters/ProjectileBoss.png")));
+        this.sprite = new Sprite(new Texture(Gdx.files.internal("sprites/entities/monsters/boss/ProjectileBoss.png")));
+        sprite.setRotation(rotation);
     }
 
     /**
@@ -32,7 +30,7 @@ public class ProjectileBoss extends Actor {
      */
     public BodyDef createBodyDef(float x, float y){
         BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.KinematicBody;
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(x*RENDER_SCALE+RENDER_SCALE,(ROOM_SIZE-y)*RENDER_SCALE);
         bodyDef.fixedRotation = true;
         this.sprite.setBounds(x*RENDER_SCALE,y*RENDER_SCALE,RENDER_SCALE,RENDER_SCALE*2);
@@ -90,7 +88,6 @@ public class ProjectileBoss extends Actor {
 
     public void setBody(Body body) {
         this.body = body;
-        this.world = body.getWorld();
     }
 
     public void setUserData(ProjectileBoss pb) {
@@ -104,5 +101,9 @@ public class ProjectileBoss extends Actor {
     @Override
     public void setVisible(boolean visible){
         isVisible = visible;
+    }
+
+    public int getDamagePoint() {
+        return DAMAGE_POINT_PROJECTILE_BOSS;
     }
 }

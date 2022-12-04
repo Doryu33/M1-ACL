@@ -5,6 +5,7 @@ import com.badlogic.gdx.physics.box2d.*;
 import dungeoncrypt.game.entities.Entity;
 import dungeoncrypt.game.entities.monsters.Monster;
 import dungeoncrypt.game.entities.Player;
+import dungeoncrypt.game.entities.monsters.ProjectileBoss;
 import dungeoncrypt.game.tiles.special.SpecialTile;
 import dungeoncrypt.game.views.GameScreen;
 import dungeoncrypt.game.weapons.Weapon;
@@ -50,7 +51,7 @@ public class BodyContactListenner implements ContactListener {
         } else {
             if(objA instanceof Monster){
                 if (objB instanceof Player){
-                    monstreDamagePlayer(fixtureB, fixtureA);
+                    monsterDamagePlayer(fixtureB, fixtureA);
                 } else if(objB instanceof Weapon) {
                     weaponDamageMonster(fixtureB,fixtureA);
                     if(DEBUG_MODE) {
@@ -59,14 +60,25 @@ public class BodyContactListenner implements ContactListener {
                 }
             } else if (objB instanceof Monster){
                 if(objA instanceof Player){
-                    monstreDamagePlayer(fixtureA,fixtureB);
+                    monsterDamagePlayer(fixtureA,fixtureB);
                 } else if (objA instanceof Weapon){
                     weaponDamageMonster(fixtureA, fixtureB);
                     if(DEBUG_MODE) {
                         System.out.println("Monster hit weapon");
                     }
                 }
-            } else {
+            }
+            else if(objA instanceof ProjectileBoss){
+                if(objB instanceof Player){
+                    projectileBossDamagePlayer(fixtureA,fixtureB);
+                }
+            }
+            else if(objB instanceof ProjectileBoss){
+                if(objA instanceof Player){
+                    projectileBossDamagePlayer(fixtureB,fixtureA);
+                }
+            }
+            else {
                 if(DEBUG_MODE){
                     System.out.println("Contact");
                     System.out.println(fixtureA.getBody().getUserData()+" has hit "+ fixtureB.getBody().getUserData());
@@ -95,12 +107,19 @@ public class BodyContactListenner implements ContactListener {
      * @param fplayer Fixture du joueur
      * @param monsterFixture Fixture du monstre
      */
-    private void monstreDamagePlayer(Fixture fplayer, Fixture monsterFixture){
+    private void monsterDamagePlayer(Fixture fplayer, Fixture monsterFixture){
         Monster monster = (Monster) monsterFixture.getBody().getUserData();
         ((Player) fplayer.getBody().getUserData()).subtractHealthPoint(monster.getDamagePoint());
         Body m = (Body) monsterFixture.getBody();
         ((Player) fplayer.getBody().getUserData()).applyKnockBackToPlayer(m.getPosition().x,m.getPosition().y);
         //System.out.println("Joueur touché par MONSTRE. PV restant: "+((Player) fplayer.getBody().getUserData()).getHealthPoint());
+    }
+
+    private void projectileBossDamagePlayer(Fixture objA, Fixture objB) {
+        ProjectileBoss pb = (ProjectileBoss) objA.getBody().getUserData();
+        Player player = (Player) objB.getBody().getUserData();
+        player.subtractHealthPoint(pb.getDamagePoint());
+        player.applyKnockBackToPlayer(pb.getBody().getPosition().x,pb.getBody().getPosition().y);
     }
 
     /**

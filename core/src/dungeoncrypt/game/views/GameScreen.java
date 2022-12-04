@@ -15,9 +15,6 @@ import dungeoncrypt.game.data.SoundManager;
 import dungeoncrypt.game.entities.monsters.Boss;
 import dungeoncrypt.game.room.RoomManager;
 import dungeoncrypt.game.tools.Police;
-import dungeoncrypt.game.tools.SaveManager;
-
-import java.io.File;
 
 import static dungeoncrypt.game.data.Data.*;
 
@@ -71,7 +68,7 @@ public class GameScreen implements Screen {
 		 */
 		if(DEBUG_MODE){
 			b2dr = new Box2DDebugRenderer();
-		}b2dr = new Box2DDebugRenderer();
+		}
 
 		/**
 		 * RoomManager
@@ -105,7 +102,6 @@ public class GameScreen implements Screen {
 			stage.act(Gdx.graphics.getDeltaTime());
 			stage.getViewport().apply();
 			stage.draw();
-			b2dr.render(world, camera.combined);
 		}
 
 		int score = roomManager.getActualRoom().getPlayerScore();
@@ -175,7 +171,6 @@ public class GameScreen implements Screen {
 			b2dr.dispose();
 		}
 		stage.dispose();
-		b2dr.dispose();
 	}
 
 	public void update(float delta){
