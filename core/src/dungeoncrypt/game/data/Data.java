@@ -145,7 +145,7 @@ public class Data {
     public final static int LOGO_HEALTH_BAR_WIDTH = 16;
 
     //Coordonnées de la barre de bouclier
-    public final static int SHIELD_BAR_X = 30;
+    public final static int SHIELD_BAR_X = 4;
     public final static int SHIELD_BAR_Y = 685;
     //Taille de la barre de bouclier
     public final static int SHIELD_BAR_WIDTH = 216;

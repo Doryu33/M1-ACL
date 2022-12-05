@@ -212,7 +212,7 @@ public final class Player extends Entity {
      * @param shieldPoint le nombre à ajouter
      */
     public void addShieldPoint(int shieldPoint){
-        if (this.shieldPoint + shieldPoint <= MAX_SHIELD ){
+        if (this.shieldPoint + shieldPoint >= MAX_SHIELD ){
             this.shieldPoint = MAX_SHIELD;
         }else {
             this.shieldPoint += shieldPoint;

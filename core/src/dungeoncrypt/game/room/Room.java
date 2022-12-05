@@ -399,5 +399,9 @@ public final class Room {
     public int getPlayerSwordCooldownStatut(){
         return player.getCooldownSwordStatut();
     }
+
+    public void setShieldPlayer(int shield){
+        player.addShieldPoint(shield);
+    }
 }
 

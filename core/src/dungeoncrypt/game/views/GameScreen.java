@@ -178,6 +178,7 @@ public class GameScreen implements Screen {
 
 		int score = roomManager.getActualRoom().getPlayerScore();
 		int playerHP = roomManager.getActualRoom().getPlayerHP();
+		int playerShield = roomManager.getActualRoom().getPlayerShield();
 		Boss boss = roomManager.getActualRoom().getBoss();
 
 		batch.begin();
@@ -215,41 +216,42 @@ public class GameScreen implements Screen {
 			parent.changeScreen(ENDGAME);
 		}
 
-		if(shield == MAX_SHIELD) {
+		if(playerShield == MAX_SHIELD) {
 			batch.draw(new Texture("images/shield_bar/ShieldBar.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
 		}
-		if(shield < MAX_SHIELD && shield >= MAX_SHIELD*0.9) {
+		if(playerShield < MAX_SHIELD && playerShield >= MAX_SHIELD*0.9) {
 			batch.draw(new Texture("images/shield_bar/ShieldBar90.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
 		}
-		if(shield < MAX_SHIELD*0.9 && shield >= MAX_SHIELD*0.8) {
+		if(playerShield < MAX_SHIELD*0.9 && playerShield >= MAX_SHIELD*0.8) {
 			batch.draw(new Texture("images/shield_bar/ShieldBar80.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
 		}
-		if(shield < MAX_SHIELD*0.8 && shield >= MAX_SHIELD*0.7) {
+		if(playerShield < MAX_SHIELD*0.8 && playerShield >= MAX_SHIELD*0.7) {
 			batch.draw(new Texture("images/shield_bar/ShieldBar70.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
 		}
-		if(shield < MAX_SHIELD*0.7 && shield >= MAX_SHIELD*0.6) {
+		if(playerShield < MAX_SHIELD*0.7 && playerShield >= MAX_SHIELD*0.6) {
 			batch.draw(new Texture("images/shield_bar/ShieldBar60.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
 		}
-		if(shield < MAX_SHIELD*0.6 && shield >= MAX_SHIELD*0.5) {
+		if(playerShield < MAX_SHIELD*0.6 && playerShield >= MAX_SHIELD*0.5) {
 			batch.draw(new Texture("images/shield_bar/ShieldBar50.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
 		}
-		if(shield < MAX_SHIELD*0.5 && shield >= MAX_SHIELD*0.4) {
+		if(playerShield < MAX_SHIELD*0.5 && playerShield >= MAX_SHIELD*0.4) {
 			batch.draw(new Texture("images/shield_bar/ShieldBar40.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
 		}
-		if(shield < MAX_SHIELD*0.4 && shield >= MAX_SHIELD*0.3) {
+		if(playerShield < MAX_SHIELD*0.4 && playerShield >= MAX_SHIELD*0.3) {
 			batch.draw(new Texture("images/shield_bar/ShieldBar30.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
 		}
-		if(shield < MAX_SHIELD*0.3 && shield >= MAX_SHIELD*0.2) {
+		if(playerShield < MAX_SHIELD*0.3 && playerShield >= MAX_SHIELD*0.2) {
 			batch.draw(new Texture("images/shield_bar/ShieldBar20.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
 		}
-		if(shield < MAX_SHIELD*0.2 && shield >= MAX_SHIELD*0.1) {
+		if(playerShield < MAX_SHIELD*0.2 && playerShield >= MAX_SHIELD*0.1) {
 			batch.draw(new Texture("images/shield_bar/ShieldBar10.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
 		}
-		if(shield == 0) {
+		if(playerShield == 0) {
 			batch.draw(new Texture("images/shield_bar/ShieldBar0.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
 		}
+		police.drawHP(batch, String.valueOf(playerShield), SHIELD_BAR_WIDTH/2f,SHIELD_BAR_Y+(SHIELD_BAR_HEIGHT/2f)+9);
 
-		batch.draw(new Texture("images/sword_cooldown/Sword_cooldown_"+roomManager.getActualRoom().getPlayerSwordCooldownStatut()+".png"),roomManager.getActualRoom().getPlayerPosX(),roomManager.getActualRoom().getPlayerPosY(),SWORD_COOLDOWN_WIDTH,SWORD_COOLDOWN_HEIGHT);
+		batch.draw(new Texture("images/sword_cooldown/Sword_cooldown_"+roomManager.getActualRoom().getPlayerSwordCooldownStatut()+".png"),roomManager.getActualRoom().getPlayerPosX()-(RENDER_SCALE/2f)+(SWORD_COOLDOWN_WIDTH/4f),roomManager.getActualRoom().getPlayerPosY()+(RENDER_SCALE/2f),SWORD_COOLDOWN_WIDTH,SWORD_COOLDOWN_HEIGHT);
 
 		batch.end();
 		if(DEBUG_MODE){

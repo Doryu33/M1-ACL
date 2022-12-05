@@ -7,9 +7,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import dungeoncrypt.game.tiles.special.Exit;
 import dungeoncrypt.game.tools.SaveManager;
 
-import static dungeoncrypt.game.data.Data.AUTO_SAVE_NAME;
-import static dungeoncrypt.game.data.Data.DEBUG_SAVE_NAME;
 import dungeoncrypt.game.data.SoundManager;
+
+import static dungeoncrypt.game.data.Data.*;
 
 /**
  * Gère les différents comportement et données de la salle où le joueur est présent
@@ -82,6 +82,7 @@ public final class RoomManager {
         this.actualRoom.setMonsters(this.roomGenerator.getGeneratedMonsters());
         this.actualRoom.setSpecialTileList(this.roomGenerator.getSpecialTileList());
         this.actualRoom.setInitialPlayerPosition();
+        this.actualRoom.setShieldPlayer(MAX_SHIELD);
         this.stage.clear();
         createBodies();
         checkRoomIsEmpty();
