@@ -152,10 +152,15 @@ public class Data {
     public final static int MAX_TIMER_KNOCKBACK = 20;
 
     //Durée du délai de l'épée
-    public final static float WEAPON_DELAY = 2f;
+    public final static float WEAPON_DELAY = 0.5f;
 
     //Point de bouclier max
     public final static int MAX_SHIELD = 20;
+
+    //Taille de la barre de cooldown
+    public final static int SWORD_COOLDOWN_WIDTH = 20;
+    public final static int SWORD_COOLDOWN_HEIGHT = 10;
+
 
 }
 

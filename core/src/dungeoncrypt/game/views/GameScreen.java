@@ -107,73 +107,75 @@ public class GameScreen implements Screen {
 		batch.begin();
 		police.draw(batch, "Score : "+score, SCORE_X,SCORE_Y);
 		if(live == 50) {
-			batch.draw(new Texture("images/greenbar.png"),HEALTH_BAR_X,HEALTH_BAR_Y,400,350);
+			batch.draw(new Texture("images/health_bar/greenbar.png"),HEALTH_BAR_X,HEALTH_BAR_Y,400,350);
 		}
 		if(live == 45) {
-			batch.draw(new Texture("images/greenbar90.png"),HEALTH_BAR_X,HEALTH_BAR_Y,400,350);
+			batch.draw(new Texture("images/health_bar/greenbar90.png"),HEALTH_BAR_X,HEALTH_BAR_Y,400,350);
 		}
 		if(live == 40) {
-			batch.draw(new Texture("images/greenbar80.png"),HEALTH_BAR_X,HEALTH_BAR_Y,400,350);
+			batch.draw(new Texture("images/health_bar/greenbar80.png"),HEALTH_BAR_X,HEALTH_BAR_Y,400,350);
 		}
 		if(live == 35) {
-			batch.draw(new Texture("images/greenbar70.png"),HEALTH_BAR_X,HEALTH_BAR_Y,400,350);
+			batch.draw(new Texture("images/health_bar/greenbar70.png"),HEALTH_BAR_X,HEALTH_BAR_Y,400,350);
 		}
 		if(live == 30) {
-			batch.draw(new Texture("images/greenbar60.png"),HEALTH_BAR_X,HEALTH_BAR_Y,400,350);
+			batch.draw(new Texture("images/health_bar/greenbar60.png"),HEALTH_BAR_X,HEALTH_BAR_Y,400,350);
 		}
 		if(live == 25) {
-			batch.draw(new Texture("images/orangebar50.png"),HEALTH_BAR_X,HEALTH_BAR_Y,400,350);
+			batch.draw(new Texture("images/health_bar/orangebar50.png"),HEALTH_BAR_X,HEALTH_BAR_Y,400,350);
 		}
 		if(live == 20) {
-			batch.draw(new Texture("images/orangebar40.png"),HEALTH_BAR_X,HEALTH_BAR_Y,400,350);
+			batch.draw(new Texture("images/health_bar/orangebar40.png"),HEALTH_BAR_X,HEALTH_BAR_Y,400,350);
 		}
 		if(live == 15) {
-			batch.draw(new Texture("images/orangebar30.png"),HEALTH_BAR_X,HEALTH_BAR_Y,400,350);
+			batch.draw(new Texture("images/health_bar/orangebar30.png"),HEALTH_BAR_X,HEALTH_BAR_Y,400,350);
 		}
 		if(live == 10) {
-			batch.draw(new Texture("images/redbar20.png"),HEALTH_BAR_X,HEALTH_BAR_Y,400,350);
+			batch.draw(new Texture("images/health_bar/redbar20.png"),HEALTH_BAR_X,HEALTH_BAR_Y,400,350);
 		}
 		if(live == 5) {
-			batch.draw(new Texture("images/redbar10.png"),HEALTH_BAR_X,HEALTH_BAR_Y,400,350);
+			batch.draw(new Texture("images/health_bar/redbar10.png"),HEALTH_BAR_X,HEALTH_BAR_Y,400,350);
 		}
 		if(live <= 0) {
-			batch.draw(new Texture("images/deadbar.png"),HEALTH_BAR_X,HEALTH_BAR_Y,400,350);
+			batch.draw(new Texture("images/health_bar/deadbar.png"),HEALTH_BAR_X,HEALTH_BAR_Y,400,350);
 			parent.changeScreen(ENDGAME);
 		}
 
 		if(shield == MAX_SHIELD) {
-			batch.draw(new Texture("images/ShieldBar.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
+			batch.draw(new Texture("images/shield_bar/ShieldBar.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
 		}
 		if(shield < MAX_SHIELD && shield >= MAX_SHIELD*0.9) {
-			batch.draw(new Texture("images/ShieldBar90.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
+			batch.draw(new Texture("images/shield_bar/ShieldBar90.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
 		}
 		if(shield < MAX_SHIELD*0.9 && shield >= MAX_SHIELD*0.8) {
-			batch.draw(new Texture("images/ShieldBar80.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
+			batch.draw(new Texture("images/shield_bar/ShieldBar80.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
 		}
 		if(shield < MAX_SHIELD*0.8 && shield >= MAX_SHIELD*0.7) {
-			batch.draw(new Texture("images/ShieldBar70.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
+			batch.draw(new Texture("images/shield_bar/ShieldBar70.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
 		}
 		if(shield < MAX_SHIELD*0.7 && shield >= MAX_SHIELD*0.6) {
-			batch.draw(new Texture("images/ShieldBar60.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
+			batch.draw(new Texture("images/shield_bar/ShieldBar60.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
 		}
 		if(shield < MAX_SHIELD*0.6 && shield >= MAX_SHIELD*0.5) {
-			batch.draw(new Texture("images/ShieldBar50.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
+			batch.draw(new Texture("images/shield_bar/ShieldBar50.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
 		}
 		if(shield < MAX_SHIELD*0.5 && shield >= MAX_SHIELD*0.4) {
-			batch.draw(new Texture("images/ShieldBar40.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
+			batch.draw(new Texture("images/shield_bar/ShieldBar40.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
 		}
 		if(shield < MAX_SHIELD*0.4 && shield >= MAX_SHIELD*0.3) {
-			batch.draw(new Texture("images/ShieldBar30.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
+			batch.draw(new Texture("images/shield_bar/ShieldBar30.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
 		}
 		if(shield < MAX_SHIELD*0.3 && shield >= MAX_SHIELD*0.2) {
-			batch.draw(new Texture("images/ShieldBar20.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
+			batch.draw(new Texture("images/shield_bar/ShieldBar20.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
 		}
 		if(shield < MAX_SHIELD*0.2 && shield >= MAX_SHIELD*0.1) {
-			batch.draw(new Texture("images/ShieldBar10.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
+			batch.draw(new Texture("images/shield_bar/ShieldBar10.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
 		}
 		if(shield == 0) {
-			batch.draw(new Texture("images/ShieldBar0.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
+			batch.draw(new Texture("images/shield_bar/ShieldBar0.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
 		}
+
+		batch.draw(new Texture("images/sword_cooldown/Sword_cooldown_"+roomManager.getActualRoom().getPlayerSwordCooldownStatut()+".png"),roomManager.getActualRoom().getPlayerPosX(),roomManager.getActualRoom().getPlayerPosY(),SWORD_COOLDOWN_WIDTH,SWORD_COOLDOWN_HEIGHT);
 
 		batch.end();
 	}

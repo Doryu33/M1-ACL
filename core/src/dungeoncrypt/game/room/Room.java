@@ -364,8 +364,20 @@ public final class Room {
         return monsters.size() == 0;
     }
 
+    /**
+     * Retourne le nombre de point de bouclier du joueur
+     * @return int point de bouclier du joueur
+     */
     public int getPlayerShield(){
         return player.getShieldPoint();
+    }
+
+    /**
+     * Retourne le statut du cooldown de l'épée
+     * @return int statut
+     */
+    public int getPlayerSwordCooldownStatut(){
+        return player.getCooldownSwordStatut();
     }
 }
 

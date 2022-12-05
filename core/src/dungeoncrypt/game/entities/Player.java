@@ -23,11 +23,10 @@ public final class Player extends Entity {
     private float timeSeconds = 0;
     private float period = 2f;
     private boolean isWeaponActive = false;
-    protected float timeSecondsWeaponDelay = 0f;
+    protected float timeSecondsWeaponDelay;
     //Entier du nombre de point de bouclier
     private int shieldPoint;
 
-    private int weaponDelayTime;
     public Player(){
         super(PLAYER_TYPE,PLAYER_TYPE,PLAYER_INITIAL_HP,"sprites/entities/player/isaac.png", "sounds/Player_Damage.mp3");
         setInitialPosition();
@@ -35,8 +34,8 @@ public final class Player extends Entity {
         this.weapon = new Sword();
         weapon.createBodyDef(weapon.getX(), weapon.getY());
         weapon.createShape();
-        this.weaponDelayTime = 0;
         this.shieldPoint = MAX_SHIELD;
+        this.timeSecondsWeaponDelay = 0f;
     }
 
     /**
@@ -56,7 +55,10 @@ public final class Player extends Entity {
         int verticalForce = 0;
         int horizontalForce = 0;
         Body body = getBody();
-        this.timeSecondsWeaponDelay += Gdx.graphics.getDeltaTime();
+        if (!isWeaponActive){
+            this.timeSecondsWeaponDelay += Gdx.graphics.getDeltaTime();
+        }
+
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && !isWeaponActive &&  timeSecondsWeaponDelay > WEAPON_DELAY) {
             this.timeSecondsWeaponDelay = 0f;
             weapon.setVisible(true);
@@ -105,12 +107,6 @@ public final class Player extends Entity {
                 isWeaponActive =false;
                 weapon.setVisible(false);
             }
-        }
-
-        if (weaponDelayTime == WEAPON_DELAY){
-            weaponDelayTime = 0;
-        }else if(weaponDelayTime != 0){
-            weaponDelayTime++;
         }
 
         if (getKnockBackVertical() != 0 || getKnockBackHorizontal() != 0){
@@ -219,6 +215,10 @@ public final class Player extends Entity {
         }
     }
 
+    /**
+     * Retire des points de bouclier si il en reste au joueur sinon retire des points de vie au joueur
+     * @param damage le nombre de dégâts subis par le joueur
+     */
     public void takeDamage(int damage){
         if(shieldPoint > 0){
             shieldPoint = shieldPoint - damage;
@@ -234,5 +234,32 @@ public final class Player extends Entity {
 
     public int getShieldPoint(){
         return shieldPoint;
+    }
+
+    /**
+     * Retourne le statut du cooldown de l'épée (utile pour l'affichage)
+     * @return int statut
+     */
+    public int getCooldownSwordStatut(){
+        int statut = 1;
+        if (timeSecondsWeaponDelay > 0 && timeSecondsWeaponDelay < WEAPON_DELAY*((1/5f)*1)){
+            statut = 2;
+        }
+        if (timeSecondsWeaponDelay > WEAPON_DELAY*((1/5f)*1) && timeSecondsWeaponDelay < WEAPON_DELAY*((1/5f)*2)){
+            statut = 3;
+        }
+        if (timeSecondsWeaponDelay > WEAPON_DELAY*((1/5f)*2) && timeSecondsWeaponDelay < WEAPON_DELAY*((1/5f)*3)){
+            statut = 4;
+        }
+        if (timeSecondsWeaponDelay > WEAPON_DELAY*((1/5f)*3) && timeSecondsWeaponDelay < WEAPON_DELAY*((1/5f)*4)){
+            statut = 5;
+        }
+        if (timeSecondsWeaponDelay > WEAPON_DELAY*((1/5f)*4) && timeSecondsWeaponDelay < WEAPON_DELAY){
+            statut = 6;
+        }
+        if (timeSecondsWeaponDelay > WEAPON_DELAY){
+            statut = 7;
+        }
+        return statut;
     }
 }
