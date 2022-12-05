@@ -109,7 +109,7 @@ public class BodyContactListenner implements ContactListener {
      */
     private void monsterDamagePlayer(Fixture fplayer, Fixture monsterFixture){
         Monster monster = (Monster) monsterFixture.getBody().getUserData();
-        ((Player) fplayer.getBody().getUserData()).subtractHealthPoint(monster.getDamagePoint());
+        ((Player) fplayer.getBody().getUserData()).takeDamage(monster.getDamagePoint());
         Body m = (Body) monsterFixture.getBody();
         ((Player) fplayer.getBody().getUserData()).applyKnockBackToPlayer(m.getPosition().x,m.getPosition().y);
         //System.out.println("Joueur touché par MONSTRE. PV restant: "+((Player) fplayer.getBody().getUserData()).getHealthPoint());

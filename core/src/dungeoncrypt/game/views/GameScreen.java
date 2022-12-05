@@ -214,6 +214,43 @@ public class GameScreen implements Screen {
 		if(playerHP <= 0){
 			parent.changeScreen(ENDGAME);
 		}
+
+		if(shield == MAX_SHIELD) {
+			batch.draw(new Texture("images/shield_bar/ShieldBar.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
+		}
+		if(shield < MAX_SHIELD && shield >= MAX_SHIELD*0.9) {
+			batch.draw(new Texture("images/shield_bar/ShieldBar90.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
+		}
+		if(shield < MAX_SHIELD*0.9 && shield >= MAX_SHIELD*0.8) {
+			batch.draw(new Texture("images/shield_bar/ShieldBar80.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
+		}
+		if(shield < MAX_SHIELD*0.8 && shield >= MAX_SHIELD*0.7) {
+			batch.draw(new Texture("images/shield_bar/ShieldBar70.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
+		}
+		if(shield < MAX_SHIELD*0.7 && shield >= MAX_SHIELD*0.6) {
+			batch.draw(new Texture("images/shield_bar/ShieldBar60.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
+		}
+		if(shield < MAX_SHIELD*0.6 && shield >= MAX_SHIELD*0.5) {
+			batch.draw(new Texture("images/shield_bar/ShieldBar50.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
+		}
+		if(shield < MAX_SHIELD*0.5 && shield >= MAX_SHIELD*0.4) {
+			batch.draw(new Texture("images/shield_bar/ShieldBar40.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
+		}
+		if(shield < MAX_SHIELD*0.4 && shield >= MAX_SHIELD*0.3) {
+			batch.draw(new Texture("images/shield_bar/ShieldBar30.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
+		}
+		if(shield < MAX_SHIELD*0.3 && shield >= MAX_SHIELD*0.2) {
+			batch.draw(new Texture("images/shield_bar/ShieldBar20.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
+		}
+		if(shield < MAX_SHIELD*0.2 && shield >= MAX_SHIELD*0.1) {
+			batch.draw(new Texture("images/shield_bar/ShieldBar10.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
+		}
+		if(shield == 0) {
+			batch.draw(new Texture("images/shield_bar/ShieldBar0.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
+		}
+
+		batch.draw(new Texture("images/sword_cooldown/Sword_cooldown_"+roomManager.getActualRoom().getPlayerSwordCooldownStatut()+".png"),roomManager.getActualRoom().getPlayerPosX(),roomManager.getActualRoom().getPlayerPosY(),SWORD_COOLDOWN_WIDTH,SWORD_COOLDOWN_HEIGHT);
+
 		batch.end();
 		if(DEBUG_MODE){
 			b2dr.render(world, camera.combined);

@@ -144,6 +144,13 @@ public class Data {
     public final static int HEALTH_BAR_HEIGHT = EMPTY_HEALTH_BAR_HEIGHT-4;
     public final static int LOGO_HEALTH_BAR_WIDTH = 16;
 
+    //Coordonnées de la barre de bouclier
+    public final static int SHIELD_BAR_X = 30;
+    public final static int SHIELD_BAR_Y = 685;
+    //Taille de la barre de bouclier
+    public final static int SHIELD_BAR_WIDTH = 216;
+    public final static int SHIELD_BAR_HEIGHT = 20;
+
     //Coordonnées de l'affichage du score
     public final static int SCORE_X = 550;
     public final static int SCORE_Y = 735;
@@ -156,6 +163,17 @@ public class Data {
 
     //Durée de l'effet de knockback
     public final static int MAX_TIMER_KNOCKBACK = 20;
+
+    //Durée du délai de l'épée
+    public final static float WEAPON_DELAY = 0.5f;
+
+    //Point de bouclier max
+    public final static int MAX_SHIELD = 20;
+
+    //Taille de la barre de cooldown
+    public final static int SWORD_COOLDOWN_WIDTH = 20;
+    public final static int SWORD_COOLDOWN_HEIGHT = 10;
+
 
 }
 
