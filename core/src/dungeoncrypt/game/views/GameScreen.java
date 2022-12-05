@@ -27,17 +27,24 @@ import static dungeoncrypt.game.data.Data.*;
 
 public class GameScreen implements Screen {
 	private final Texture logoHPTexture;
+	private final Texture logoShieldTexture;
 	private final Texture emptyHPBarTexture;
-	private OrthographicCamera camera;
-	private SpriteBatch batch;
+	private final Texture greenBarHPTexture;
+	private final Texture orangeBarHPTexture;
+	private final Texture redBarHPTexture;
+	private final Texture blueBarHPTexture;
+
+
+	private final OrthographicCamera camera;
+	private final SpriteBatch batch;
 	private World world;
 	private Box2DDebugRenderer b2dr;
 	private RoomManager roomManager;
 	private Stage stage;
 	private Stage pauseStage;
-	private Viewport viewport;
-	private Police police;
-	private ScreenManager parent;
+	private final Viewport viewport;
+	private final Police police;
+	private final ScreenManager parent;
 	private boolean gameIsPaused;
 	private TextButton saveGame;
 
@@ -51,8 +58,17 @@ public class GameScreen implements Screen {
 		camera = new OrthographicCamera();
 		viewport = new FitViewport(ROOM_SIZE*RENDER_SCALE,ROOM_SIZE*RENDER_SCALE,camera);
 
+		/**
+		 * Chargement des textures
+		 */
 		logoHPTexture = new Texture("images/healthPoint/LogoHP.png");
+		logoShieldTexture = new Texture("images/shield_bar/LogoShield.png");
 		emptyHPBarTexture = new Texture("images/healthPoint/EmptyBar.png");
+		greenBarHPTexture = new Texture("images/healthPoint/GreenBar.png");
+		orangeBarHPTexture = new Texture("images/healthPoint/OrangeBar.png");
+		redBarHPTexture = new Texture("images/healthPoint/RedBar.png");
+		blueBarHPTexture = new Texture("images/shield_bar/BlueBar.png");
+
 		this.gameIsPaused = false;
 	}
 
@@ -191,71 +207,62 @@ public class GameScreen implements Screen {
 			float ratioBossHP = bossHP / (float) BOSS_INITIAL_HP;
 			float widthOfBarBoss = MAX_SIZE_HEALTH_BAR * ratioBossHP;
 			if(ratioBossHP > 0.5f){
-				batch.draw(new Texture("images/healthPoint/GreenBar.png"),posXBoss,posYBoss,widthOfBarBoss,HEALTH_BAR_HEIGHT);
+				batch.draw(greenBarHPTexture,posXBoss,posYBoss,widthOfBarBoss,HEALTH_BAR_HEIGHT);
 			}else{
-				batch.draw(new Texture("images/healthPoint/RedBar.png"),posXBoss,posYBoss,widthOfBarBoss,HEALTH_BAR_HEIGHT);
+				batch.draw(redBarHPTexture,posXBoss,posYBoss,widthOfBarBoss,HEALTH_BAR_HEIGHT);
 			}
 		}
 
+		/**
+		 * Barre de vie
+		 */
 		float ratio = playerHP / (float) PLAYER_INITIAL_HP;
 		float widthOfBar = MAX_SIZE_HEALTH_BAR * ratio;
-
 		batch.draw(logoHPTexture, HEALTH_BAR_X-LOGO_HEALTH_BAR_WIDTH,EMPTY_HEALTH_BAR_Y,LOGO_HEALTH_BAR_WIDTH,EMPTY_HEALTH_BAR_HEIGHT);
 		batch.draw(emptyHPBarTexture,HEALTH_BAR_X,EMPTY_HEALTH_BAR_Y,MAX_SIZE_HEALTH_BAR,EMPTY_HEALTH_BAR_HEIGHT);
 
 		if(ratio >= 0.5f){
-			batch.draw(new Texture("images/healthPoint/GreenBar.png"),HEALTH_BAR_X,HEALTH_BAR_Y,widthOfBar,HEALTH_BAR_HEIGHT);
+			batch.draw(greenBarHPTexture,HEALTH_BAR_X,HEALTH_BAR_Y,widthOfBar,HEALTH_BAR_HEIGHT);
 		}else if(ratio >= 0.3f){
-			batch.draw(new Texture("images/healthPoint/OrangeBar.png"),HEALTH_BAR_X,HEALTH_BAR_Y,widthOfBar,HEALTH_BAR_HEIGHT);
+			batch.draw(orangeBarHPTexture,HEALTH_BAR_X,HEALTH_BAR_Y,widthOfBar,HEALTH_BAR_HEIGHT);
 		}else{
-			batch.draw(new Texture("images/healthPoint/RedBar.png"),HEALTH_BAR_X,HEALTH_BAR_Y,widthOfBar,HEALTH_BAR_HEIGHT);
+			batch.draw(redBarHPTexture,HEALTH_BAR_X,HEALTH_BAR_Y,widthOfBar,HEALTH_BAR_HEIGHT);
 		}
 		police.drawHP(batch, String.valueOf(playerHP), MAX_SIZE_HEALTH_BAR/2f,SCORE_Y-6);
 
-		if(playerHP <= 0){
-			parent.changeScreen(ENDGAME);
-		}
+		/**
+		 * Barre de bouclier
+		 */
+		float ratioShield = playerShield / (float) MAX_SHIELD;
+		float widthOfBarShield = SHIELD_BAR_WIDTH * ratioShield;
 
-		if(playerShield == MAX_SHIELD) {
-			batch.draw(new Texture("images/shield_bar/ShieldBar.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
-		}
-		if(playerShield < MAX_SHIELD && playerShield >= MAX_SHIELD*0.9) {
-			batch.draw(new Texture("images/shield_bar/ShieldBar90.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
-		}
-		if(playerShield < MAX_SHIELD*0.9 && playerShield >= MAX_SHIELD*0.8) {
-			batch.draw(new Texture("images/shield_bar/ShieldBar80.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
-		}
-		if(playerShield < MAX_SHIELD*0.8 && playerShield >= MAX_SHIELD*0.7) {
-			batch.draw(new Texture("images/shield_bar/ShieldBar70.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
-		}
-		if(playerShield < MAX_SHIELD*0.7 && playerShield >= MAX_SHIELD*0.6) {
-			batch.draw(new Texture("images/shield_bar/ShieldBar60.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
-		}
-		if(playerShield < MAX_SHIELD*0.6 && playerShield >= MAX_SHIELD*0.5) {
-			batch.draw(new Texture("images/shield_bar/ShieldBar50.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
-		}
-		if(playerShield < MAX_SHIELD*0.5 && playerShield >= MAX_SHIELD*0.4) {
-			batch.draw(new Texture("images/shield_bar/ShieldBar40.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
-		}
-		if(playerShield < MAX_SHIELD*0.4 && playerShield >= MAX_SHIELD*0.3) {
-			batch.draw(new Texture("images/shield_bar/ShieldBar30.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
-		}
-		if(playerShield < MAX_SHIELD*0.3 && playerShield >= MAX_SHIELD*0.2) {
-			batch.draw(new Texture("images/shield_bar/ShieldBar20.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
-		}
-		if(playerShield < MAX_SHIELD*0.2 && playerShield >= MAX_SHIELD*0.1) {
-			batch.draw(new Texture("images/shield_bar/ShieldBar10.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
-		}
-		if(playerShield == 0) {
-			batch.draw(new Texture("images/shield_bar/ShieldBar0.png"),SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,SHIELD_BAR_HEIGHT);
-		}
+		batch.draw(emptyHPBarTexture,SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,EMPTY_HEALTH_BAR_HEIGHT);
+		batch.draw(blueBarHPTexture, SHIELD_BAR_X,SHIELD_BAR_Y,widthOfBarShield,SHIELD_BAR_HEIGHT);
+		batch.draw(logoShieldTexture, HEALTH_BAR_X-LOGO_HEALTH_BAR_WIDTH,SHIELD_BAR_Y,LOGO_HEALTH_BAR_WIDTH,EMPTY_HEALTH_BAR_HEIGHT);
 		police.drawHP(batch, String.valueOf(playerShield), SHIELD_BAR_WIDTH/2f,SHIELD_BAR_Y+(SHIELD_BAR_HEIGHT/2f)+9);
 
-		batch.draw(new Texture("images/sword_cooldown/Sword_cooldown_"+roomManager.getActualRoom().getPlayerSwordCooldownStatut()+".png"),roomManager.getActualRoom().getPlayerPosX()-(RENDER_SCALE/2f)+(SWORD_COOLDOWN_WIDTH/4f),roomManager.getActualRoom().getPlayerPosY()+(RENDER_SCALE/2f),SWORD_COOLDOWN_WIDTH,SWORD_COOLDOWN_HEIGHT);
+
+		/**
+		 * Gestion du CD de l'arme
+		 */
+		int WeaponStatut = roomManager.getActualRoom().getPlayerSwordCooldownStatut();
+		float yPlayer = roomManager.getActualRoom().getPlayerPosY();
+		float xPlayer = roomManager.getActualRoom().getPlayerPosX();
+
+		/**
+		 * Si l'arme est disponible, on n'affiche pas l'indicateur
+		 */
+		if(WeaponStatut!=7){
+			String pathStatut = "images/sword_cooldown/Sword_cooldown_";
+			batch.draw(new Texture(pathStatut +WeaponStatut+".png"),xPlayer-(RENDER_SCALE/2f)+(SWORD_COOLDOWN_WIDTH/4f), yPlayer +(RENDER_SCALE/2f),SWORD_COOLDOWN_WIDTH,SWORD_COOLDOWN_HEIGHT);
+		}
 
 		batch.end();
 		if(DEBUG_MODE){
 			b2dr.render(world, camera.combined);
+		}
+		if(playerHP <= 0){
+			parent.changeScreen(ENDGAME);
 		}
 	}
 
@@ -267,11 +274,7 @@ public class GameScreen implements Screen {
 	public void pause() {
 
 
-		if(roomManager.getActualRoom().isEmpty()){
-			this.saveGame.setDisabled(false);
-		} else {
-			this.saveGame.setDisabled(true);
-		}
+		this.saveGame.setDisabled(!roomManager.getActualRoom().isEmpty());
 		Gdx.input.setInputProcessor(pauseStage);
 		stage.getViewport().apply();
 		pauseStage.draw();
