@@ -59,7 +59,6 @@ public final class RoomManager {
     public void createNextRoom(boolean isNewLevel) {
         if(isNewLevel){
             DataNonFinal.increaseDifficulty();
-            System.out.println("diff +");
         }
         this.actualRoom.clearRoom();
         if(counterForBoss == NUMBER_ROOM_BEFORE_BOSS){

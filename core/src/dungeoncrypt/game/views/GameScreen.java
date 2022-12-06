@@ -21,6 +21,7 @@ import dungeoncrypt.game.collisions.BodyContactListenner;
 import dungeoncrypt.game.data.DataNonFinal;
 import dungeoncrypt.game.data.SoundManager;
 import dungeoncrypt.game.entities.monsters.Boss;
+import dungeoncrypt.game.room.Room;
 import dungeoncrypt.game.room.RoomManager;
 import dungeoncrypt.game.tools.Police;
 
@@ -175,6 +176,8 @@ public class GameScreen implements Screen {
 	@Override
 	public void render (float delta) {
 
+		Room actualRoom = roomManager.getActualRoom();
+
 		if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
 			gameIsPaused = !gameIsPaused;
 		}
@@ -193,10 +196,10 @@ public class GameScreen implements Screen {
 			resume();
 		}
 
-		int score = roomManager.getActualRoom().getPlayerScore();
-		int playerHP = roomManager.getActualRoom().getPlayerHP();
-		int playerShield = roomManager.getActualRoom().getPlayerShield();
-		Boss boss = roomManager.getActualRoom().getBoss();
+		int score = actualRoom.getPlayerScore();
+		int playerHP = actualRoom.getPlayerHP();
+		int playerShield = actualRoom.getPlayerShield();
+		Boss boss = actualRoom.getBoss();
 
 		batch.begin();
 		police.drawScore(batch, "Score : "+score, SCORE_X,SCORE_Y);
@@ -246,16 +249,17 @@ public class GameScreen implements Screen {
 		/**
 		 * Gestion du CD de l'arme
 		 */
-		int WeaponStatut = roomManager.getActualRoom().getPlayerSwordCooldownStatut();
-		float yPlayer = roomManager.getActualRoom().getPlayerPosY();
-		float xPlayer = roomManager.getActualRoom().getPlayerPosX();
+		int weaponStatus = actualRoom.getPlayerSwordCooldownStatut();
+		boolean isWeaponActive = actualRoom.isPlayerWeaponActive();
+		float yPlayer = actualRoom.getPlayerPosY();
+		float xPlayer = actualRoom.getPlayerPosX();
 
 		/**
 		 * Si l'arme est disponible, on n'affiche pas l'indicateur
 		 */
-		if(WeaponStatut!=7){
-			String pathStatut = "images/sword_cooldown/Sword_cooldown_";
-			batch.draw(new Texture(pathStatut +WeaponStatut+".png"),xPlayer-(RENDER_SCALE/2f)+(SWORD_COOLDOWN_WIDTH/4f), yPlayer +(RENDER_SCALE/2f),SWORD_COOLDOWN_WIDTH,SWORD_COOLDOWN_HEIGHT);
+		if(weaponStatus != 7 && !isWeaponActive){
+			String pathStatus = "images/sword_cooldown/Sword_cooldown_";
+			batch.draw(new Texture(pathStatus +weaponStatus+".png"),xPlayer-(RENDER_SCALE/2f)+(SWORD_COOLDOWN_WIDTH/4f), yPlayer +(RENDER_SCALE/2f),SWORD_COOLDOWN_WIDTH,SWORD_COOLDOWN_HEIGHT);
 		}
 
 		batch.end();
@@ -273,8 +277,6 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void pause() {
-
-
 		this.saveGame.setDisabled(!roomManager.getActualRoom().isEmpty());
 		Gdx.input.setInputProcessor(pauseStage);
 		stage.getViewport().apply();

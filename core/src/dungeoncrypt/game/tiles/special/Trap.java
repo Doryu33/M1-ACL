@@ -1,6 +1,7 @@
 package dungeoncrypt.game.tiles.special;
 
 import dungeoncrypt.game.entities.Entity;
+import dungeoncrypt.game.entities.Player;
 
 import static dungeoncrypt.game.data.Data.*;
 
@@ -34,7 +35,12 @@ public final class Trap extends SpecialTile {
     protected void useEffect(Entity entity) {
         //System.out.println(entity.getType()+" a subit des degat de "+this.getType());
         if(!entity.getSpecialType().equals(GHOST_TYPE)){
-            entity.subtractHealthPoint(HP_TRAP);
+            if(entity.getSpecialType().equals(PLAYER_TYPE)){
+                Player p = (Player) entity;
+                p.takeDamage(HP_TRAP);
+            }else{
+                entity.subtractHealthPoint(HP_TRAP);
+            }
         }
     }
 

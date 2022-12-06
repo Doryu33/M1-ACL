@@ -403,5 +403,9 @@ public final class Room {
     public void setShieldPlayer(int shield){
         player.addShieldPoint(shield);
     }
+
+    public boolean isPlayerWeaponActive() {
+        return player.isWeaponActive();
+    }
 }
 

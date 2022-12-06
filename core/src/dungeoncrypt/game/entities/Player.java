@@ -22,7 +22,8 @@ public final class Player extends Entity {
     private int direction;
     private final Weapon weapon;
     private float timeSeconds = 0;
-    private final float period = 2f;
+    private final float period = 2f; //Temps que l'arme est affiché
+
     private boolean isWeaponActive = false;
 
     protected float timeSecondsWeaponDelay;
@@ -61,7 +62,7 @@ public final class Player extends Entity {
             this.timeSecondsWeaponDelay += Gdx.graphics.getDeltaTime();
         }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && !isWeaponActive &&  timeSecondsWeaponDelay > WEAPON_DELAY) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && !isWeaponActive && timeSecondsWeaponDelay > WEAPON_DELAY) {
             this.timeSecondsWeaponDelay = 0f;
             weapon.setVisible(true);
             isWeaponActive = true;
@@ -240,6 +241,10 @@ public final class Player extends Entity {
         return shieldPoint;
     }
 
+    public boolean isWeaponActive() {
+        return isWeaponActive;
+    }
+
     /**
      * Retourne le statut du cooldown de l'épée (utile pour l'affichage)
      * @return int statut
@@ -249,19 +254,19 @@ public final class Player extends Entity {
         if (timeSecondsWeaponDelay > 0 && timeSecondsWeaponDelay < WEAPON_DELAY*((1/5f)*1)){
             statut = 2;
         }
-        if (timeSecondsWeaponDelay > WEAPON_DELAY*((1/5f)*1) && timeSecondsWeaponDelay < WEAPON_DELAY*((1/5f)*2)){
+        else if (timeSecondsWeaponDelay > WEAPON_DELAY*((1/5f)*1) && timeSecondsWeaponDelay < WEAPON_DELAY*((1/5f)*2)){
             statut = 3;
         }
-        if (timeSecondsWeaponDelay > WEAPON_DELAY*((1/5f)*2) && timeSecondsWeaponDelay < WEAPON_DELAY*((1/5f)*3)){
+        else if (timeSecondsWeaponDelay > WEAPON_DELAY*((1/5f)*2) && timeSecondsWeaponDelay < WEAPON_DELAY*((1/5f)*3)){
             statut = 4;
         }
-        if (timeSecondsWeaponDelay > WEAPON_DELAY*((1/5f)*3) && timeSecondsWeaponDelay < WEAPON_DELAY*((1/5f)*4)){
+        else if (timeSecondsWeaponDelay > WEAPON_DELAY*((1/5f)*3) && timeSecondsWeaponDelay < WEAPON_DELAY*((1/5f)*4)){
             statut = 5;
         }
-        if (timeSecondsWeaponDelay > WEAPON_DELAY*((1/5f)*4) && timeSecondsWeaponDelay < WEAPON_DELAY){
+        else if (timeSecondsWeaponDelay > WEAPON_DELAY*((1/5f)*4) && timeSecondsWeaponDelay < WEAPON_DELAY){
             statut = 6;
         }
-        if (timeSecondsWeaponDelay > WEAPON_DELAY){
+        else if (timeSecondsWeaponDelay > WEAPON_DELAY){
             statut = 7;
         }
         return statut;
