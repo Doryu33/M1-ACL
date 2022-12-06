@@ -1,20 +1,16 @@
+package dungeoncrypt.game.tiles.special;
 
-
-import org.junit.Before;
+import dungeoncrypt.game.entities.Player;
+import dungeoncrypt.game.entities.monsters.Zombie;
 import org.junit.Test;
-import terminal.entities.Monster;
-import terminal.entities.Player;
-import terminal.tiles.special.Trap;
 
-import static org.junit.Assert.assertEquals;
+import static dungeoncrypt.game.data.Data.HP_TRAP;
+import static org.junit.Assert.*;
 
-import static terminal.data.Data.HP_TRAP;
-
-
-class TrapTest {
+public class TrapTest {
 
     @Test
-    private static void playerGetDamage() {
+    public void playerGetDamage() {
         Trap trap = new Trap();
         Player player = new Player();
         int hpInitial = player.getHealthPoint();
@@ -23,16 +19,16 @@ class TrapTest {
     }
 
     @Test
-    private static void monstersGetDamage() {
+    public void monstersGetDamage() {
         Trap trap = new Trap();
-        Monster monster = new Monster(1,1);
+        Zombie monster = new Zombie(1,1);
         int hpInitial = monster.getHealthPoint();
         trap.applyEffectOn(monster);
         assertEquals(hpInitial-HP_TRAP,monster.getHealthPoint());
     }
 
     @Test
-    private static void durabilityTrapDecrease() {
+    public void durabilityTrapDecrease() {
         Trap trap = new Trap();
         Player player = new Player();
         int durabilityInitial = trap.getAppliedEffectCounter();
@@ -40,9 +36,4 @@ class TrapTest {
         assertEquals(durabilityInitial,trap.getAppliedEffectCounter());
     }
 
-    public static void main(String[] args) {
-        playerGetDamage();
-        monstersGetDamage();
-        durabilityTrapDecrease();
-    }
 }

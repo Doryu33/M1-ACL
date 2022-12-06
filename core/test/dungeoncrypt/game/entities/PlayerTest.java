@@ -1,13 +1,13 @@
-import dungeoncrypt.game.entities.Player;
+package dungeoncrypt.game.entities;
+
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
-
-class PlayerTest {
+public class PlayerTest {
 
     @Test
-    private static void playerTakeDamage() {
+    public void takeDamage() {
         Player player = new Player();
         int shieldInitial = player.getShieldPoint();
         player.takeDamage(5);
@@ -15,7 +15,7 @@ class PlayerTest {
     }
 
     @Test
-    private static void playerTakeDamageInHealthAndShield() {
+    public void playerTakeDamageInHealthAndShield() {
         Player player = new Player();
         int shieldInitial = player.getShieldPoint();
         int hpInitial = player.getHealthPoint();
@@ -24,17 +24,11 @@ class PlayerTest {
     }
 
     @Test
-    private static void playerTakeShield() {
+    public void playerTakeShield() {
         Player player = new Player();
         int shieldInitial = player.getShieldPoint();
         player.takeDamage(10);
         player.addShieldPoint(5);
         assertEquals(shieldInitial-10+5,player.getShieldPoint());
-    }
-
-    public static void main(String[] args) {
-        playerTakeDamage();
-        playerTakeDamageInHealthAndShield();
-        playerTakeShield();
     }
 }
