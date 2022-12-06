@@ -2,6 +2,7 @@ package dungeoncrypt.game.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.controllers.Controller;
@@ -266,6 +267,8 @@ public final class Player extends Entity {
                 damage = shieldPoint * (-1);
                 subtractHealthPoint(damage);
                 shieldPoint = 0;
+            } else {
+                SoundManager.getInstance().playSound("sounds/Shield_Damage.mp3");
             }
         }else{
             subtractHealthPoint(damage);
