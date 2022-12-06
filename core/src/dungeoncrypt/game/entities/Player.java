@@ -2,6 +2,8 @@ package dungeoncrypt.game.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.controllers.Controller;
+import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
@@ -23,6 +25,14 @@ public final class Player extends Entity {
     private float timeSeconds = 0;
     private final float period = 2f;
     private boolean isWeaponActive = false;
+    private Controller controller;
+    public static final int BUTTON_A = 0;
+    public static final int BUTTON_START = 7;
+    public static final int BUTTON_FLECHE_HAUT = 11;
+    public static final int BUTTON_FLECHE_BAS = 12;
+    public static final int BUTTON_FLECHE_GAUCHE = 13;
+    public static final int BUTTON_FLECHE_DROITE = 14;
+
 
     public Player(){
         super(PLAYER_TYPE,PLAYER_TYPE,PLAYER_INITIAL_HP,"sprites/entities/player/isaac.png", "sounds/Player_Damage.mp3");
@@ -31,6 +41,11 @@ public final class Player extends Entity {
         this.weapon = new Sword();
         weapon.createBodyDef(weapon.getX(), weapon.getY());
         weapon.createShape();
+        for (Controller controller : Controllers.getControllers()) {
+            Gdx.app.log("TAG", controller.getName());
+            this.controller = controller;
+        }
+
     }
 
     /**
@@ -50,8 +65,14 @@ public final class Player extends Entity {
         int verticalForce = 0;
         int horizontalForce = 0;
         Body body = getBody();
+        boolean buttonPressedCroix = controller.getButton(BUTTON_A);
+        boolean buttonDirectionNord = controller.getButton(BUTTON_FLECHE_HAUT);
+        boolean buttonDirectionSud = controller.getButton(BUTTON_FLECHE_BAS);
+        boolean buttonDirectionGauche = controller.getButton(BUTTON_FLECHE_GAUCHE);
+        boolean buttonDirectionDroite = controller.getButton(BUTTON_FLECHE_DROITE);
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && !isWeaponActive) {
+
+        if ((Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && !isWeaponActive) || (buttonPressedCroix && !isWeaponActive)) {
             weapon.setVisible(true);
             isWeaponActive = true;
             if (weapon.getBody() != null) {
@@ -60,22 +81,22 @@ public final class Player extends Entity {
             createBodyWeapon(body.getWorld(), getStage());
 
         }else {
-            if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+            if (Gdx.input.isKeyPressed(Input.Keys.S) || buttonDirectionSud) {
                 verticalForce = verticalForce - 1;
                 direction = 2;
                 clearBodyAndResetWeapon();
             }
-            if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+            if (Gdx.input.isKeyPressed(Input.Keys.W) || buttonDirectionNord) {
                 verticalForce = verticalForce + 1;
                 direction = 1;
                 clearBodyAndResetWeapon();
             }
-            if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+            if (Gdx.input.isKeyPressed(Input.Keys.A) || buttonDirectionGauche) {
                 horizontalForce = horizontalForce - 1;
                 direction = 3;
                 clearBodyAndResetWeapon();
             }
-            if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+            if (Gdx.input.isKeyPressed(Input.Keys.D) || buttonDirectionDroite) {
                 horizontalForce = horizontalForce + 1;
                 direction = 4;
                 clearBodyAndResetWeapon();
@@ -192,5 +213,13 @@ public final class Player extends Entity {
     @Override
     protected int getMovingSpeed() {
         return MOVE_SPEED_PLAYER;
+    }
+
+    public Controller getController() {
+        return controller;
+    }
+
+    public void setController(Controller controller) {
+        this.controller = controller;
     }
 }
