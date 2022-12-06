@@ -84,8 +84,6 @@ public class GameScreen implements Screen {
 		Gdx.input.setInputProcessor(stage);
 		this.parent.getSm().playMusicInGame();
 
-		this.controller = roomManager.getActualRoom().getController();
-
 		/**
 		 * Création et gestion du monde monde
 		 */
@@ -163,6 +161,8 @@ public class GameScreen implements Screen {
 				}
 			}
 		});
+
+		this.controller = roomManager.getActualRoom().getController();
 
 		/**
 		 * Debug mode
