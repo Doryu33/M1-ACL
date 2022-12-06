@@ -86,8 +86,8 @@ public class Data {
     public static final int HP_TRAP = 5;
 
     //Constantes numériques pour les Armes
-    //Nombre de point de vie que donne l'arme Sword
-    public static final int HP_SWORD = 50;
+    //Nombre de dégât que fait l'arme Sword
+    public static final int DAMAGE_SWORD = 5;
 
     //Constantes numériques du nombre maximum d'utilisation de l'effet d'une tuile
     //Définir à -1 pour une utilisation illimité
@@ -127,7 +127,7 @@ public class Data {
     public final static int LOGO_HEALTH_BAR_WIDTH = 16;
 
     //Nombre de salle avant d'atteindre le boss
-    public final static int NUMBER_ROOM_BEFORE_BOSS = 1;
+    public final static int NUMBER_ROOM_BEFORE_BOSS = 5;
 
     //Coordonnées de l'affichage du score
     public final static int SCORE_X = 550;
