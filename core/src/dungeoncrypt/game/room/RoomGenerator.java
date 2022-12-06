@@ -49,14 +49,20 @@ public final class RoomGenerator {
      * Une salle vide entourée de mur, le joueur est positionné au centre, la sortie est en haut au centre.
      * @return le tableau des éléments de la salle
      */
-    public Tile[][] generateSimpleRoom(){
+    public Tile[][] generateSimpleRoom(boolean newFloor){
+        monsters.clear();
+        specialTileList.clear();
         Tile[][] tiles = new Tile[ROOM_SIZE][ROOM_SIZE];
-
+        Exit exit;
         for (int y = 0; y < ROOM_SIZE; y++) {
             for (int x = 0; x < ROOM_SIZE; x++) {
                 //Lorsque l'on est en haut au centre
                 if(x == EXIT_POS_X && y == EXIT_POS_Y){
-                    Exit exit = new Exit(EXIT_SPECIAL_TYPE_NEW_ROOM,roomManager);
+                    if(newFloor){
+                        exit = new Exit(EXIT_SPECIAL_TYPE_NEW_LEVEL,roomManager);
+                    }else{
+                        exit = new Exit(EXIT_SPECIAL_TYPE_NEW_ROOM,roomManager);
+                    }
                     tiles[y][x] = exit;
                     specialTileList.add(exit);
                 }
@@ -118,7 +124,7 @@ public final class RoomGenerator {
         monsters.clear();
         specialTileList.clear();
 
-        tilesRandomRoom = generateSimpleRoom();
+        tilesRandomRoom = generateSimpleRoom(false);
 
         int numberOfGenerations = 7;
         int generationChoice = randomNumber.nextInt(numberOfGenerations);
@@ -163,7 +169,7 @@ public final class RoomGenerator {
     public Tile[][] generateBossRoom() {
         monsters.clear();
         specialTileList.clear();
-        Tile[][] room = generateSimpleRoom();
+        Tile[][] room = generateSimpleRoom(true);
         monsters.add(new Boss(ROOM_SIZE/2,6));
         return room;
     }

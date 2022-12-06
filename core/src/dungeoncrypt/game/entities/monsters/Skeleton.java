@@ -1,6 +1,7 @@
 package dungeoncrypt.game.entities.monsters;
 
 import com.badlogic.gdx.Gdx;
+import dungeoncrypt.game.data.DataNonFinal;
 import dungeoncrypt.game.room.Room;
 
 import java.util.Random;
@@ -15,7 +16,7 @@ public final class Skeleton extends Monster {
     private final float period = 4f;    //Temps en seconde
 
     public Skeleton(int x, int y) {
-        super(x, y, SKELETON_INITIAL_HP, DAMAGE_POINT_SKELETON, SKELETON_TYPE, SKELETON_SCORE,"sprites/entities/monsters/skeleton.gif","sounds/Skeleton_Damage.mp3");
+        super(x, y, DataNonFinal.initialHpSkeleton(), DataNonFinal.damagePointSkeleton(), SKELETON_TYPE, SKELETON_SCORE,"sprites/entities/monsters/skeleton.gif","sounds/Skeleton_Damage.mp3");
         random = new Random();
     }
 
@@ -51,7 +52,7 @@ public final class Skeleton extends Monster {
 
     @Override
     protected int getMovingSpeed() {
-        return MOVE_SPEED_SKELETON;
+        return DataNonFinal.moveSpeedSkeleton();
     }
 
 

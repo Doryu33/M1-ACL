@@ -3,6 +3,7 @@ package dungeoncrypt.game.entities.monsters;
 import com.badlogic.gdx.Gdx;
 import dungeoncrypt.game.aStarAlgorithm.PathFinding;
 import dungeoncrypt.game.aStarAlgorithm.Point;
+import dungeoncrypt.game.data.DataNonFinal;
 import dungeoncrypt.game.room.Room;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public final class Zombie extends Monster {
     private boolean movingDown;
 
     public Zombie(int x, int y) {
-        super(x, y,ZOMBIE_INITIAL_HP, DAMAGE_POINT_ZOMBIE, ZOMBIE_TYPE, ZOMBIE_SCORE,"sprites/entities/monsters/zombie.gif","sounds/Zombie_Damage.mp3");
+        super(x, y,DataNonFinal.initialHpZombie(), DataNonFinal.damagePointZombie(), ZOMBIE_TYPE, ZOMBIE_SCORE,"sprites/entities/monsters/zombie.gif","sounds/Zombie_Damage.mp3");
     }
 
     /**
@@ -83,8 +84,8 @@ public final class Zombie extends Monster {
      * Fixer les positions du monstre pour matcher avec l'algo de pathfinding
      */
     private void fixPosition(){
-        float monsterPosX = getBody().getPosition().x-(RENDER_SCALE)/2f;
-        float monsterPosY = getBody().getPosition().y-(RENDER_SCALE)/2f;
+        float monsterPosX = getBody().getPosition().x-RENDER_SCALE_SPRITE;
+        float monsterPosY = getBody().getPosition().y-RENDER_SCALE_SPRITE;
 
         integerPartXMonster = (int) monsterPosX/RENDER_SCALE;
         integerPartYMonster = (int) monsterPosY/RENDER_SCALE;
@@ -110,8 +111,8 @@ public final class Zombie extends Monster {
         fixPosition();
         Point startPoint = new Point(integerPartXMonster, integerPartYMonster);
 
-        float playerPosX = playerX-(RENDER_SCALE/2f);
-        float playerPosY = playerY-(RENDER_SCALE/2f);
+        float playerPosX = playerX-RENDER_SCALE_SPRITE;
+        float playerPosY = playerY-RENDER_SCALE_SPRITE;
 
         int integerPartXPlayer = (int) playerPosX/RENDER_SCALE;
         int integerPartYPlayer = (int) playerPosY/RENDER_SCALE;
@@ -123,6 +124,6 @@ public final class Zombie extends Monster {
 
     @Override
     protected int getMovingSpeed() {
-        return MOVE_SPEED_ZOMBIE;
+        return DataNonFinal.moveSpeedZombie();
     }
 }

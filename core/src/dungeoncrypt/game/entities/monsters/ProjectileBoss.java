@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import dungeoncrypt.game.data.DataNonFinal;
+import org.graalvm.compiler.code.DataSection;
 
 import static dungeoncrypt.game.data.Data.*;
 
@@ -103,6 +105,6 @@ public class ProjectileBoss extends Actor {
     }
 
     public int getDamagePoint() {
-        return DAMAGE_POINT_PROJECTILE_BOSS;
+        return DataNonFinal.damagePointProjectileBoss();
     }
 }

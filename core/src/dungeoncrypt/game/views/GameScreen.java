@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.*;
 import dungeoncrypt.game.collisions.BodyContactListenner;
+import dungeoncrypt.game.data.DataNonFinal;
 import dungeoncrypt.game.data.SoundManager;
 import dungeoncrypt.game.entities.monsters.Boss;
 import dungeoncrypt.game.room.RoomManager;
@@ -204,7 +205,7 @@ public class GameScreen implements Screen {
 			int bossHP = boss.getHealthPoint();
 			float posXBoss = boss.getPosX()-RENDER_SCALE_BOSS/2f+RENDER_SCALE;
 			float posYBoss = boss.getPosY()+RENDER_SCALE_BOSS/2f-RENDER_SCALE;
-			float ratioBossHP = bossHP / (float) BOSS_INITIAL_HP;
+			float ratioBossHP = bossHP / (float) DataNonFinal.initialHpBoss();
 			float widthOfBarBoss = MAX_SIZE_HEALTH_BAR * ratioBossHP;
 			if(ratioBossHP > 0.5f){
 				batch.draw(greenBarHPTexture,posXBoss,posYBoss,widthOfBarBoss,HEALTH_BAR_HEIGHT);

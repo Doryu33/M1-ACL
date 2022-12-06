@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import dungeoncrypt.game.data.DataNonFinal;
 import dungeoncrypt.game.tiles.special.Exit;
 import dungeoncrypt.game.tools.SaveManager;
 
@@ -33,8 +34,8 @@ public final class RoomManager {
         this.stage = stage;
         this.saveManager = new SaveManager();
         this.roomGenerator = new RoomGenerator(this);
-        actualRoom = new Room(world, stage, roomGenerator.generateSimpleRoom());
-        createNextRoom();
+        actualRoom = new Room(world, stage, roomGenerator.generateSimpleRoom(false));
+        createNextRoom(false);
     }
 
     /**
@@ -48,31 +49,19 @@ public final class RoomManager {
         this.world = world;
         this.stage = stage;
         this.roomGenerator = new RoomGenerator(this);
-        actualRoom = new Room(world, stage, roomGenerator.generateSimpleRoom());
+        actualRoom = new Room(world, stage, roomGenerator.generateSimpleRoom(false));
         loadRoom(this.saveManager);
     }
 
     /**
-     * Lorsque le joueur a atteint la fin d'un étage, il passe à l'étage suivant.
-     * Une nouvelle salle simple est générée
+     * Lorsque le joueur a tué tous les monstres et qu'il touche la tuile Sortie, il entre dans une nouvelle salle
      */
-    public void createNewLevel(){
+    public void createNextRoom(boolean isNewLevel) {
+        if(isNewLevel){
+            DataNonFinal.increaseDifficulty();
+        }
         this.actualRoom.clearRoom();
-        this.actualRoom.setEnvironment(this.roomGenerator.generateSimpleRoom());
-        this.actualRoom.setMonsters(this.roomGenerator.getGeneratedMonsters());
-        this.actualRoom.setSpecialTileList(this.roomGenerator.getSpecialTileList());
-        this.actualRoom.setInitialPlayerPosition();
-        this.stage.clear();
-        createBodies();
-        checkRoomIsEmpty();
-    }
-
-    /**
-     * Crée une nouvelle salle
-     */
-    public void createNextRoom() {
-        this.actualRoom.clearRoom();
-        if(counterForBoss == 1){
+        if(counterForBoss == NUMBER_ROOM_BEFORE_BOSS){
             this.actualRoom.setEnvironment(this.roomGenerator.generateBossRoom());
             counterForBoss = 0;
         }else{
@@ -128,7 +117,7 @@ public final class RoomManager {
         this.actualRoom.updateInputPlayer(this.actualRoom);
         this.actualRoom.updatePositionMonster(this.actualRoom);
         if(Gdx.input.isKeyJustPressed(Input.Keys.N)){
-            createNextRoom();
+            createNextRoom(false);
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.J)) {
             this.saveManager.saveProgression(DEBUG_SAVE_NAME,this.actualRoom);
