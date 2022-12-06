@@ -111,8 +111,8 @@ public final class Zombie extends Monster {
         fixPosition();
         Point startPoint = new Point(integerPartXMonster, integerPartYMonster);
 
-        float playerPosX = playerX-RENDER_SCALE_SPRITE;
-        float playerPosY = playerY-RENDER_SCALE_SPRITE;
+        float playerPosX = playerX-RENDER_SCALE/4f;
+        float playerPosY = playerY-RENDER_SCALE/4f;
 
         int integerPartXPlayer = (int) playerPosX/RENDER_SCALE;
         int integerPartYPlayer = (int) playerPosY/RENDER_SCALE;
