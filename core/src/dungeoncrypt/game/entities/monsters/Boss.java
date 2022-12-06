@@ -1,8 +1,6 @@
 package dungeoncrypt.game.entities.monsters;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
@@ -33,7 +31,8 @@ public class Boss extends Monster {
     private boolean isShooting;
 
     public Boss(int x, int y) {
-        super(x, y, DataNonFinal.initialHpBoss(), DataNonFinal.damagePointBoss(), BOSS_TYPE, BOSS_SCORE, "sprites/entities/monsters/boss/boss.png", "sounds/Ghost_Damage.mp3");
+        super(x, y, DataNonFinal.initialHpBoss(), DataNonFinal.damagePointBoss(), BOSS_TYPE, BOSS_SCORE, "sprites/entities/monsters/boss/boss.png", "sounds/Boss_Damage.mp3");
+        this.deathSoundPath = "sounds/Boss_Death.mp3";
         random = new Random();
         generateNewRandomPos();
     }
