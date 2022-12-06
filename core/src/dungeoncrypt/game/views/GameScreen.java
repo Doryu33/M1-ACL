@@ -3,6 +3,7 @@ package dungeoncrypt.game.views;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -50,6 +51,10 @@ public class GameScreen implements Screen {
 	private boolean gameIsPaused;
 	private TextButton saveGame;
 
+	public static final int BUTTON_START = 7;
+	private Controller controller;
+	private boolean buttonPressedStart;
+
 	public GameScreen(ScreenManager screenManager){
 		parent = screenManager;
 		batch = new SpriteBatch();
@@ -78,6 +83,8 @@ public class GameScreen implements Screen {
 	public void show () {
 		Gdx.input.setInputProcessor(stage);
 		this.parent.getSm().playMusicInGame();
+
+		this.controller = roomManager.getActualRoom().getController();
 
 		/**
 		 * Création et gestion du monde monde
@@ -178,7 +185,11 @@ public class GameScreen implements Screen {
 
 		Room actualRoom = roomManager.getActualRoom();
 
-		if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
+		if(controller != null){
+			buttonPressedStart = controller.getButton(BUTTON_START);
+		}
+
+		if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE) || buttonPressedStart){
 			gameIsPaused = !gameIsPaused;
 		}
 

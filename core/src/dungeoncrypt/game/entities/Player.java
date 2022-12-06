@@ -38,6 +38,7 @@ public final class Player extends Entity {
     public static final int BUTTON_FLECHE_D = 14;
 
     private boolean buttonPressedA;
+    private boolean buttonPressedStart;
     private boolean buttonPressedUp;
     private boolean buttonPressedDown;
     private boolean buttonPressedLeft;
@@ -308,5 +309,9 @@ public final class Player extends Entity {
             statut = 7;
         }
         return statut;
+    }
+
+    public Controller getController() {
+        return controller;
     }
 }

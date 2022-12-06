@@ -1,5 +1,6 @@
 package dungeoncrypt.game.room;
 
+import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
@@ -406,6 +407,10 @@ public final class Room {
 
     public boolean isPlayerWeaponActive() {
         return player.isWeaponActive();
+    }
+
+    public Controller getController(){
+        return this.player.getController();
     }
 }
 
