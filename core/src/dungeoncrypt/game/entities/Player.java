@@ -231,6 +231,8 @@ public final class Player extends Entity {
                 damage = shieldPoint * (-1);
                 subtractHealthPoint(damage);
                 shieldPoint = 0;
+            } else  {
+                SoundManager.getInstance().playSound("sounds/Shield_Damage.mp3");
             }
         }else{
             subtractHealthPoint(damage);

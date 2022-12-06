@@ -21,6 +21,7 @@ public abstract class Entity extends Actor {
     private final String type;
     private final String specialType;
     private final String damageSoundPath;
+    protected String deathSoundPath;
     private Body body;
     protected Sprite sprite;
     //Entier du nombre de point de vie
@@ -41,6 +42,7 @@ public abstract class Entity extends Actor {
         this.healthPoint = healthPoint;
         this.initialHealthPoint = healthPoint;
         this.damageSoundPath = damageSoundPath;
+        this.deathSoundPath = damageSoundPath;
         this.timerKnockback = 0;
         this.knockBackVertical = 0;
         this.knockBackHorizontal = 0;
@@ -101,7 +103,11 @@ public abstract class Entity extends Actor {
      */
     public void subtractHealthPoint(int healthPoint){
         this.healthPoint -= healthPoint;
-        soundManager.playSound(damageSoundPath);
+        if(this.healthPoint <= 0){
+            soundManager.playSound(deathSoundPath);
+        } else {
+            soundManager.playSound(damageSoundPath);
+        }
     }
 
     public void setBody(Body body) {
@@ -273,5 +279,9 @@ public abstract class Entity extends Actor {
 
     public boolean hasFullHealth() {
         return healthPoint == initialHealthPoint;
+    }
+
+    public String getDeathSoundPath(){
+        return deathSoundPath;
     }
 }
