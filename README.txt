@@ -19,11 +19,11 @@ Librairies externes nécessaires : Aucune
 Les fichiers de sauvegardes sont crées et placés a côté du .jar. Seul les "Save" et "DebugSave" fonctionnent.
 Seul la sauvegarde via la touche de debug est disponible pour le moment (Commandes plus bas).
 
-"Nouvelle partie": Crée une nouvelle partie.
-"Continure la partie": Charge une sauvegarde automatique si elle existe.
-"Charger une partie": Charge la partie sauvegardée.
-"Options": Permets de modifier certains paramètres.
-"Quitter": Ferme l'application
+"Nouvelle partie" : Crée une nouvelle partie.
+"Continuer la partie" : Charge une sauvegarde automatique si elle existe.
+"Charger une partie" : Charge la partie sauvegardée.
+"Options" : Permet de modifier certains paramètres.
+"Quitter" : Ferme l'application
 
             # Commandes
 Pour jouer:
@@ -32,6 +32,7 @@ S pour descendre
 Q pour aller à gauche
 D pour aller à droite
 Espace pour frapper
+Echap pour faire pause
 
 Pour debug/test:
 N pour générer une nouvelle salle
