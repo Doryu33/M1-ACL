@@ -2,6 +2,8 @@ package dungeoncrypt.game.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
@@ -25,13 +27,12 @@ public final class Player extends Entity {
     private final float period = 2f; //Temps que l'arme est affiché
 
     private boolean isWeaponActive = false;
-
     protected float timeSecondsWeaponDelay;
     //Entier du nombre de point de bouclier
     private int shieldPoint;
 
     public Player(){
-        super(PLAYER_TYPE,PLAYER_TYPE,PLAYER_INITIAL_HP,"sprites/entities/player/isaac.png", "sounds/Player_Damage.mp3");
+        super(PLAYER_TYPE,PLAYER_TYPE,PLAYER_INITIAL_HP,"sprites/entities/player/PlayerHaut.png", "sounds/Player_Damage.mp3");
         setInitialPosition();
         this.score = 0;
         this.weapon = new Sword();
@@ -78,21 +79,25 @@ public final class Player extends Entity {
                 verticalForce = verticalForce - 1;
                 direction = 2;
                 clearBodyAndResetWeapon();
+                this.sprite.setTexture(new Texture(Gdx.files.internal("sprites/entities/player/PlayerBas.png")));
             }
             if (Gdx.input.isKeyPressed(Input.Keys.W)) {
                 verticalForce = verticalForce + 1;
                 direction = 1;
                 clearBodyAndResetWeapon();
+                this.sprite.setTexture(new Texture(Gdx.files.internal("sprites/entities/player/PlayerHaut.png")));
             }
             if (Gdx.input.isKeyPressed(Input.Keys.A)) {
                 horizontalForce = horizontalForce - 1;
                 direction = 3;
                 clearBodyAndResetWeapon();
+                this.sprite.setTexture(new Texture(Gdx.files.internal("sprites/entities/player/PlayerGauche.png")));
             }
             if (Gdx.input.isKeyPressed(Input.Keys.D)) {
                 horizontalForce = horizontalForce + 1;
                 direction = 4;
                 clearBodyAndResetWeapon();
+                this.sprite.setTexture(new Texture(Gdx.files.internal("sprites/entities/player/PlayerDroite.png")));
             }
 
             if (Gdx.input.isKeyPressed(Input.Keys.P)) {
@@ -231,8 +236,6 @@ public final class Player extends Entity {
                 damage = shieldPoint * (-1);
                 subtractHealthPoint(damage);
                 shieldPoint = 0;
-            } else  {
-                SoundManager.getInstance().playSound("sounds/Shield_Damage.mp3");
             }
         }else{
             subtractHealthPoint(damage);
