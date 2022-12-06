@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.controllers.Controller;
+import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
@@ -26,6 +28,21 @@ public final class Player extends Entity {
     private float timeSeconds = 0;
     private final float period = 2f; //Temps que l'arme est affiché
 
+    private Controller controller;
+    public static final int BUTTON_A = 0;
+    public static final int BUTTON_START = 7;
+    public static final int BUTTON_FLECHE_H = 11;
+    public static final int BUTTON_FLECHE_B = 12;
+    public static final int BUTTON_FLECHE_G = 13;
+    public static final int BUTTON_FLECHE_D = 14;
+
+    private boolean buttonPressedA;
+    private boolean buttonPressedUp;
+    private boolean buttonPressedDown;
+    private boolean buttonPressedLeft;
+    private boolean buttonPressedRight;
+
+
     private boolean isWeaponActive = false;
     protected float timeSecondsWeaponDelay;
     //Entier du nombre de point de bouclier
@@ -40,6 +57,10 @@ public final class Player extends Entity {
         weapon.createShape();
         this.shieldPoint = MAX_SHIELD;
         this.timeSecondsWeaponDelay = 0f;
+
+        for (Controller controller : Controllers.getControllers()){
+            this.controller = controller;
+        }
     }
 
     /**
@@ -59,11 +80,20 @@ public final class Player extends Entity {
         int verticalForce = 0;
         int horizontalForce = 0;
         Body body = getBody();
+
+        if(controller != null){
+            buttonPressedA = controller.getButton(BUTTON_A);
+            buttonPressedUp = controller.getButton(BUTTON_FLECHE_H);
+            buttonPressedDown = controller.getButton(BUTTON_FLECHE_B);
+            buttonPressedLeft = controller.getButton(BUTTON_FLECHE_G);
+            buttonPressedRight = controller.getButton(BUTTON_FLECHE_D);
+        }
+
         if (!isWeaponActive){
             this.timeSecondsWeaponDelay += Gdx.graphics.getDeltaTime();
         }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && !isWeaponActive && timeSecondsWeaponDelay > WEAPON_DELAY) {
+        if ((Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || buttonPressedA) && !isWeaponActive && timeSecondsWeaponDelay > WEAPON_DELAY) {
             this.timeSecondsWeaponDelay = 0f;
             weapon.setVisible(true);
             isWeaponActive = true;
@@ -75,25 +105,25 @@ public final class Player extends Entity {
             soundManager.playSound("sounds/Sword_Slash.mp3");
 
         }else {
-            if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+            if (Gdx.input.isKeyPressed(Input.Keys.S) || buttonPressedDown) {
                 verticalForce = verticalForce - 1;
                 direction = 2;
                 clearBodyAndResetWeapon();
                 this.sprite.setTexture(new Texture(Gdx.files.internal("sprites/entities/player/PlayerBas.png")));
             }
-            if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+            if (Gdx.input.isKeyPressed(Input.Keys.W)|| buttonPressedUp) {
                 verticalForce = verticalForce + 1;
                 direction = 1;
                 clearBodyAndResetWeapon();
                 this.sprite.setTexture(new Texture(Gdx.files.internal("sprites/entities/player/PlayerHaut.png")));
             }
-            if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+            if (Gdx.input.isKeyPressed(Input.Keys.A)|| buttonPressedLeft) {
                 horizontalForce = horizontalForce - 1;
                 direction = 3;
                 clearBodyAndResetWeapon();
                 this.sprite.setTexture(new Texture(Gdx.files.internal("sprites/entities/player/PlayerGauche.png")));
             }
-            if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+            if (Gdx.input.isKeyPressed(Input.Keys.D)|| buttonPressedRight) {
                 horizontalForce = horizontalForce + 1;
                 direction = 4;
                 clearBodyAndResetWeapon();
