@@ -134,7 +134,7 @@ public class Data {
     public final static int SHIELD_BAR_Y = 685;
     //Taille de la barre de bouclier
     public final static int SHIELD_BAR_WIDTH = 216;
-    public final static int SHIELD_BAR_HEIGHT = 20;
+    public final static int SHIELD_BAR_HEIGHT = 16;
 
     //Coordonnées de l'affichage du score
     public final static int SCORE_X = 550;
@@ -150,7 +150,7 @@ public class Data {
     public final static int MAX_TIMER_KNOCKBACK = 20;
 
     //Durée du délai de l'épée
-    public final static float WEAPON_DELAY = 0.5f;
+    public final static float WEAPON_DELAY = 1f;
 
     //Point de bouclier max
     public final static int MAX_SHIELD = 20;

@@ -59,6 +59,7 @@ public final class RoomManager {
     public void createNextRoom(boolean isNewLevel) {
         if(isNewLevel){
             DataNonFinal.increaseDifficulty();
+            System.out.println("diff +");
         }
         this.actualRoom.clearRoom();
         if(counterForBoss == NUMBER_ROOM_BEFORE_BOSS){
@@ -80,10 +81,11 @@ public final class RoomManager {
     /**
      * Lorsque le joueur a tué tous les monstres et qu'il touche la tuile Sortie,
      * une sauvegarde automatique se crée et il entre dans une nouvelle salle
+     * @param isNewLevel savoir si la prochaine salle permettra d'aller à un nouvel étage
      */
-    public void goToNextRoom(){
+    public void goToNextRoom(boolean isNewLevel){
         saveManager.saveProgression(AUTO_SAVE_NAME,actualRoom);
-        createNextRoom();
+        createNextRoom(isNewLevel);
     }
 
     /**

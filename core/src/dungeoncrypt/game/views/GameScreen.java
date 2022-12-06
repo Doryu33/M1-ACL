@@ -238,9 +238,9 @@ public class GameScreen implements Screen {
 		float widthOfBarShield = SHIELD_BAR_WIDTH * ratioShield;
 
 		batch.draw(emptyHPBarTexture,SHIELD_BAR_X,SHIELD_BAR_Y,SHIELD_BAR_WIDTH,EMPTY_HEALTH_BAR_HEIGHT);
-		batch.draw(blueBarHPTexture, SHIELD_BAR_X,SHIELD_BAR_Y,widthOfBarShield,SHIELD_BAR_HEIGHT);
+		batch.draw(blueBarHPTexture, SHIELD_BAR_X,SHIELD_BAR_Y+4,widthOfBarShield,SHIELD_BAR_HEIGHT);
 		batch.draw(logoShieldTexture, HEALTH_BAR_X-LOGO_HEALTH_BAR_WIDTH,SHIELD_BAR_Y,LOGO_HEALTH_BAR_WIDTH,EMPTY_HEALTH_BAR_HEIGHT);
-		police.drawHP(batch, String.valueOf(playerShield), SHIELD_BAR_WIDTH/2f,SHIELD_BAR_Y+(SHIELD_BAR_HEIGHT/2f)+9);
+		police.drawHP(batch, String.valueOf(playerShield), SHIELD_BAR_WIDTH/2f,SHIELD_BAR_Y+(SHIELD_BAR_HEIGHT/2f)+10);
 
 
 		/**
