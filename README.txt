@@ -14,8 +14,6 @@ Librairies externes nécessaires : Aucune
 1) Lancer le script "setUp.sh" (ne pas oublier de le rendre executable, après avoir vérifier son contenu)
 2) Pour lancer l'application (une fois l'archive générée), utiliser: "java -jar DungeonCrypt.1-0.jar"
 
-* 3) Pour tester la fonctionnalité de chargement, copier coller le fichier "DungeonCrypt-Save.txt" à côté de l'archive.
-
 Les fichiers de sauvegardes sont crées et placés a côté du .jar. Seul les "Save" et "DebugSave" fonctionnent.
 Seul la sauvegarde via la touche de debug est disponible pour le moment (Commandes plus bas).
 
