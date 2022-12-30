@@ -118,7 +118,7 @@ public class BodyContactListenner implements ContactListener {
     private void projectileBossDamagePlayer(Fixture objA, Fixture objB) {
         ProjectileBoss pb = (ProjectileBoss) objA.getBody().getUserData();
         Player player = (Player) objB.getBody().getUserData();
-        player.subtractHealthPoint(pb.getDamagePoint());
+        player.takeDamage(pb.getDamagePoint());
         player.applyKnockBackToPlayer(pb.getBody().getPosition().x,pb.getBody().getPosition().y);
     }
 
